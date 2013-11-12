@@ -1,0 +1,220 @@
+package net.simpleframework.module.msg.web.page;
+
+import static net.simpleframework.common.I18n.$m;
+
+import java.util.Date;
+
+import net.simpleframework.common.ID;
+import net.simpleframework.common.StringUtils;
+import net.simpleframework.ctx.permission.PermissionUser;
+import net.simpleframework.ctx.trans.Transaction;
+import net.simpleframework.module.msg.EMessageStatus;
+import net.simpleframework.module.msg.IMessageContext;
+import net.simpleframework.module.msg.IMessageContextAware;
+import net.simpleframework.module.msg.P2PMessage;
+import net.simpleframework.module.msg.web.IMessageWebContext;
+import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
+import net.simpleframework.mvc.JavascriptForward;
+import net.simpleframework.mvc.PageParameter;
+import net.simpleframework.mvc.common.element.BlockElement;
+import net.simpleframework.mvc.common.element.ButtonElement;
+import net.simpleframework.mvc.common.element.Checkbox;
+import net.simpleframework.mvc.common.element.ElementList;
+import net.simpleframework.mvc.common.element.InputElement;
+import net.simpleframework.mvc.common.element.RowField;
+import net.simpleframework.mvc.common.element.SpanElement;
+import net.simpleframework.mvc.common.element.TableRow;
+import net.simpleframework.mvc.common.element.TableRows;
+import net.simpleframework.mvc.component.ComponentHandlerException;
+import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.base.validation.EValidatorMethod;
+import net.simpleframework.mvc.component.base.validation.Validator;
+
+/**
+ * Licensed under the Apache License, Version 2.0
+ * 
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         http://code.google.com/p/simpleframework/
+ *         http://www.simpleframework.net
+ */
+public class PrivateMessageSentPage extends AbstractSentMessagePage implements IMessageContextAware {
+
+	protected P2PMessage getMessage(final PageParameter pp) {
+		return getCacheBean(pp, ((IMessageWebContext) context).getPrivateMessagePlugin()
+				.getMessageService(), "msgId");
+	}
+
+	@Override
+	protected void onForward(final PageParameter pp) {
+		super.onForward(pp);
+
+		addSmileyDictionary(pp);
+
+		addFormValidationBean(pp).addValidators(
+				new Validator(EValidatorMethod.required, "#sm_receiver, #sm_topic"));
+
+		addAjaxRequest(pp, "PrivateMessageSentPage_save2").setHandleMethod("onSave2").setSelector(
+				getFormSelector());
+	}
+
+	@Transaction(context = IMessageContext.class)
+	@Override
+	public JavascriptForward onSave(final ComponentParameter cp) {
+		// 发送
+		final PrivateMessagePlugin mark = ((IMessageWebContext) context).getPrivateMessagePlugin();
+		String toUsers;
+		final String[] arr = StringUtils.split(toUsers = cp.getParameter("sm_receiver"), ";");
+		if (arr != null) {
+			final ID fromId = cp.getLoginId();
+			final String topic = cp.getParameter("sm_topic");
+			final String content = getContent(cp);
+			for (String r : arr) {
+				r = r.trim();
+				final PermissionUser user = cp.getUser(r);
+				final ID userId = user.getId();
+				if (userId == null) {
+					throw ComponentHandlerException.of($m("PrivateMessageSentPage.4", r));
+				}
+				mark.sentMessage(userId, fromId, topic, content);
+			}
+
+			P2PMessage message = getMessage(cp);
+			if (cp.getBoolParameter(OPT_SENTBOX)) {
+				final boolean insert = message == null || "reply".equals(cp.getParameter("t"));
+				if (insert) {
+					message = new P2PMessage();
+					message.setCreateDate(new Date());
+					message.setMessageMark(mark.getMark());
+					message.setFromId(cp.getLoginId());
+				}
+				message.setMessageStatus(EMessageStatus.S_COPY);
+				message.setToUsers(toUsers);
+				message.setTopic(topic);
+				message.setContent(content);
+				if (insert) {
+					mark.getMessageService().insert(message);
+				} else {
+					mark.getMessageService().update(message);
+				}
+			} else if (message != null) {
+				mark.getMessageService().delete(message.getId());
+			}
+		}
+		final JavascriptForward js = super.onSave(cp);
+		js.append("$Actions['AbstractMyMessageTPage_tbl']();");
+		return js;
+	}
+
+	@Transaction(context = IMessageContext.class)
+	public JavascriptForward onSave2(final ComponentParameter cp) {
+		final PrivateMessagePlugin mark = ((IMessageWebContext) context).getPrivateMessagePlugin();
+		// 暂存
+		P2PMessage message = getMessage(cp);
+		final boolean insert = message == null;
+		if (insert) {
+			message = new P2PMessage();
+			message.setMessageStatus(EMessageStatus.S_EDIT);
+			message.setCreateDate(new Date());
+			message.setMessageMark(mark.getMark());
+			message.setFromId(cp.getLoginId());
+		}
+		message.setToUsers(cp.getParameter("sm_receiver"));
+		message.setTopic(cp.getParameter("sm_topic"));
+		message.setContent(getContent(cp));
+		if (insert) {
+			mark.getMessageService().insert(message);
+		} else {
+			mark.getMessageService().update(message);
+		}
+		final JavascriptForward js = new JavascriptForward();
+		js.append("$('sm_msgId').value = '").append(message.getId()).append("';");
+		js.append("$Actions['AbstractMyMessageTPage_tbl']();");
+		js.append("alert('").append($m("PrivateMessageSentPage.8")).append("');");
+		return js;
+	}
+
+	public static final String OPT_SENTBOX = "opt_sentBox";
+
+	@Override
+	public ElementList getLeftElements(final PageParameter pp) {
+		final P2PMessage message = getMessage(pp);
+		if (message != null && message.getMessageStatus() == EMessageStatus.S_COPY) {
+			return null;
+		}
+
+		final Checkbox opt_sentBox = new Checkbox(OPT_SENTBOX, $m("PrivateMessageSentPage.6"))
+				.setChecked(true);
+		return ElementList.of(opt_sentBox);
+	}
+
+	@Override
+	public ElementList getRightElements(final PageParameter pp) {
+		final P2PMessage message = getMessage(pp);
+		final ElementList el = ElementList.of();
+		if (message != null && message.getMessageStatus() == EMessageStatus.S_COPY) {
+			return ElementList.of(ButtonElement.WINDOW_CLOSE);
+		} else {
+			final ButtonElement saveBtn = SAVE_BTN();
+			final StringBuilder sb = new StringBuilder();
+			sb.append("if ($F('sm_content').trim() == '' && !confirm('")
+					.append($m("PrivateMessageSentPage.9")).append("')) { return; }");
+			sb.append(saveBtn.getOnclick());
+			el.append(
+					saveBtn.setOnclick(sb.toString()),
+					SpanElement.SPACE,
+					VALIDATION_BTN().setText($m("PrivateMessageSentPage.7")).setOnclick(
+							"$Actions['PrivateMessageSentPage_save2']();"), SpanElement.SPACE,
+					ButtonElement.WINDOW_CLOSE);
+		}
+		return el;
+	}
+
+	@Override
+	public String getFocusElement(final PageParameter pp) {
+		if ("reply".equals(pp.getParameter("t"))) {
+			return "sm_content";
+		}
+		return "sm_topic";
+	}
+
+	@Override
+	protected TableRows getTableRows(final PageParameter pp) {
+		final InputElement msgId = InputElement.hidden().setName("msgId").setId("sm_msgId");
+		final InputElement sm_receiver = new InputElement("sm_receiver");
+		final InputElement sm_topic = new InputElement("sm_topic");
+		final InputElement sm_content = InputElement.textarea("sm_content").setRows(10);
+
+		final P2PMessage message = getMessage(pp);
+		if (message != null) {
+			if ("reply".equals(pp.getParameter("t"))) {
+				sm_receiver.setText(pp.getUser(message.getFromId()).getName());
+				sm_topic.setText($m("PrivateMessageSentPage.5") + message.getTopic());
+				final StringBuilder c = new StringBuilder();
+				c.append("\r\r\r==================================\r");
+				c.append(message.getContent());
+				sm_content.setText(c.toString());
+			} else {
+				sm_receiver.setText(message.getToUsers());
+				sm_topic.setText(message.getTopic());
+				sm_content.setText(message.getContent());
+			}
+			msgId.setText(message.getId());
+		}
+
+		final TableRow r1 = new TableRow(
+				new RowField($m("PrivateMessageSentPage.1"), sm_topic).setStarMark(true));
+		final TableRow r2 = new TableRow(new RowField($m("PrivateMessageSentPage.0"), msgId,
+				sm_receiver).setStarMark(true));
+		final TableRow r3 = new TableRow(new RowField($m("PrivateMessageSentPage.2"), sm_content,
+				sm_content_bar));
+		return TableRows.of(r1, r2, r3);
+	}
+
+	@Override
+	public String toTableRowsString(final PageParameter pp) {
+		return super.toTableRowsString(pp) + sm_receiver_tip;
+	}
+
+	private final BlockElement sm_receiver_tip = new BlockElement().setStyle(
+			"color:#c00;margin-top:8px;").setText($m("PrivateMessageSentPage.3"));
+}

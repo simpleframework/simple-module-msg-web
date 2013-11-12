@@ -1,0 +1,32 @@
+.img_notice {
+  background-image: url("images/notice.png");
+}
+
+.img_private {
+  background-image: url("images/private.png");
+}
+
+.img_system {
+  background-image: url("images/system.png");
+}
+
+.img_private_sent {
+  background-image: url("images/sent.png");
+}
+
+.img_private_draft {
+  background-image: url("images/draft.png");
+}
+
+.MessageViewPage .mv_content {
+  height: 200px;
+  overflow-y: auto;
+  padding: 2px;
+  line-height: 1.8;
+}
+
+.notice_category_item {
+  display: inline-block;
+  *display: inline;
+	*zoom: 1;
+}

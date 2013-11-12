@@ -1,0 +1,29 @@
+.sm_content_bar {
+  border-top: 1px solid #ccc;
+  padding: 4px;
+  background: #fdfdfd;
+  margin: 2px -2px -2px -2px;
+}
+
+#sm_content {
+  line-height: 1.8;
+  font-size: 9.5pt;
+}
+
+#sm_topic,
+#b_sm_topic {
+  font-weight: bold;
+  color: #a00;
+}
+
+#b_sm_receiver,
+#b_sm_topic,
+#b_sm_content {
+  padding: 3px;
+}
+
+#b_sm_content {
+  line-height: 1.8;
+  height: 180px;
+  overflow-y: auto; 
+}

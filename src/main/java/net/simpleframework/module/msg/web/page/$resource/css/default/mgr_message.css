@@ -1,0 +1,57 @@
+.AbstractMgrMessagePage {
+  padding: 10px;
+}
+
+.AbstractMgrMessagePage>div[id] {
+  width: 80%;
+  -webkit-box-shadow: 5px 5px 5px #aaa;
+	-moz-box-shadow: 5px 5px 5px #aaa;
+	box-shadow: 5px 5px 5px #aaa;
+}
+
+.MessageViewPage .mv_content {
+  height: 200px;
+  line-height: 1.8;
+  padding: 2px;
+  overflow-y: auto;
+}
+
+#idNoticeMessageContentPage_tree {
+  padding: 4px 0;
+}
+
+.NoticeMessageContentPage_Center {
+  margin: 2px 6px;
+}
+
+.NoticeMessageContentPage_Center span.lbl {
+  color: #888;
+  line-height: 2.4;
+  display: block;
+}
+
+.NoticeMessageContentPage_Center #nmc_content,
+.NoticeMessageContentPage_Center #nmc_topic {
+  padding: 4px;
+  font-size: 9.5pt;
+  width: 97%;
+}
+
+.NoticeMessageContentPage_Center #nmc_topic {
+  height: 19px;
+  line-height: 19px;
+}
+
+.tb_container .tabbtns {
+  position: relative;
+  top: 6px;
+  margin-right: 60px;
+  vertical-align: middle;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+#InputElement_group {
+  vertical-align: middle;
+}
