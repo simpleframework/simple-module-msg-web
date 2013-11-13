@@ -77,16 +77,9 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 	private static final MenuItems CONTEXT_MENUS = MenuItems
 			.of()
 			.append(
-					MenuItem
-							.of($m("MyPrivateMessageTPage.5"))
-							.setOnclick(
-									"$Actions['MyPrivateMessageTPage_sentWin']('t=reply&msgId=' + $pager_action(item).rowId());"))
-			.append(MenuItem.sep())
-			.append(
-					MenuItem
-							.itemDelete()
-							.setOnclick(
-									"$Actions['AbstractMyMessageTPage_delete']('id=' + $pager_action(item).rowId());"));
+					MenuItem.of($m("MyPrivateMessageTPage.5")).setOnclick_act(
+							"MyPrivateMessageTPage_sentWin", "msgId", "t=reply")).append(MenuItem.sep())
+			.append(MenuItem.itemDelete().setOnclick_act("AbstractMyMessageTPage_delete", "id"));
 
 	public static class PrivateMessageTbl extends MyMessageTbl {
 
