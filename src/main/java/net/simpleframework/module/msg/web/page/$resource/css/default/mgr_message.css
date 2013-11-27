@@ -42,16 +42,6 @@
   line-height: 19px;
 }
 
-.tb_container .tabbtns {
-  position: relative;
-  top: 6px;
-  margin-right: 60px;
-  vertical-align: middle;
-  display: inline-block;
-  *display: inline;
-  *zoom: 1;
-}
-
 #InputElement_group {
   vertical-align: middle;
 }
