@@ -46,7 +46,7 @@ public class SystemMessagePlugin extends AbstractSubscribeMessagePlugin implemen
 	 * @return
 	 */
 	public SubscribeMessage sentSystemMessage(final String topic, final String content) {
-		return sentMessage(null, topic, content, 0);
+		return sentMessage(null, topic, content, null);
 	}
 
 	@Override

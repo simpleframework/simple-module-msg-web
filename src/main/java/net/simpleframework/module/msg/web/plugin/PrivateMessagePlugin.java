@@ -1,17 +1,12 @@
 package net.simpleframework.module.msg.web.plugin;
 
 import static net.simpleframework.common.I18n.$m;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import net.simpleframework.common.ID;
-import net.simpleframework.module.common.plugin.AbstractModulePlugin;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.IP2PMessageService;
 import net.simpleframework.module.msg.impl.P2PMessageService;
 import net.simpleframework.module.msg.plugin.AbstractP2PMessagePlugin;
-import net.simpleframework.module.msg.plugin.IMessageCategoryPlugin;
+import net.simpleframework.module.msg.plugin.IMessageCategory.AbstractMessageCategory;
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.page.MyPrivateMessageDraftTPage;
 import net.simpleframework.module.msg.web.page.MyPrivateMessageSentTPage;
@@ -28,16 +23,16 @@ import net.simpleframework.mvc.PageParameter;
  */
 public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IMessageCategoryUI {
 
-	@Override
-	public IP2PMessageService getMessageService() {
-		return singleton(PrivateMessageService.class);
-	}
-
 	public static class PrivateMessageService extends P2PMessageService {
 		@Override
 		protected int getMark() {
 			return IMessageContext.PRIVATEMESSAGE_MARK;
 		}
+	}
+
+	@Override
+	public IP2PMessageService getMessageService() {
+		return singleton(PrivateMessageService.class);
 	}
 
 	@Override
@@ -69,16 +64,9 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 	public static PrivateMessageDraftCategory DRAFT_MODULE = new PrivateMessageDraftCategory();
 	public static PrivateMessageSentCategory SENT_MODULE = new PrivateMessageSentCategory();
 
-	private static Collection<IMessageCategoryPlugin> children;
-	static {
-		children = new ArrayList<IMessageCategoryPlugin>();
-		children.add(SENT_MODULE);
-		children.add(DRAFT_MODULE);
-	}
-
-	@Override
-	public Collection<IMessageCategoryPlugin> getChildren() {
-		return children;
+	{
+		registMessageCategory(SENT_MODULE);
+		registMessageCategory(DRAFT_MODULE);
 	}
 
 	public static class PrivateMessageDraftCategory extends _PrivateMessageCategory {
@@ -90,12 +78,17 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 		}
 
 		@Override
+		public String getName() {
+			return "PRIVATEMESSAGE_DRAFT";
+		}
+
+		@Override
 		public String getIconClass() {
 			return "img_private_draft";
 		}
 
 		@Override
-		public String getText() {
+		public String toString() {
 			return $m("PrivateMessagePlugin.2");
 		}
 	}
@@ -108,18 +101,23 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 		}
 
 		@Override
+		public String getName() {
+			return "PRIVATEMESSAGE_SENT";
+		}
+
+		@Override
 		public String getIconClass() {
 			return "img_private_sent";
 		}
 
 		@Override
-		public String getText() {
+		public String toString() {
 			return $m("PrivateMessagePlugin.1");
 		}
 	}
 
-	private static abstract class _PrivateMessageCategory extends AbstractModulePlugin implements
-			IMessageCategoryPlugin, IMessageCategoryUI {
+	private static abstract class _PrivateMessageCategory extends AbstractMessageCategory implements
+			IMessageCategoryUI {
 		@Override
 		public String getManagerPageUrl(final PageParameter pp) {
 			return null;

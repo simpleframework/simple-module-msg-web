@@ -9,6 +9,7 @@ import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IP2PMessageService;
 import net.simpleframework.module.msg.P2PMessage;
 import net.simpleframework.module.msg.plugin.IMessagePlugin;
+import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.ETextAlign;
@@ -64,8 +65,8 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 		@Override
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final IMessagePlugin oMark = getMessageMark(cp);
-			return ((IP2PMessageService) oMark.getMessageService()).querySentMessages(oMark.getMark(),
-					cp.getLoginId());
+			return ((IP2PMessageService) oMark.getMessageService()).queryFromMessages(cp.getLoginId(),
+					null, PrivateMessagePlugin.SENT_MODULE.getName());
 		}
 
 		@Override

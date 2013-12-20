@@ -12,8 +12,8 @@
 
 #sm_topic,
 #b_sm_topic {
+  color: #666;
   font-weight: bold;
-  color: #a00;
 }
 
 #b_sm_receiver,

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.web.HttpUtils;
@@ -15,7 +14,7 @@ import net.simpleframework.module.common.plugin.IModulePlugin;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.module.msg.IMessageService;
-import net.simpleframework.module.msg.plugin.IMessageCategoryPlugin;
+import net.simpleframework.module.msg.plugin.IMessageCategory;
 import net.simpleframework.module.msg.plugin.IMessagePlugin;
 import net.simpleframework.module.msg.web.IMessageConst;
 import net.simpleframework.module.msg.web.IMessageWebContext;
@@ -176,8 +175,10 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 			if (oModule instanceof PrivateMessageDraftCategory) {
 				final PrivateMessagePlugin oMark = ((IMessageWebContext) context)
 						.getPrivateMessagePlugin();
-				final int c = oMark.getMessageService()
-						.queryDraftMessages(oMark.getMark(), pp.getLoginId()).getCount();
+				final int c = oMark
+						.getMessageService()
+						.queryFromMessages(pp.getLoginId(), null,
+								PrivateMessagePlugin.DRAFT_MODULE.getName()).getCount();
 				if (c > 0) {
 					block.setTitle(oModule.toString() + SupElement.num(c));
 				}
@@ -191,11 +192,13 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		final CategoryItems titles = CategoryItems.of();
 		for (final IModulePlugin oMark : context.getPluginRegistry().allPlugin()) {
 			final CategoryItem block = createCategoryBlock(pp, (IMessageCategoryUI) oMark);
-			final Collection<IMessageCategoryPlugin> coll = ((IMessagePlugin) oMark).getChildren();
+			final Collection<IMessageCategory> coll = ((IMessagePlugin) oMark).allMessageCategory();
 			if (coll != null) {
 				final List<CategoryItem> children = block.getChildren();
-				for (final IModulePlugin child : coll) {
-					children.add(createCategoryBlock(pp, (IMessageCategoryUI) child));
+				for (final IMessageCategory child : coll) {
+					if (child instanceof IMessageCategoryUI) {
+						children.add(createCategoryBlock(pp, (IMessageCategoryUI) child));
+					}
 				}
 			}
 			titles.append(block);
@@ -218,7 +221,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	public ElementList getLeftElements(final PageParameter pp) {
 		final IMessagePlugin oMark = getMessagePlugin(pp);
 		final IMessageService<?> service = oMark.getMessageService();
-		final int all = service.queryMessages(pp.getLoginId(), null, 0).getCount();
+		final int all = service.queryMessages(pp.getLoginId(), null).getCount();
 		final int unread = service.getUnreadMessageCount(pp.getLoginId());
 
 		final ElementList eles = ElementList.of();
@@ -263,8 +266,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 				cp.addFormParameter("s", s);
 			}
 			return oMark.getMessageService().queryMessages(cp.getLoginId(),
-					((AbstractMyMessageTPage) get(cp)).getRead(cp),
-					Convert.toInt(cp.getParameter("category")));
+					((AbstractMyMessageTPage) get(cp)).getRead(cp), cp.getParameter("category"));
 		}
 
 		protected IMessagePlugin getMessageMark(final ComponentParameter cp) {

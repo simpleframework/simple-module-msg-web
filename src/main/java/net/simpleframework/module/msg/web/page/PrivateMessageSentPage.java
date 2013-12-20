@@ -8,7 +8,6 @@ import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.ctx.trans.Transaction;
-import net.simpleframework.module.msg.EMessageStatus;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.module.msg.P2PMessage;
@@ -60,7 +59,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) {
 		// 发送
-		final PrivateMessagePlugin mark = ((IMessageWebContext) context).getPrivateMessagePlugin();
+		final PrivateMessagePlugin plugin = ((IMessageWebContext) context).getPrivateMessagePlugin();
 		String toUsers;
 		final String[] arr = StringUtils.split(toUsers = cp.getParameter("sm_receiver"), ";");
 		if (arr != null) {
@@ -74,7 +73,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 				if (userId == null) {
 					throw ComponentHandlerException.of($m("PrivateMessageSentPage.4", r));
 				}
-				mark.sentMessage(userId, fromId, topic, content);
+				plugin.sentMessage(userId, fromId, topic, content);
 			}
 
 			P2PMessage message = getMessage(cp);
@@ -83,20 +82,20 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 				if (insert) {
 					message = new P2PMessage();
 					message.setCreateDate(new Date());
-					message.setMessageMark(mark.getMark());
+					message.setMessageMark(plugin.getMark());
 					message.setFromId(cp.getLoginId());
 				}
-				message.setMessageStatus(EMessageStatus.S_COPY);
+				message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
 				message.setToUsers(toUsers);
 				message.setTopic(topic);
 				message.setContent(content);
 				if (insert) {
-					mark.getMessageService().insert(message);
+					plugin.getMessageService().insert(message);
 				} else {
-					mark.getMessageService().update(message);
+					plugin.getMessageService().update(message);
 				}
 			} else if (message != null) {
-				mark.getMessageService().delete(message.getId());
+				plugin.getMessageService().delete(message.getId());
 			}
 		}
 		final JavascriptForward js = super.onSave(cp);
@@ -112,7 +111,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		final boolean insert = message == null;
 		if (insert) {
 			message = new P2PMessage();
-			message.setMessageStatus(EMessageStatus.S_EDIT);
+			message.setCategory(PrivateMessagePlugin.DRAFT_MODULE.getName());
 			message.setCreateDate(new Date());
 			message.setMessageMark(mark.getMark());
 			message.setFromId(cp.getLoginId());
@@ -137,7 +136,8 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
 		final P2PMessage message = getMessage(pp);
-		if (message != null && message.getMessageStatus() == EMessageStatus.S_COPY) {
+		if (message != null
+				&& PrivateMessagePlugin.SENT_MODULE.getName().equals(message.getCategory())) {
 			return null;
 		}
 
@@ -150,7 +150,8 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 	public ElementList getRightElements(final PageParameter pp) {
 		final P2PMessage message = getMessage(pp);
 		final ElementList el = ElementList.of();
-		if (message != null && message.getMessageStatus() == EMessageStatus.S_COPY) {
+		if (message != null
+				&& PrivateMessagePlugin.SENT_MODULE.getName().equals(message.getCategory())) {
 			return ElementList.of(ButtonElement.WINDOW_CLOSE);
 		} else {
 			final ButtonElement saveBtn = SAVE_BTN();

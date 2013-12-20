@@ -6,7 +6,7 @@ import java.util.Date;
 
 import net.simpleframework.module.common.bean.CategoryStat;
 import net.simpleframework.module.msg.AbstractMessage;
-import net.simpleframework.module.msg.plugin.IMessageCategoryPlugin;
+import net.simpleframework.module.msg.plugin.IMessageCategory;
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.NoticeMessageWebPlugin;
 import net.simpleframework.mvc.PageParameter;
@@ -62,13 +62,13 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 		final ElementList el = super.getLeftElements(pp);
 		final ElementList el2 = ElementList.of();
 		final NoticeMessageWebPlugin plugin = getMessagePlugin(pp);
-		final int category = pp.getIntParameter("category");
+		final String category = pp.getParameter("category");
 		for (final CategoryStat stat : plugin.getMessageService().queryCategoryItems(pp.getLoginId())) {
-			final int category2 = (Integer) stat.getCategoryId();
-			final IMessageCategoryPlugin mCategory = plugin.getMessageCategoryPlugin(category2);
+			final String category2 = stat.getCategoryId();
+			final IMessageCategory mCategory = plugin.getMessageCategory(category2);
 			final LinkElementEx link = (LinkElementEx) new LinkElementEx(
-					mCategory != null ? mCategory.getText() : $m("MyFavoritesTPage.5")).setSelected(
-					category2 == category).setHref(
+					mCategory != null ? mCategory.toString() : $m("MyFavoritesTPage.5")).setSelected(
+					category2.equals(category)).setHref(
 					((IMessageWebContext) context).getUrlsFactory().getMyMessageUrl(
 							MyNoticeMessageTPage.class, "category=" + category2));
 			el2.append(
@@ -95,8 +95,8 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 		@Override
 		protected AbstractElement<?> createCategory(final ComponentParameter cp,
 				final AbstractMessage msg) {
-			final IMessageCategoryPlugin category = context.getNoticeMessagePlugin()
-					.getMessageCategoryPlugin(msg.getCategory());
+			final IMessageCategory category = context.getNoticeMessagePlugin().getMessageCategory(
+					msg.getCategory());
 			return category != null ? new SpanElement(category) : null;
 		}
 	}

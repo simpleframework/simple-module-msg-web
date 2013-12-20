@@ -8,7 +8,7 @@ import java.util.Map;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.module.msg.AbstractP2PMessage;
 import net.simpleframework.module.msg.EMessageSendTo;
-import net.simpleframework.module.msg.plugin.IMessageCategoryPlugin;
+import net.simpleframework.module.msg.plugin.IMessageCategory;
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.NoticeMessageWebPlugin;
 import net.simpleframework.mvc.PageMapping;
@@ -106,10 +106,10 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 		public Object getGroupValue(final ComponentParameter cp, final Object bean,
 				final String groupColumn) {
 			final AbstractP2PMessage msg = (AbstractP2PMessage) bean;
-			final IMessageCategoryPlugin mCategory = getMessageMark(cp).getMessageCategoryPlugin(
-					msg.getCategory());
+			final IMessageCategory mCategory = getMessageMark(cp)
+					.getMessageCategory(msg.getCategory());
 			if (mCategory != null) {
-				return mCategory.getText();
+				return mCategory.toString();
 			}
 			return super.getGroupValue(cp, bean, groupColumn);
 		}
@@ -133,10 +133,10 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 					kv.add(COL_TOPIC, createTopic(cp, msg));
 					kv.add(COL_USERID, toIconUser(cp, msg.getUserId()));
 					kv.add(COL_CREATEDATE, msg.getCreateDate());
-					final IMessageCategoryPlugin mCategory = getMessageMark(cp)
-							.getMessageCategoryPlugin(msg.getCategory());
+					final IMessageCategory mCategory = getMessageMark(cp).getMessageCategory(
+							msg.getCategory());
 					if (mCategory != null) {
-						kv.add(COL_CATEGORY, mCategory.getText());
+						kv.add(COL_CATEGORY, mCategory.toString());
 					}
 					kv.put(TablePagerColumn.OPE, createOPE(cp, msg));
 					return kv;

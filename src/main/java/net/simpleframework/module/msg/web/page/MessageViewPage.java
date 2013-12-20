@@ -6,8 +6,9 @@ import net.simpleframework.common.web.html.HtmlUtils;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.module.msg.P2PMessage;
-import net.simpleframework.module.msg.plugin.IMessageCategoryPlugin;
+import net.simpleframework.module.msg.plugin.IMessageCategory;
 import net.simpleframework.module.msg.plugin.IMessagePlugin;
+import net.simpleframework.module.msg.plugin.IP2PMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.BlockElement;
 import net.simpleframework.mvc.common.element.ButtonElement;
@@ -49,10 +50,9 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
-		final IMessagePlugin messageMark = context.getPluginRegistry().getPlugin(
+		final IMessagePlugin plugin = context.getPluginRegistry().getPlugin(
 				pp.getIntParameter("messageMark"));
-		final AbstractMessage msg = messageMark.getMessageService().getBean(pp.getParameter("msgId"));
-
+		final AbstractMessage msg = getMessage(pp, plugin);
 		return ElementList.of(SpanElement.strongText(msg.getTopic()));
 	}
 
@@ -60,17 +60,17 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 	protected TableRows getTableRows(final PageParameter pp) {
 		final TableRows rows = TableRows.of();
 
-		final IMessagePlugin messageMark = context.getPluginRegistry().getPlugin(
+		final IMessagePlugin plugin = context.getPluginRegistry().getPlugin(
 				pp.getIntParameter("messageMark"));
-		final AbstractMessage msg = messageMark.getMessageService().getBean(pp.getParameter("msgId"));
+		final AbstractMessage msg = getMessage(pp, plugin);
 
-		final IMessageCategoryPlugin mCategory = messageMark.getMessageCategoryPlugin(msg
-				.getCategory());
 		final ID fromId = msg.getFromId();
-		Object from = ((IMessageCategoryPlugin) messageMark).getFrom(fromId);
-		if (from == null && mCategory != null) {
+		Object from = plugin.getFrom(fromId);
+		final IMessageCategory mCategory = plugin.getMessageCategory(msg.getCategory());
+		if (mCategory != null && from == null) {
 			from = mCategory.getFrom(fromId);
 		}
+
 		rows.append(new TableRow(new RowField($m("MessageViewPage.0"), new SpanElement("m_fromId")
 				.setText(from)), new RowField($m("MessageViewPage.1"), new SpanElement(mCategory))));
 		final SpanElement readDate = new SpanElement();
@@ -85,5 +85,17 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 		rows.append(new TableRow(new RowField($m("MessageViewPage.4"), new BlockElement().setText(c)
 				.setClassName("mv_content"))));
 		return rows;
+	}
+
+	private AbstractMessage getMessage(final PageParameter pp, final IMessagePlugin plugin) {
+		AbstractMessage msg = null;
+		if (plugin instanceof IP2PMessagePlugin) {
+			msg = ((IP2PMessagePlugin) plugin).getMessageLogService()
+					.getBean(pp.getParameter("logId"));
+		}
+		if (msg == null) {
+			msg = plugin.getMessageService().getBean(pp.getParameter("msgId"));
+		}
+		return msg;
 	}
 }

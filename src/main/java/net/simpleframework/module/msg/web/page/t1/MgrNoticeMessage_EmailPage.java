@@ -1,9 +1,12 @@
 package net.simpleframework.module.msg.web.page.t1;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.EMessageSendTo;
+import net.simpleframework.module.msg.plugin.IMessagePlugin;
 import net.simpleframework.mvc.PageMapping;
 import net.simpleframework.mvc.PageParameter;
+import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 
@@ -22,6 +25,14 @@ public class MgrNoticeMessage_EmailPage extends MgrNoticeMessagePage {
 	}
 
 	public static class NoticeMessage_EmailTbl extends NoticeMessageTbl {
+
+		@Override
+		protected LinkElement createTopic(final ComponentParameter cp, final AbstractMessage msg) {
+			final IMessagePlugin oMark = getMessageMark(cp);
+			return new LinkElement(msg.getTopic())
+					.setOnclick("$Actions['AbstractMessageMgrPage_viewWin']('logId=" + msg.getId()
+							+ "&messageMark=" + oMark.getMark() + "');");
+		}
 
 		@Override
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {

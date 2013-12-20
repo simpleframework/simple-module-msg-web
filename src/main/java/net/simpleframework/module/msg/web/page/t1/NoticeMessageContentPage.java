@@ -7,14 +7,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.web.JavascriptUtils;
 import net.simpleframework.module.msg.EMessageSendTo;
 import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.module.msg.MessageException;
-import net.simpleframework.module.msg.plugin.IMessageCategoryPlugin;
-import net.simpleframework.module.msg.plugin.NoticeMessageCategoryPlugin;
+import net.simpleframework.module.msg.plugin.IMessageCategory;
+import net.simpleframework.module.msg.plugin.NoticeMessageCategory;
 import net.simpleframework.module.msg.plugin.NoticeMessagePlugin;
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.mvc.IForward;
@@ -65,8 +64,8 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 	}
 
 	public IForward doSave(final ComponentParameter cp) throws Exception {
-		final NoticeMessageCategoryPlugin mCategory = (NoticeMessageCategoryPlugin) getNoticeMessagePlugin()
-				.getMessageCategoryPlugin(cp.getIntParameter("nmc_mark"));
+		final NoticeMessageCategory mCategory = (NoticeMessageCategory) getNoticeMessagePlugin()
+				.getMessageCategory(cp.getParameter("nmc_mark"));
 		if (mCategory == null) {
 			throw MessageException.of($m("NoticeMessageContentPage.3"));
 		}
@@ -76,19 +75,18 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 		props.put("sendto-mobile", cp.getBoolParameter("EMessageSendTo_mobile"));
 		props.put("topic", cp.getParameter("nmc_topic"));
 		props.put("content", cp.getParameter("nmc_content"));
-		context.getContextSettings().saveNoticeMessageCategoryProps(
-				Convert.toString(mCategory.getMark()), props);
+		context.getContextSettings().saveNoticeMessageCategoryProps(mCategory.getName(), props);
 		return null;
 	}
 
 	public IForward doNav(final ComponentParameter cp) {
-		final NoticeMessageCategoryPlugin mCategory = (NoticeMessageCategoryPlugin) getNoticeMessagePlugin()
-				.getMessageCategoryPlugin(cp.getIntParameter("mark"));
+		final NoticeMessageCategory mCategory = (NoticeMessageCategory) getNoticeMessagePlugin()
+				.getMessageCategory(cp.getParameter("mark"));
 		if (mCategory != null) {
 			final JavascriptForward js = new JavascriptForward();
 			js.append("$('nmc_text').innerHTML = '")
-					.append(JavascriptUtils.escape(mCategory.getText())).append("';");
-			js.append("$('nmc_mark').value = '").append(mCategory.getMark()).append("';");
+					.append(JavascriptUtils.escape(mCategory.toString())).append("';");
+			js.append("$('nmc_mark').value = '").append(mCategory.getName()).append("';");
 			js.append("$('nmc_topic').value = '")
 					.append(JavascriptUtils.escape(mCategory.getTopic(null))).append("';");
 			js.append("$('nmc_content').value = \"")
@@ -106,10 +104,10 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
-		final NoticeMessageCategoryPlugin mCategory = (NoticeMessageCategoryPlugin) getNoticeMessagePlugin()
-				.allMessageCategoryPlugins().iterator().next();
-		return ElementList.of(SpanElement.strongText(mCategory == null ? null : mCategory.getText())
-				.setId("nmc_text"));
+		final NoticeMessageCategory mCategory = (NoticeMessageCategory) getNoticeMessagePlugin()
+				.allMessageCategory().iterator().next();
+		return ElementList.of(SpanElement.strongText(mCategory == null ? null : mCategory).setId(
+				"nmc_text"));
 	}
 
 	@Override
@@ -133,10 +131,10 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 					$m("NoticeMessageContentPage.4"));
 			final Checkbox box_email = new Checkbox("EMessageSendTo_email", EMessageSendTo.email);
 			final Checkbox box_mobile = new Checkbox("EMessageSendTo_mobile", EMessageSendTo.mobile);
-			final NoticeMessageCategoryPlugin mCategory = (NoticeMessageCategoryPlugin) getNoticeMessagePlugin()
-					.allMessageCategoryPlugins().iterator().next();
+			final NoticeMessageCategory mCategory = (NoticeMessageCategory) getNoticeMessagePlugin()
+					.allMessageCategory().iterator().next();
 			if (mCategory != null) {
-				nmc_mark.setText(mCategory.getMark());
+				nmc_mark.setText(mCategory.getName());
 				nmc_topic.setText(mCategory.getTopic(null));
 				nmc_content.setText(mCategory.getContent(null));
 				box_normal.setChecked(mCategory.isSendTo_normal());
@@ -172,13 +170,13 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 				final Object dataObject = parent.getDataObject();
 				if (rootText.equals(dataObject)) {
 					final TreeNodes nodes = TreeNodes.of();
-					final Collection<IMessageCategoryPlugin> coll = getNoticeMessagePlugin()
-							.allMessageCategoryPlugins();
+					final Collection<IMessageCategory> coll = getNoticeMessagePlugin()
+							.allMessageCategory();
 					final Map<String, TreeNode> cache = new HashMap<String, TreeNode>();
 					int i = 0;
-					for (final IMessageCategoryPlugin c : coll) {
+					for (final IMessageCategory c : coll) {
 						final TreeNode tn = new TreeNode(treeBean, c);
-						final NoticeMessageCategoryPlugin mCategory = (NoticeMessageCategoryPlugin) c;
+						final NoticeMessageCategory mCategory = (NoticeMessageCategory) c;
 						final String groupText = mCategory.getGroupText();
 						if (StringUtils.hasText(groupText)) {
 							TreeNode pTn = cache.get(groupText);
@@ -195,7 +193,7 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 							tn.setSelect(true);
 						}
 						tn.setJsClickCallback("$Actions['NoticeMessageContentPage_nav']('mark="
-								+ c.getMark() + "');");
+								+ c.getName() + "');");
 					}
 					return nodes;
 				}

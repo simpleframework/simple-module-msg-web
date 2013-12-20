@@ -27,7 +27,7 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 
 	public static final String COL_FROMID = "fromId";
 
-	public static final String COL_MESSAGESTATUS = "messageStatus";
+	public static final String COL_CATEGORY = "category";
 
 	@Override
 	protected PrivateMessagePlugin getMessageMark(final PageParameter pp) {
@@ -49,7 +49,7 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 				.addColumn(
 						createUserColumn(pp, COL_USERID, $m("AbstractMyMessageTPage.2"),
 								"AbstractMessageMgrPage_tbl").setWidth(80).setTextAlign(ETextAlign.left))
-				.addColumn(new TablePagerColumn(COL_MESSAGESTATUS, $m("MgrPrivateMessagePage.0"), 80))
+				.addColumn(new TablePagerColumn(COL_CATEGORY, $m("MgrPrivateMessagePage.0"), 80))
 				.addColumn(
 						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMgrMessagePage.1"), 120)
 								.setPropertyClass(Date.class))
@@ -68,7 +68,7 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 			final KVMap kv = (KVMap) super.getRowData(cp, dataObject);
 			kv.put(COL_FROMID, toIconUser(cp, msg.getFromId()));
 			kv.put(COL_USERID, toIconUser(cp, msg.getUserId()));
-			kv.put(COL_MESSAGESTATUS, msg.getMessageStatus());
+			kv.put(COL_CATEGORY, msg.getCategory());
 			return kv;
 		}
 	}

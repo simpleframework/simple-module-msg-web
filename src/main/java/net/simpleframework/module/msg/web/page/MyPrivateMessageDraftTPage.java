@@ -8,6 +8,7 @@ import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IP2PMessageService;
 import net.simpleframework.module.msg.plugin.IMessagePlugin;
+import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
@@ -55,8 +56,8 @@ public class MyPrivateMessageDraftTPage extends MyPrivateMessageTPage {
 		@Override
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final IMessagePlugin oMark = getMessageMark(cp);
-			return ((IP2PMessageService) oMark.getMessageService()).queryDraftMessages(
-					oMark.getMark(), cp.getLoginId());
+			return ((IP2PMessageService) oMark.getMessageService()).queryFromMessages(cp.getLoginId(),
+					null, PrivateMessagePlugin.DRAFT_MODULE.getName());
 		}
 
 		@Override
