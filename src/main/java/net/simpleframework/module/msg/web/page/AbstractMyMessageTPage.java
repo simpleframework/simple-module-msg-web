@@ -18,7 +18,7 @@ import net.simpleframework.module.msg.plugin.IMessageCategory;
 import net.simpleframework.module.msg.plugin.IMessagePlugin;
 import net.simpleframework.module.msg.web.IMessageConst;
 import net.simpleframework.module.msg.web.IMessageWebContext;
-import net.simpleframework.module.msg.web.plugin.IMessageCategoryUI;
+import net.simpleframework.module.msg.web.plugin.IMessageUI;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin.PrivateMessageDraftCategory;
 import net.simpleframework.mvc.IForward;
@@ -157,7 +157,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 				.setShowFilterBar(true).setShowHead(true).setShowCheckbox(true);
 	}
 
-	private CategoryItem createCategoryBlock(final PageParameter pp, final IMessageCategoryUI oModule) {
+	private CategoryItem createCategoryBlock(final PageParameter pp, final IMessageUI oModule) {
 		final String href = oModule.getMyPageUrl(pp);
 		final CategoryItem block = new CategoryItem(oModule.toString())
 				.setHref(href)
@@ -191,13 +191,13 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	protected CategoryItems getCategoryList(final PageParameter pp) {
 		final CategoryItems titles = CategoryItems.of();
 		for (final IModulePlugin oMark : context.getPluginRegistry().allPlugin()) {
-			final CategoryItem block = createCategoryBlock(pp, (IMessageCategoryUI) oMark);
+			final CategoryItem block = createCategoryBlock(pp, (IMessageUI) oMark);
 			final Collection<IMessageCategory> coll = ((IMessagePlugin) oMark).allMessageCategory();
 			if (coll != null) {
 				final List<CategoryItem> children = block.getChildren();
 				for (final IMessageCategory child : coll) {
-					if (child instanceof IMessageCategoryUI) {
-						children.add(createCategoryBlock(pp, (IMessageCategoryUI) child));
+					if (child instanceof IMessageUI) {
+						children.add(createCategoryBlock(pp, (IMessageUI) child));
 					}
 				}
 			}
@@ -226,7 +226,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 
 		final ElementList eles = ElementList.of();
 		final Boolean read = getRead(pp);
-		final String url = ((IMessageCategoryUI) oMark).getMyPageUrl(pp);
+		final String url = ((IMessageUI) oMark).getMyPageUrl(pp);
 		eles.add(new LinkElementEx($m("AbstractMyMessageTPage.3")).setSelected(read == null).setHref(
 				url));
 		eles.add(SupElement.num(all));

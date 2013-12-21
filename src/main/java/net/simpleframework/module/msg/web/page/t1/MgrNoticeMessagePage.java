@@ -59,15 +59,19 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 		// 用户选择
 		addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl");
 
+		addNoticeComponents(pp);
+	}
+
+	protected TablePagerBean addTablePagerBean(final PageParameter pp) {
+		return addTablePagerBean(pp, NoticeMessageTbl.class);
+	}
+
+	protected void addNoticeComponents(final PageParameter pp) {
 		// 通知内容
 		addAjaxRequest(pp, "MgrNoticeMessagePage_contentPage", NoticeMessageContentPage.class);
 		addWindowBean(pp, "MgrNoticeMessagePage_contentWin")
 				.setContentRef("MgrNoticeMessagePage_contentPage")
 				.setTitle($m("MgrNoticeMessagePage.1")).setHeight(450).setWidth(710);
-	}
-
-	protected TablePagerBean addTablePagerBean(final PageParameter pp) {
-		return addTablePagerBean(pp, NoticeMessageTbl.class);
 	}
 
 	@Override
@@ -77,10 +81,9 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
-		return ElementList
-				.of(new LinkButton($m("MgrNoticeMessagePage.1"))
-						.setOnclick("$Actions['MgrNoticeMessagePage_contentWin']();"),
-						SpanElement.SPACE).appendAll(super.getLeftElements(pp));
+		return ElementList.of(new LinkButton($m("MgrNoticeMessagePage.1"))
+				.setOnclick("$Actions['MgrNoticeMessagePage_contentWin']();"), SpanElement.SPACE,
+				createDeleteBtn());
 	}
 
 	private static Option OPTION_CATEGORY = new Option(COL_CATEGORY, $m("MgrNoticeMessagePage.0"));

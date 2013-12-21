@@ -4,6 +4,7 @@ import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.module.msg.EMessageSendTo;
 import net.simpleframework.mvc.PageMapping;
 import net.simpleframework.mvc.PageParameter;
+import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 
@@ -17,8 +18,17 @@ import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 public class MgrNoticeMessage_MobilePage extends MgrNoticeMessagePage {
 
 	@Override
+	protected void addNoticeComponents(final PageParameter pp) {
+	}
+
+	@Override
 	protected TablePagerBean addTablePagerBean(final PageParameter pp) {
 		return addTablePagerBean(pp, NoticeMessage_MobileTbl.class);
+	}
+
+	@Override
+	public ElementList getLeftElements(final PageParameter pp) {
+		return ElementList.of(createDeleteBtn());
 	}
 
 	public static class NoticeMessage_MobileTbl extends NoticeMessageTbl {

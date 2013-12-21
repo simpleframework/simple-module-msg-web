@@ -15,7 +15,7 @@ import net.simpleframework.module.msg.plugin.IMessagePlugin;
 import net.simpleframework.module.msg.web.IMessageConst;
 import net.simpleframework.module.msg.web.page.AbstractMyMessageTPage;
 import net.simpleframework.module.msg.web.page.MessageViewPage;
-import net.simpleframework.module.msg.web.plugin.IMessageCategoryUI;
+import net.simpleframework.module.msg.web.plugin.IMessageUI;
 import net.simpleframework.mvc.IForward;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
@@ -88,7 +88,7 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 	protected TabButtons getTabButtons(final PageParameter pp) {
 		final TabButtons tabs = TabButtons.of();
 		for (final IModulePlugin messageMark : context.getPluginRegistry().allPlugin()) {
-			tabs.append(new TabButton(messageMark.getText(), ((IMessageCategoryUI) messageMark)
+			tabs.append(new TabButton(messageMark.getText(), ((IMessageUI) messageMark)
 					.getManagerPageUrl(pp)));
 		}
 		return tabs;
@@ -96,10 +96,12 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
-		final ElementList btns = ElementList.of();
-		btns.append(LinkButton.deleteBtn().setOnclick(
-				"$Actions['AbstractMessageMgrPage_tbl'].doAct('AbstractMessageMgrPage_delete');"));
-		return btns;
+		return ElementList.of(createDeleteBtn());
+	}
+
+	protected LinkButton createDeleteBtn() {
+		return LinkButton.deleteBtn().setOnclick(
+				"$Actions['AbstractMessageMgrPage_tbl'].doAct('AbstractMessageMgrPage_delete');");
 	}
 
 	@Override
