@@ -201,10 +201,10 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 			msgId.setText(message.getId());
 		}
 
-		final TableRow r1 = new TableRow(
-				new RowField($m("PrivateMessageSentPage.1"), sm_topic).setStarMark(true));
-		final TableRow r2 = new TableRow(new RowField($m("PrivateMessageSentPage.0"), msgId,
+		final TableRow r1 = new TableRow(new RowField($m("PrivateMessageSentPage.0"), msgId,
 				sm_receiver).setStarMark(true));
+		final TableRow r2 = new TableRow(
+				new RowField($m("PrivateMessageSentPage.1"), sm_topic).setStarMark(true));
 		final TableRow r3 = new TableRow(new RowField($m("PrivateMessageSentPage.2"), sm_content,
 				sm_content_bar));
 		return TableRows.of(r1, r2, r3);
