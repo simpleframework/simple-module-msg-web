@@ -5,6 +5,8 @@ import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.RowField;
 import net.simpleframework.mvc.common.element.TableRow;
 import net.simpleframework.mvc.common.element.TableRows;
+import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.ui.autocomplete.AbstractAutocompleteHandler;
 import net.simpleframework.mvc.component.ui.autocomplete.AutocompleteBean;
 
 /**
@@ -20,7 +22,7 @@ public class MailSentPage extends AbstractSentMessagePage {
 		super.onForward(pp);
 
 		addComponentBean(pp, "MailSentPage_autocomplete", AutocompleteBean.class).setInputField(
-				"ms_senter");
+				"ms_senter").setHandleClass(MailAutocompleteHandler.class);
 	}
 
 	@Override
@@ -32,5 +34,16 @@ public class MailSentPage extends AbstractSentMessagePage {
 		final TableRow r2 = new TableRow(new RowField("主题", new InputElement()));
 		final TableRow r3 = new TableRow(new RowField("内容", ms_content, sm_content_bar));
 		return TableRows.of(r1, r2, r3);
+	}
+
+	public static class MailAutocompleteHandler extends AbstractAutocompleteHandler {
+
+		@Override
+		public String[] getData(final ComponentParameter cp, final String val) {
+			System.out.println(val);
+			return new String[] { "三卡迪斯科龙卷风考虑", "asdj", "为28892", "三卡迪斯科龙卷风考虑", "asdj", "为28892",
+					"三卡迪斯科龙卷风考虑", "asdj", "为28892", "三卡迪斯科龙卷风考虑", "asdj", "为28892", "三卡迪斯科龙卷风考虑",
+					"asdj", "为28892", "三卡迪斯科龙卷风考虑", "asdj", "为28892" };
+		}
 	}
 }
