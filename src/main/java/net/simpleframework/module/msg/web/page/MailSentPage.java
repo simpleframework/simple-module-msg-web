@@ -21,8 +21,8 @@ public class MailSentPage extends AbstractSentMessagePage {
 	protected void onForward(final PageParameter pp) {
 		super.onForward(pp);
 
-		addComponentBean(pp, "MailSentPage_autocomplete", AutocompleteBean.class).setInputField(
-				"ms_senter").setHandleClass(MailAutocompleteHandler.class);
+		addComponentBean(pp, "MailSentPage_autocomplete", AutocompleteBean.class)
+				.setInputField("ms_senter").setSepChar(";").setHandleClass("s.jj");
 	}
 
 	@Override
