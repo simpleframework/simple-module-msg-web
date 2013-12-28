@@ -44,7 +44,7 @@ public class MgrSystemMessagePage extends AbstractMgrMessagePage {
 		// publish window
 		addComponentBean(pp, "MgrSystemMessagePage_publishWin", WindowBean.class)
 				.setContentRef("MgrSystemMessagePage_publishPage")
-				.setTitle($m("MgrSystemMessagePage.0")).setWidth(500).setHeight(320);
+				.setTitle($m("MgrSystemMessagePage.0")).setWidth(560).setHeight(320);
 	}
 
 	@Override

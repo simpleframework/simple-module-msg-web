@@ -4,6 +4,7 @@ import static net.simpleframework.common.I18n.$m;
 
 import java.util.Date;
 
+import net.simpleframework.common.ClassUtils;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.permission.PermissionUser;
@@ -28,6 +29,7 @@ import net.simpleframework.mvc.component.ComponentHandlerException;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.validation.EValidatorMethod;
 import net.simpleframework.mvc.component.base.validation.Validator;
+import net.simpleframework.mvc.component.ui.autocomplete.AutocompleteBean;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -36,11 +38,6 @@ import net.simpleframework.mvc.component.base.validation.Validator;
  *         http://www.simpleframework.net
  */
 public class PrivateMessageSentPage extends AbstractSentMessagePage implements IMessageContextAware {
-
-	protected P2PMessage getMessage(final PageParameter pp) {
-		return getCacheBean(pp, ((IMessageWebContext) context).getPrivateMessagePlugin()
-				.getMessageService(), "msgId");
-	}
 
 	@Override
 	protected void onForward(final PageParameter pp) {
@@ -53,6 +50,17 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 
 		addAjaxRequest(pp, "PrivateMessageSentPage_save2").setHandleMethod("onSave2").setSelector(
 				getFormSelector());
+
+		try {
+			addComponentBean(pp, "PrivateMessageSentPage_autocomplete", AutocompleteBean.class)
+					.setInputField("sm_receiver")
+					.setSepChar(";")
+					.setHandleClass(
+							ClassUtils
+									.forName("net.simpleframework.organization.web.component.autocomplete.UserAutocompleteHandler"));
+		} catch (final ClassNotFoundException e) {
+			log.warn(e);
+		}
 	}
 
 	@Transaction(context = IMessageContext.class)
@@ -174,7 +182,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		if ("reply".equals(pp.getParameter("t"))) {
 			return "sm_content";
 		}
-		return "sm_topic";
+		return "sm_receiver";
 	}
 
 	@Override
@@ -182,7 +190,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		final InputElement msgId = InputElement.hidden().setName("msgId").setId("sm_msgId");
 		final InputElement sm_receiver = new InputElement("sm_receiver");
 		final InputElement sm_topic = new InputElement("sm_topic");
-		final InputElement sm_content = InputElement.textarea("sm_content").setRows(10);
+		final InputElement sm_content = InputElement.textarea("sm_content").setRows(8);
 
 		final P2PMessage message = getMessage(pp);
 		if (message != null) {
@@ -217,4 +225,9 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 
 	private final BlockElement sm_receiver_tip = new BlockElement().setStyle(
 			"color:#c00;margin-top:8px;").setText($m("PrivateMessageSentPage.3"));
+
+	protected static P2PMessage getMessage(final PageParameter pp) {
+		return getCacheBean(pp, ((IMessageWebContext) context).getPrivateMessagePlugin()
+				.getMessageService(), "msgId");
+	}
 }

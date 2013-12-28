@@ -3,7 +3,6 @@ package net.simpleframework.module.msg.web.page;
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.common.web.html.HtmlUtils;
 import net.simpleframework.module.msg.P2PMessage;
-import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.BlockElement;
 import net.simpleframework.mvc.common.element.ButtonElement;
@@ -21,14 +20,9 @@ import net.simpleframework.mvc.component.ui.dictionary.SmileyUtils;
  */
 public class PrivateMessageSentViewPage extends AbstractSentMessagePage {
 
-	protected P2PMessage getMessage(final PageParameter pp) {
-		return getCacheBean(pp, ((IMessageWebContext) context).getPrivateMessagePlugin()
-				.getMessageService(), "msgId");
-	}
-
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
-		final P2PMessage message = getMessage(pp);
+		final P2PMessage message = PrivateMessageSentPage.getMessage(pp);
 		return ElementList.of(new BlockElement("b_sm_topic").setText(message.getTopic()));
 	}
 
@@ -39,7 +33,7 @@ public class PrivateMessageSentViewPage extends AbstractSentMessagePage {
 
 	@Override
 	protected TableRows getTableRows(final PageParameter pp) {
-		final P2PMessage message = getMessage(pp);
+		final P2PMessage message = PrivateMessageSentPage.getMessage(pp);
 		final BlockElement sm_receiver = new BlockElement("b_sm_receiver").setText(message
 				.getToUsers());
 		String c = SmileyUtils.replaceSmiley(message.getContent());

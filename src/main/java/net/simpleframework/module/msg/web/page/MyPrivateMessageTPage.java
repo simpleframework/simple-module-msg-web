@@ -62,7 +62,7 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 		// sent window
 		addComponentBean(pp, "MyPrivateMessageTPage_sentWin", WindowBean.class)
 				.setContentRef("MyPrivateMessageTPage_sentPage")
-				.setTitle($m("MyPrivateMessageTPage.1")).setWidth(640).setHeight(480);
+				.setTitle($m("MyPrivateMessageTPage.1")).setWidth(680).setHeight(420);
 	}
 
 	@Override

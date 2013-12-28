@@ -26,7 +26,7 @@ public class MailSentPage extends AbstractSentMessagePage {
 					.setSepChar(";")
 					.setHandleClass(
 							ClassUtils
-									.forName("net.simpleframework.organization.web.component.autocomplete.UserAutocompleteHandler"));
+									.forName("net.simpleframework.organization.web.component.autocomplete.UserRoleAutocompleteHandler"));
 		} catch (final ClassNotFoundException e) {
 			log.warn(e);
 		}
