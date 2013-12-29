@@ -30,7 +30,7 @@ public class MgrNoticeMessage_EmailPage extends MgrNoticeMessagePage {
 		addAjaxRequest(pp, "MgrNoticeMessage_EmailPage_sentPage", MailSentPage.class);
 		addWindowBean(pp, "MgrNoticeMessage_EmailPage_sentWin")
 				.setContentRef("MgrNoticeMessage_EmailPage_sentPage")
-				.setTitle($m("MgrNoticeMessage_EmailPage.0")).setHeight(450).setWidth(710);
+				.setTitle($m("MgrNoticeMessage_EmailPage.0")).setWidth(680).setHeight(420);
 	}
 
 	@Override

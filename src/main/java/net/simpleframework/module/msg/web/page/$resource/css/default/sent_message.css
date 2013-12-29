@@ -10,20 +10,17 @@
   font-size: 9.5pt;
 }
 
-#sm_topic,
-#b_sm_topic {
+#sm_topic,#b_sm_topic {
   color: #666;
   font-weight: bold;
 }
 
-#b_sm_receiver,
-#b_sm_topic,
-#b_sm_content {
+#b_sm_receiver,#b_sm_topic,#b_sm_content {
   padding: 3px;
 }
 
 #b_sm_content {
   line-height: 1.8;
   height: 180px;
-  overflow-y: auto; 
+  overflow-y: auto;
 }

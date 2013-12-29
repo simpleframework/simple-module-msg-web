@@ -16,7 +16,6 @@ import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.common.element.BlockElement;
 import net.simpleframework.mvc.common.element.ButtonElement;
 import net.simpleframework.mvc.common.element.Checkbox;
 import net.simpleframework.mvc.common.element.ElementList;
@@ -220,11 +219,9 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 
 	@Override
 	public String toTableRowsString(final PageParameter pp) {
-		return super.toTableRowsString(pp) + sm_receiver_tip;
+		return super.toTableRowsString(pp)
+				+ SpanElement.strongText($m("PrivateMessageSentPage.3")).addStyle("line-height: 2.4;");
 	}
-
-	private final BlockElement sm_receiver_tip = new BlockElement().setStyle(
-			"color:#c00;margin-top:8px;").setText($m("PrivateMessageSentPage.3"));
 
 	protected static P2PMessage getMessage(final PageParameter pp) {
 		return getCacheBean(pp, ((IMessageWebContext) context).getPrivateMessagePlugin()
