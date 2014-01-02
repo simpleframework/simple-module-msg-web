@@ -7,6 +7,10 @@ import java.util.Enumeration;
 import net.simpleframework.common.ClassUtils;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
+import net.simpleframework.common.mail.Email;
+import net.simpleframework.common.web.html.HtmlUtils;
+import net.simpleframework.ctx.permission.PermissionUser;
+import net.simpleframework.module.msg.IEmailService;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.BlockElement;
@@ -18,6 +22,9 @@ import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.TableRow;
 import net.simpleframework.mvc.common.element.TableRows;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
+import net.simpleframework.mvc.component.base.validation.EValidatorMethod;
+import net.simpleframework.mvc.component.base.validation.Validator;
 import net.simpleframework.mvc.component.ui.autocomplete.AutocompleteBean;
 import net.simpleframework.mvc.ctx.permission.IPagePermissionHandler;
 
@@ -33,6 +40,8 @@ public class MailSentPage extends AbstractSentMessagePage {
 	protected void onForward(final PageParameter pp) {
 		super.onForward(pp);
 
+		addFormValidationBean(pp).addValidators(
+				new Validator(EValidatorMethod.required, "#sm_senter, #sm_topic, #sm_content"));
 		try {
 			addComponentBean(pp, "MailSentPage_autocomplete", AutocompleteBean.class)
 					.setInputField("sm_senter")
@@ -46,24 +55,43 @@ public class MailSentPage extends AbstractSentMessagePage {
 	}
 
 	@Override
+	protected AjaxRequestBean addAjaxRequest_onSave(final PageParameter pp) {
+		return super.addAjaxRequest_onSave(pp).setConfirmMessage($m("MailSentPage.4"));
+	}
+
+	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) {
 		final String[] arr = StringUtils.split(cp.getParameter("sm_senter"), ";");
 		if (arr != null) {
+			final IEmailService eService = context.getEmailService();
 			final IPagePermissionHandler pHandler = cp.getPermission();
+			final String topic = cp.getParameter("sm_topic");
+			String content = cp.getParameter("sm_content");
+			content = HtmlUtils.convertHtmlLines(content);
+			if (cp.getBoolParameter("sm_autolink")) {
+				content = HtmlUtils.autoLink(content);
+			}
 			for (final String s : arr) {
 				if (s.startsWith("#")) {
 					final Enumeration<ID> enumeration = pHandler.users(s.substring(1), null);
-					int i = 0;
 					while (enumeration.hasMoreElements()) {
-						System.out.println(i++ + " : " + enumeration.nextElement());
+						final PermissionUser user = pHandler.getUser(enumeration.nextElement());
+						final String email = user.getEmail();
+						if (StringUtils.hasText(email)) {
+							eService.sentMail(Email.of(email).subject(topic).addHtml(content));
+						}
 					}
 				} else {
+					final PermissionUser user = pHandler.getUser(s);
+					final String email = user.getEmail();
+					if (StringUtils.hasText(email)) {
+						eService.sentMail(Email.of(email).subject(topic).addHtml(content));
+					}
 				}
 			}
-			// .users(role, null);
-			// cp.getUser("").getEmail()
 		}
-		return super.onSave(cp);
+		return new JavascriptForward("alert('").append($m("MailSentPage.5")).append("');")
+				.append(super.onSave(cp));
 	}
 
 	@Override
