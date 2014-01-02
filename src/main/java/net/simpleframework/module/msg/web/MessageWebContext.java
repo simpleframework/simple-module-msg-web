@@ -56,24 +56,18 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 
 	@Override
 	protected Module createModule() {
-		return super.createModule().setDefaultFunction(
-				new WebModuleFunction(MgrNoticeMessagePage.class).setName(
-						MODULE_NAME + "-MessageMgrPage").setText($m("MessageWebContext.0")));
+		return super.createModule().setDefaultFunction(FUNC_MESSAGE_MGR);
 	}
 
-	public WebModuleFunction MY_MESSAGE_FUNCTION = (WebModuleFunction) new WebModuleFunction()
-			.setUrl(getUrlsFactory().getMyMessageUrl(MyNoticeMessageTPage.class))
-			.setName(MODULE_NAME + "-MyMessagePage").setText($m("MessageContext.0")).setDisabled(true);
-
 	@Override
-	protected ModuleFunctions getFunctions() {
-		return ModuleFunctions.of(MY_MESSAGE_FUNCTION);
+	public ModuleFunctions getFunctions() {
+		return ModuleFunctions.of(FUNC_MESSAGE_MGR, FUNC_MY_MESSAGE);
 	}
 
 	@Override
 	public AbstractElement<?> toMyMessageElement(final PageParameter pp) {
-		final LinkElement link = new LinkElement(MY_MESSAGE_FUNCTION.getText()).setHref(
-				MY_MESSAGE_FUNCTION.getUrl()).setStyle("position: relative;");
+		final LinkElement link = new LinkElement(FUNC_MY_MESSAGE.getText()).setHref(
+				FUNC_MY_MESSAGE.getUrl()).setStyle("position: relative;");
 		final ID loginId = pp.getLoginId();
 		final int unread = getP2PMessageService().getUnreadMessageCount(loginId)
 				+ getSubscribeMessageService().getUnreadMessageCount(loginId);
@@ -82,6 +76,13 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 		}
 		return link;
 	}
+
+	public WebModuleFunction FUNC_MESSAGE_MGR = (WebModuleFunction) new WebModuleFunction(
+			MgrNoticeMessagePage.class).setName(MODULE_NAME + "-MessageMgrPage").setText(
+			$m("MessageWebContext.0"));
+	public WebModuleFunction FUNC_MY_MESSAGE = (WebModuleFunction) new WebModuleFunction()
+			.setUrl(getUrlsFactory().getMyMessageUrl(MyNoticeMessageTPage.class))
+			.setName(MODULE_NAME + "-MyMessagePage").setText($m("MessageContext.0")).setDisabled(true);
 
 	protected SupElement createUnreadElement(final int unread) {
 		return new SupElement(unread).setHighlight(true).setStyle(
