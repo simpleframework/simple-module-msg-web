@@ -38,7 +38,7 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 	}
 
 	@Override
-	protected void addComponents(final PageParameter pp) {
+	protected void addMessageComponents(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageTbl.class);
 		tablePager
 				.addColumn(TablePagerColumn.ICON().setWidth(16))

@@ -59,6 +59,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	protected void onForward(final PageParameter pp) {
 		super.onForward(pp);
 
+		pp.addImportCSS(AbstractMyMessageTPage.class, "/my_message.css");
+
 		// delete
 		addDeleteAjaxRequest(pp, "AbstractMyMessageTPage_delete");
 
@@ -71,13 +73,11 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 				.setContentRef("AbstractMyMessageTPage_viewPage")
 				.setTitle($m("AbstractMyMessageTPage.0")).setResizable(false).setHeight(400)
 				.setWidth(600);
+
+		addMessageComponents(pp);
 	}
 
-	@Override
-	protected void addImportCSS(final PageParameter pp) {
-		super.addImportCSS(pp);
-
-		pp.addImportCSS(AbstractMyMessageTPage.class, "/my_message.css");
+	protected void addMessageComponents(final PageParameter pp) {
 	}
 
 	protected void createMarkMenuComponent(final PageParameter pp) {

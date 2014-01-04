@@ -26,7 +26,7 @@ import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
 public class MyPrivateMessageDraftTPage extends MyPrivateMessageTPage {
 
 	@Override
-	protected void addComponents(final PageParameter pp) {
+	protected void addMessageComponents(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageDraftTbl.class);
 		tablePager
 				.addColumn(

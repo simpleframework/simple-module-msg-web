@@ -45,6 +45,8 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 	protected void onForward(final PageParameter pp) {
 		super.onForward(pp);
 
+		pp.addImportCSS(AbstractMyMessageTPage.class, "/mgr_message.css");
+
 		// delete
 		addDeleteAjaxRequest(pp, "AbstractMessageMgrPage_delete");
 
@@ -53,13 +55,6 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 		addWindowBean(pp, "AbstractMessageMgrPage_viewWin")
 				.setContentRef("AbstractMessageMgrPage_viewPage")
 				.setTitle($m("AbstractMyMessageTPage.0")).setHeight(400).setWidth(600);
-	}
-
-	@Override
-	protected void addImportCSS(final PageParameter pp) {
-		super.addImportCSS(pp);
-
-		pp.addImportCSS(AbstractMyMessageTPage.class, "/mgr_message.css");
 	}
 
 	@Override

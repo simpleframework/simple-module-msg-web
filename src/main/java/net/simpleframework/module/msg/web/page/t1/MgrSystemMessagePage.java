@@ -27,8 +27,8 @@ import net.simpleframework.mvc.component.ui.window.WindowBean;
 public class MgrSystemMessagePage extends AbstractMgrMessagePage {
 
 	@Override
-	protected void addComponents(final PageParameter pp) {
-		super.addComponents(pp);
+	protected void onForward(final PageParameter pp) {
+		super.onForward(pp);
 
 		final TablePagerBean tablePager = addTablePagerBean(pp, MgrMessageTbl.class);
 		tablePager

@@ -30,7 +30,7 @@ import net.simpleframework.mvc.component.ui.window.WindowBean;
 public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 
 	@Override
-	protected void addComponents(final PageParameter pp) {
+	protected void addMessageComponents(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageSentTbl.class);
 		tablePager
 				.addColumn(
