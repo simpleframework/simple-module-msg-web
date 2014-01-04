@@ -60,7 +60,7 @@ public class MailSentPage extends AbstractSentMessagePage {
 	}
 
 	@Override
-	public JavascriptForward onSave(final ComponentParameter cp) {
+	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
 		final String[] arr = StringUtils.split(cp.getParameter("sm_senter"), ";");
 		if (arr != null) {
 			final IEmailService eService = context.getEmailService();

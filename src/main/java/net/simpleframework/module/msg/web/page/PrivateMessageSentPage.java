@@ -64,7 +64,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 
 	@Transaction(context = IMessageContext.class)
 	@Override
-	public JavascriptForward onSave(final ComponentParameter cp) {
+	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
 		// 发送
 		final PrivateMessagePlugin plugin = ((IMessageWebContext) context).getPrivateMessagePlugin();
 		String toUsers;

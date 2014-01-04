@@ -40,7 +40,7 @@ public class SystemMessagePublishPage extends AbstractSentMessagePage {
 
 	@Transaction(context = IMessageContext.class)
 	@Override
-	public JavascriptForward onSave(final ComponentParameter cp) {
+	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
 		((IMessageWebContext) context).getSystemMessagePlugin().sentSystemMessage(
 				cp.getParameter("sm_topic"), getContent(cp));
 		final JavascriptForward js = super.onSave(cp);
