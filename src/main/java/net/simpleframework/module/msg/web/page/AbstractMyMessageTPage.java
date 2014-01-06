@@ -157,7 +157,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 				.setShowFilterBar(true).setShowHead(true).setShowCheckbox(true);
 	}
 
-	private CategoryItem createCategoryBlock(final PageParameter pp, final IMessageUI oModule) {
+	private CategoryItem createCategoryItem(final PageParameter pp, final IMessageUI oModule) {
 		final String href = oModule.getMyPageUrl(pp);
 		final CategoryItem block = new CategoryItem(oModule.toString())
 				.setHref(href)
@@ -191,13 +191,13 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	protected CategoryItems getCategoryList(final PageParameter pp) {
 		final CategoryItems titles = CategoryItems.of();
 		for (final IModulePlugin oMark : context.getPluginRegistry().allPlugin()) {
-			final CategoryItem block = createCategoryBlock(pp, (IMessageUI) oMark);
+			final CategoryItem block = createCategoryItem(pp, (IMessageUI) oMark);
 			final Collection<IMessageCategory> coll = ((IMessagePlugin) oMark).allMessageCategory();
 			if (coll != null) {
 				final List<CategoryItem> children = block.getChildren();
 				for (final IMessageCategory child : coll) {
 					if (child instanceof IMessageUI) {
-						children.add(createCategoryBlock(pp, (IMessageUI) child));
+						children.add(createCategoryItem(pp, (IMessageUI) child));
 					}
 				}
 			}
