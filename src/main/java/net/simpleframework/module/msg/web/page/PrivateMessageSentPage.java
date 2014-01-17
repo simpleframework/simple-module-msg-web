@@ -115,7 +115,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		final PrivateMessagePlugin mark = ((IMessageWebContext) context).getPrivateMessagePlugin();
 		// 暂存
 		P2PMessage message = getMessage(cp);
-		final boolean insert = message == null;
+		final boolean insert = message == null || "reply".equals(cp.getParameter("t"));
 		if (insert) {
 			message = new P2PMessage();
 			message.setCategory(PrivateMessagePlugin.DRAFT_MODULE.getName());
@@ -207,7 +207,8 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 			}
 			msgId.setText(message.getId());
 		}
-
+		// InputElement
+		// .hidden("t").setValue(pp),
 		final TableRow r1 = new TableRow(new RowField($m("PrivateMessageSentPage.0"), msgId,
 				sm_receiver).setStarMark(true));
 		final TableRow r2 = new TableRow(
