@@ -80,7 +80,7 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 	}
 
 	@Override
-	protected TabButtons getTabButtons(final PageParameter pp) {
+	public TabButtons getTabButtons(final PageParameter pp) {
 		final TabButtons tabs = TabButtons.of();
 		for (final IModulePlugin messageMark : context.getPluginRegistry().allPlugin()) {
 			tabs.append(new TabButton(messageMark.getText(), ((IMessageUI) messageMark)
