@@ -81,7 +81,7 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 			MgrNoticeMessagePage.class).setName(MODULE_NAME + "-MessageMgrPage").setText(
 			$m("MessageWebContext.0"));
 	public WebModuleFunction FUNC_MY_MESSAGE = (WebModuleFunction) new WebModuleFunction()
-			.setUrl(getUrlsFactory().getMyMessageUrl(MyNoticeMessageTPage.class))
+			.setUrl(getUrlsFactory().getUrl(null, MyNoticeMessageTPage.class))
 			.setName(MODULE_NAME + "-MyMessagePage").setText($m("MessageContext.0")).setDisabled(true);
 
 	protected SupElement createUnreadElement(final int unread) {

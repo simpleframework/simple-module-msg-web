@@ -60,8 +60,7 @@ public class SystemMessagePlugin extends AbstractSubscribeMessagePlugin implemen
 
 	@Override
 	public String getMyPageUrl(final PageParameter pp) {
-		return ((IMessageWebContext) context).getUrlsFactory().getMyMessageUrl(
-				MySystemMessageTPage.class);
+		return ((IMessageWebContext) context).getUrlsFactory().getUrl(pp, MySystemMessageTPage.class);
 	}
 
 	@Override

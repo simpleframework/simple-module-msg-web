@@ -69,7 +69,7 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 			final LinkElementEx link = (LinkElementEx) new LinkElementEx(
 					mCategory != null ? mCategory.toString() : $m("MyFavoritesTPage.5")).setSelected(
 					category2.equals(category)).setHref(
-					((IMessageWebContext) context).getUrlsFactory().getMyMessageUrl(
+					((IMessageWebContext) context).getUrlsFactory().getUrl(pp,
 							MyNoticeMessageTPage.class, "category=" + category2));
 			el2.append(
 					new SpanElement().setClassName("notice_category_item").addElements(link,
