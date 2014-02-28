@@ -46,7 +46,7 @@ public class MailSentPage extends AbstractSentMessagePage {
 			addComponentBean(pp, "MailSentPage_autocomplete", AutocompleteBean.class)
 					.setInputField("sm_senter")
 					.setSepChar(";")
-					.setHandleClass(
+					.setHandlerClass(
 							ClassUtils
 									.forName("net.simpleframework.organization.web.component.autocomplete.UserRoleAutocompleteHandler"));
 		} catch (final ClassNotFoundException e) {

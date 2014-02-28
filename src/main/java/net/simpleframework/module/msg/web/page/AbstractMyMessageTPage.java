@@ -65,7 +65,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		addDeleteAjaxRequest(pp, "AbstractMyMessageTPage_delete");
 
 		// ajax view
-		addAjaxRequest(pp, "AbstractMyMessageTPage_view").setHandleMethod("doView");
+		addAjaxRequest(pp, "AbstractMyMessageTPage_view").setHandlerMethod("doView");
 
 		// msg win
 		addAjaxRequest(pp, "AbstractMyMessageTPage_viewPage", MessageViewPage.class);
@@ -99,7 +99,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 						MenuItem.of($m("MyPrivateMessageTPage.4")).setOnclick(
 								"$Actions['AbstractMyMessageTPage_mark']('mark=all');"));
 		// 标记
-		addAjaxRequest(pp, "AbstractMyMessageTPage_mark").setHandleMethod("doMark");
+		addAjaxRequest(pp, "AbstractMyMessageTPage_mark").setHandlerMethod("doMark");
 	}
 
 	protected AbstractElement<?> createMarkMenuElement() {

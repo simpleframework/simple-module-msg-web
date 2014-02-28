@@ -46,12 +46,12 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 
 		addComponentBean(pp, "NoticeMessageContentPage_tree", TreeBean.class).setCookies(false)
 				.setContainerId("idNoticeMessageContentPage_tree")
-				.setHandleClass(MessageTypeTree.class);
+				.setHandlerClass(MessageTypeTree.class);
 
-		addAjaxRequest(pp, "NoticeMessageContentPage_nav").setHandleMethod("doNav");
+		addAjaxRequest(pp, "NoticeMessageContentPage_nav").setHandlerMethod("doNav");
 
 		addAjaxRequest(pp, "NoticeMessageContentPage_save").setConfirmMessage($m("Confirm.Post"))
-				.setHandleMethod("doSave").setSelector(".NoticeMessageContentPage_Center");
+				.setHandlerMethod("doSave").setSelector(".NoticeMessageContentPage_Center");
 	}
 
 	@Override

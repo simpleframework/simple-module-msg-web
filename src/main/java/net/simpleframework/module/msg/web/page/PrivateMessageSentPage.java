@@ -47,14 +47,14 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		addFormValidationBean(pp).addValidators(
 				new Validator(EValidatorMethod.required, "#sm_receiver, #sm_topic"));
 
-		addAjaxRequest(pp, "PrivateMessageSentPage_save2").setHandleMethod("onSave2").setSelector(
+		addAjaxRequest(pp, "PrivateMessageSentPage_save2").setHandlerMethod("onSave2").setSelector(
 				getFormSelector());
 
 		try {
 			addComponentBean(pp, "PrivateMessageSentPage_autocomplete", AutocompleteBean.class)
 					.setInputField("sm_receiver")
 					.setSepChar(";")
-					.setHandleClass(
+					.setHandlerClass(
 							ClassUtils
 									.forName("net.simpleframework.organization.web.component.autocomplete.UserAutocompleteHandler"));
 		} catch (final ClassNotFoundException e) {
