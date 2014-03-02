@@ -23,6 +23,7 @@ import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
 import net.simpleframework.mvc.component.ui.window.WindowBean;
+import net.simpleframework.mvc.template.TemplateUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -97,7 +98,7 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 
 		@Override
 		protected AbstractElement<?> createFrom(final ComponentParameter cp, final AbstractMessage msg) {
-			return new SpanElement(toIconUser(cp, msg.getFromId()));
+			return new SpanElement(TemplateUtils.toIconUser(cp, msg.getFromId()));
 		}
 	}
 }

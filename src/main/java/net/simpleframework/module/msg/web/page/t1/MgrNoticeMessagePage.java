@@ -25,6 +25,7 @@ import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumns;
+import net.simpleframework.mvc.template.TemplateUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -134,7 +135,7 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 					final AbstractP2PMessage msg = (AbstractP2PMessage) dataObject;
 					final KVMap kv = new KVMap();
 					kv.add(COL_TOPIC, createTopic(cp, msg));
-					kv.add(COL_USERID, toIconUser(cp, msg.getUserId()));
+					kv.add(COL_USERID, TemplateUtils.toIconUser(cp, msg.getUserId()));
 					kv.add(COL_CREATEDATE, msg.getCreateDate());
 					final IMessageCategory mCategory = getMessageMark(cp).getMessageCategory(
 							msg.getCategory());

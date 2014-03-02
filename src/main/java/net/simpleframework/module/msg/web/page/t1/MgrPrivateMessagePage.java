@@ -15,6 +15,7 @@ import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
+import net.simpleframework.mvc.template.TemplateUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -66,8 +67,8 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
 			final P2PMessage msg = (P2PMessage) dataObject;
 			final KVMap kv = (KVMap) super.getRowData(cp, dataObject);
-			kv.put(COL_FROMID, toIconUser(cp, msg.getFromId()));
-			kv.put(COL_USERID, toIconUser(cp, msg.getUserId()));
+			kv.put(COL_FROMID, TemplateUtils.toIconUser(cp, msg.getFromId()));
+			kv.put(COL_USERID, TemplateUtils.toIconUser(cp, msg.getUserId()));
 			kv.put(COL_CATEGORY, msg.getCategory());
 			return kv;
 		}
