@@ -67,7 +67,7 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 	@Override
 	public AbstractElement<?> toMyMessageElement(final PageParameter pp) {
 		final LinkElement link = new LinkElement(FUNC_MY_MESSAGE.getText()).setHref(
-				FUNC_MY_MESSAGE.getUrl()).setStyle("position: relative;");
+				FUNC_MY_MESSAGE.getUrl()).addStyle("position: relative;");
 		final ID loginId = pp.getLoginId();
 		final int unread = getP2PMessageService().getUnreadMessageCount(loginId)
 				+ getSubscribeMessageService().getUnreadMessageCount(loginId);
@@ -85,7 +85,7 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 			.setName(MODULE_NAME + "-MyMessagePage").setText($m("MessageContext.0")).setDisabled(true);
 
 	protected SupElement createUnreadElement(final int unread) {
-		return new SupElement(unread).setHighlight(true).setStyle(
+		return new SupElement(unread).setHighlight(true).addStyle(
 				"position: absolute; left: 20px; top: -7px;");
 	}
 

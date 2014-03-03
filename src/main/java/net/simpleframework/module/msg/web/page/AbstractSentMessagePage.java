@@ -55,7 +55,7 @@ public abstract class AbstractSentMessagePage extends FormTableRowTemplatePage i
 			.addElements(
 					new LinkElement($m("AbstractSentMessagePage.0"))
 							.setOnclick("$Actions['AbstractSentMessagePage_smiley']();"),
-					new BlockElement().setStyle("float: right").addElements(
+					new BlockElement().addStyle("float: right").addElements(
 							new Checkbox("sm_autolink", $m("AbstractSentMessagePage.1")).setChecked(true)),
 					BlockElement.CLEAR);
 }
