@@ -4,7 +4,6 @@ import static net.simpleframework.common.I18n.$m;
 
 import java.util.Date;
 
-import net.simpleframework.common.ClassUtils;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.permission.PermissionUser;
@@ -28,7 +27,6 @@ import net.simpleframework.mvc.component.ComponentHandlerException;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.validation.EValidatorMethod;
 import net.simpleframework.mvc.component.base.validation.Validator;
-import net.simpleframework.mvc.component.ui.autocomplete.AutocompleteBean;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -50,16 +48,8 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		addAjaxRequest(pp, "PrivateMessageSentPage_save2").setHandlerMethod("onSave2").setSelector(
 				getFormSelector());
 
-		try {
-			addComponentBean(pp, "PrivateMessageSentPage_autocomplete", AutocompleteBean.class)
-					.setInputField("sm_receiver")
-					.setSepChar(";")
-					.setHandlerClass(
-							ClassUtils
-									.forName("net.simpleframework.organization.web.component.autocomplete.UserAutocompleteHandler"));
-		} catch (final ClassNotFoundException e) {
-			log.warn(e);
-		}
+		addUserAutocompleteBean(pp, "PrivateMessageSentPage_autocomplete").setInputField(
+				"sm_receiver").setSepChar(";");
 	}
 
 	@Transaction(context = IMessageContext.class)

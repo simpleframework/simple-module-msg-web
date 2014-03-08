@@ -4,7 +4,6 @@ import static net.simpleframework.common.I18n.$m;
 
 import java.util.Enumeration;
 
-import net.simpleframework.common.ClassUtils;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.mail.Email;
@@ -25,7 +24,6 @@ import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.base.validation.EValidatorMethod;
 import net.simpleframework.mvc.component.base.validation.Validator;
-import net.simpleframework.mvc.component.ui.autocomplete.AutocompleteBean;
 import net.simpleframework.mvc.ctx.permission.IPagePermissionHandler;
 
 /**
@@ -42,16 +40,9 @@ public class MailSentPage extends AbstractSentMessagePage {
 
 		addFormValidationBean(pp).addValidators(
 				new Validator(EValidatorMethod.required, "#sm_senter, #sm_topic, #sm_content"));
-		try {
-			addComponentBean(pp, "MailSentPage_autocomplete", AutocompleteBean.class)
-					.setInputField("sm_senter")
-					.setSepChar(";")
-					.setHandlerClass(
-							ClassUtils
-									.forName("net.simpleframework.organization.web.component.autocomplete.UserRoleAutocompleteHandler"));
-		} catch (final ClassNotFoundException e) {
-			log.warn(e);
-		}
+
+		addUserRoleAutocompleteBean(pp, "MailSentPage_autocomplete").setInputField("sm_senter")
+				.setSepChar(";");
 	}
 
 	@Override
