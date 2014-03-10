@@ -54,7 +54,7 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 		addAjaxRequest(pp, "AbstractMessageMgrPage_viewPage", MessageViewPage.class);
 		addWindowBean(pp, "AbstractMessageMgrPage_viewWin")
 				.setContentRef("AbstractMessageMgrPage_viewPage")
-				.setTitle($m("AbstractMyMessageTPage.0")).setHeight(400).setWidth(600);
+				.setTitle($m("AbstractMyMessageTPage.0")).setHeight(410).setWidth(640);
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.BlockElement;
 import net.simpleframework.mvc.common.element.ButtonElement;
 import net.simpleframework.mvc.common.element.ElementList;
+import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.RowField;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.TableRow;
@@ -58,8 +59,6 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 
 	@Override
 	protected TableRows getTableRows(final PageParameter pp) {
-		final TableRows rows = TableRows.of();
-
 		final IMessagePlugin plugin = context.getPluginRegistry().getPlugin(
 				pp.getIntParameter("messageMark"));
 		final AbstractMessage msg = getMessage(pp, plugin);
@@ -71,20 +70,19 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 			from = mCategory.getFrom(fromId);
 		}
 
-		rows.append(new TableRow(new RowField($m("MessageViewPage.0"), new SpanElement("m_fromId")
-				.setText(from)), new RowField($m("MessageViewPage.1"), new SpanElement(mCategory))));
-		final SpanElement readDate = new SpanElement();
-		if (msg instanceof P2PMessage) {
-			readDate.setText(((P2PMessage) msg).getReadDate());
-		}
-		rows.append(new TableRow(new RowField($m("MessageViewPage.2"), new SpanElement(msg
-				.getCreateDate())), new RowField($m("MessageViewPage.3"), readDate)));
+		final TableRow r1 = new TableRow(new RowField($m("MessageViewPage.0"), new InputElement()
+				.setText("m_fromId").setText(from)), new RowField($m("MessageViewPage.1"),
+				new InputElement().setText(mCategory)));
 
-		String c = SmileyUtils.replaceSmiley(msg.getContent());
-		c = HtmlUtils.convertHtmlLines(c);
-		rows.append(new TableRow(new RowField($m("MessageViewPage.4"), new BlockElement().setText(c)
-				.setClassName("mv_content"))));
-		return rows;
+		final TableRow r2 = new TableRow(new RowField($m("MessageViewPage.2"),
+				new InputElement().setText(msg.getCreateDate())), new RowField($m("MessageViewPage.3"),
+				new InputElement().setText(msg instanceof P2PMessage ? ((P2PMessage) msg).getReadDate()
+						: null)));
+
+		final TableRow r3 = new TableRow(new RowField($m("MessageViewPage.4"), new BlockElement()
+				.setText(HtmlUtils.convertHtmlLines(SmileyUtils.replaceSmiley(msg.getContent())))
+				.setClassName("mv_content")));
+		return TableRows.of(r1, r2, r3).setReadonly(true);
 	}
 
 	private AbstractMessage getMessage(final PageParameter pp, final IMessagePlugin plugin) {
