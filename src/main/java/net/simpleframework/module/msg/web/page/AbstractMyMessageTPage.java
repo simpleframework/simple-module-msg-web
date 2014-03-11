@@ -27,7 +27,6 @@ import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.ButtonElement;
 import net.simpleframework.mvc.common.element.ElementList;
-import net.simpleframework.mvc.common.element.Icon;
 import net.simpleframework.mvc.common.element.ImageElement;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.LinkElement;
@@ -103,8 +102,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	}
 
 	protected AbstractElement<?> createMarkMenuElement() {
-		return new LinkButton($m("AbstractMyMessageTPage.6")).setIconClass(Icon.eye_open)
-				.setId("idAbstractMyMessageTPage_markMenu").setMenuIcon(true);
+		return LinkButton.menu($m("AbstractMyMessageTPage.6")).setId(
+				"idAbstractMyMessageTPage_markMenu");
 	}
 
 	protected abstract IMessagePlugin getMessagePlugin(PageParameter pp);
