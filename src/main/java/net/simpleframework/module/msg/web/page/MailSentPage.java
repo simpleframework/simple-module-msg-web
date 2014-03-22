@@ -2,7 +2,7 @@ package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
 
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
@@ -64,9 +64,9 @@ public class MailSentPage extends AbstractSentMessagePage {
 			}
 			for (final String s : arr) {
 				if (s.startsWith("#")) {
-					final Enumeration<ID> enumeration = pHandler.users(s.substring(1), null);
-					while (enumeration.hasMoreElements()) {
-						final PermissionUser user = pHandler.getUser(enumeration.nextElement());
+					final Iterator<ID> it = pHandler.users(s.substring(1), null);
+					while (it.hasNext()) {
+						final PermissionUser user = pHandler.getUser(it.next());
 						final String email = user.getEmail();
 						if (StringUtils.hasText(email)) {
 							eService.sentMail(Email.of(email).subject(topic).addHtml(content));
