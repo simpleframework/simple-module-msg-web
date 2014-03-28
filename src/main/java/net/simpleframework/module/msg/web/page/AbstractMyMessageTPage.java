@@ -26,6 +26,7 @@ import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.ButtonElement;
+import net.simpleframework.mvc.common.element.EVerticalAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.Icon;
 import net.simpleframework.mvc.common.element.ImageElement;
@@ -285,7 +286,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 
 		protected ImageElement createImageMark(final ComponentParameter cp, final AbstractMessage msg) {
 			return new ImageElement(cp.getCssResourceHomePath(AbstractMyMessageTPage.class)
-					+ "/images/unread.png");
+					+ "/images/unread.png").setVerticalAlign(EVerticalAlign.middle);
 		}
 
 		protected AbstractElement<?> createFrom(final ComponentParameter cp, final AbstractMessage msg) {
