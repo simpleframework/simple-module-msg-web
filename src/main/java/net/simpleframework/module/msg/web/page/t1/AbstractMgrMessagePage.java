@@ -73,9 +73,7 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 
 	public IForward doDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		if (ids != null) {
-			getMessageMark(cp).getMessageService().delete(ids);
-		}
+		getMessageMark(cp).getMessageService().delete(ids);
 		return new JavascriptForward("$Actions['AbstractMessageMgrPage_tbl']();");
 	}
 

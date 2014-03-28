@@ -58,42 +58,39 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		// 发送
 		final PrivateMessagePlugin plugin = ((IMessageWebContext) context).getPrivateMessagePlugin();
 		String toUsers;
-		final String[] arr = StringUtils.split(toUsers = cp.getParameter("sm_receiver"), ";");
-		if (arr != null) {
-			final ID fromId = cp.getLoginId();
-			final String topic = cp.getParameter("sm_topic");
-			final String content = getContent(cp);
-			for (String r : arr) {
-				r = r.trim();
-				final PermissionUser user = cp.getUser(r);
-				final ID userId = user.getId();
-				if (userId == null) {
-					throw ComponentHandlerException.of($m("PrivateMessageSentPage.4", r));
-				}
-				plugin.sentMessage(userId, fromId, topic, content);
+		final ID fromId = cp.getLoginId();
+		final String topic = cp.getParameter("sm_topic");
+		final String content = getContent(cp);
+		for (String r : StringUtils.split(toUsers = cp.getParameter("sm_receiver"), ";")) {
+			r = r.trim();
+			final PermissionUser user = cp.getUser(r);
+			final ID userId = user.getId();
+			if (userId == null) {
+				throw ComponentHandlerException.of($m("PrivateMessageSentPage.4", r));
 			}
+			plugin.sentMessage(userId, fromId, topic, content);
+		}
 
-			P2PMessage message = getMessage(cp);
-			if (cp.getBoolParameter(OPT_SENTBOX)) {
-				final boolean insert = message == null || "reply".equals(cp.getParameter("t"));
-				if (insert) {
-					message = new P2PMessage();
-					message.setCreateDate(new Date());
-					message.setMessageMark(plugin.getMark());
-					message.setFromId(cp.getLoginId());
-				}
-				message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
-				message.setToUsers(toUsers);
-				message.setTopic(topic);
-				message.setContent(content);
-				if (insert) {
-					plugin.getMessageService().insert(message);
-				} else {
-					plugin.getMessageService().update(message);
-				}
-			} else if (message != null) {
-				plugin.getMessageService().delete(message.getId());
+		P2PMessage message = getMessage(cp);
+		if (cp.getBoolParameter(OPT_SENTBOX)) {
+			final boolean insert = message == null || "reply".equals(cp.getParameter("t"));
+			if (insert) {
+				message = new P2PMessage();
+				message.setCreateDate(new Date());
+				message.setMessageMark(plugin.getMark());
+				message.setFromId(cp.getLoginId());
 			}
+			message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
+			message.setToUsers(toUsers);
+			message.setTopic(topic);
+			message.setContent(content);
+			if (insert) {
+				plugin.getMessageService().insert(message);
+			} else {
+				plugin.getMessageService().update(message);
+			}
+		} else if (message != null) {
+			plugin.getMessageService().delete(message.getId());
 		}
 		final JavascriptForward js = super.onSave(cp);
 		js.append("$Actions['AbstractMyMessageTPage_tbl']();");

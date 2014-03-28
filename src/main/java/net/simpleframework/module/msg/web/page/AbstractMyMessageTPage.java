@@ -114,11 +114,11 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		final IMessagePlugin oMark = getMessagePlugin(cp);
 		final IMessageService<T> service = (IMessageService<T>) oMark.getMessageService();
 		final String mark = cp.getParameter("mark");
-		Object[] ids;
+
 		if ("all".equals(mark)) {
 			service.doAllRead(cp.getLoginId());
-		} else if ((ids = StringUtils.split(cp.getParameter("id"))) != null) {
-			for (final Object id : ids) {
+		} else {
+			for (final Object id : StringUtils.split(cp.getParameter("id"))) {
 				final T message = service.getBean(id);
 				if (message != null) {
 					if ("read".equals(mark)) {
@@ -134,9 +134,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 
 	public IForward doDelete(final ComponentParameter cp) {
 		final Object[] ids = StringUtils.split(cp.getParameter("id"));
-		if (ids != null) {
-			getMessagePlugin(cp).getMessageService().doDelete(cp.getLoginId(), ids);
-		}
+		getMessagePlugin(cp).getMessageService().doDelete(cp.getLoginId(), ids);
 		return new JavascriptForward("$Actions['AbstractMyMessageTPage_tbl']();");
 	}
 

@@ -52,32 +52,29 @@ public class MailSentPage extends AbstractSentMessagePage {
 
 	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
-		final String[] arr = StringUtils.split(cp.getParameter("sm_senter"), ";");
-		if (arr != null) {
-			final IEmailService eService = context.getEmailService();
-			final IPagePermissionHandler pHandler = cp.getPermission();
-			final String topic = cp.getParameter("sm_topic");
-			String content = cp.getParameter("sm_content");
-			content = HtmlUtils.convertHtmlLines(content);
-			if (cp.getBoolParameter("sm_autolink")) {
-				content = HtmlUtils.autoLink(content);
-			}
-			for (final String s : arr) {
-				if (s.startsWith("#")) {
-					final Iterator<ID> it = pHandler.users(s.substring(1), null);
-					while (it.hasNext()) {
-						final PermissionUser user = pHandler.getUser(it.next());
-						final String email = user.getEmail();
-						if (StringUtils.hasText(email)) {
-							eService.sentMail(Email.of(email).subject(topic).addHtml(content));
-						}
-					}
-				} else {
-					final PermissionUser user = pHandler.getUser(s);
+		final IEmailService eService = context.getEmailService();
+		final IPagePermissionHandler pHandler = cp.getPermission();
+		final String topic = cp.getParameter("sm_topic");
+		String content = cp.getParameter("sm_content");
+		content = HtmlUtils.convertHtmlLines(content);
+		if (cp.getBoolParameter("sm_autolink")) {
+			content = HtmlUtils.autoLink(content);
+		}
+		for (final String s : StringUtils.split(cp.getParameter("sm_senter"), ";")) {
+			if (s.startsWith("#")) {
+				final Iterator<ID> it = pHandler.users(s.substring(1), null);
+				while (it.hasNext()) {
+					final PermissionUser user = pHandler.getUser(it.next());
 					final String email = user.getEmail();
 					if (StringUtils.hasText(email)) {
 						eService.sentMail(Email.of(email).subject(topic).addHtml(content));
 					}
+				}
+			} else {
+				final PermissionUser user = pHandler.getUser(s);
+				final String email = user.getEmail();
+				if (StringUtils.hasText(email)) {
+					eService.sentMail(Email.of(email).subject(topic).addHtml(content));
 				}
 			}
 		}
