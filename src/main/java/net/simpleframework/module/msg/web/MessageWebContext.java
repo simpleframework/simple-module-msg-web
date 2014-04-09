@@ -66,13 +66,20 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 
 	@Override
 	public AbstractElement<?> toMyMessageElement(final PageParameter pp) {
+		return toMyMessageElement(pp, 20, -3);
+	}
+
+	@Override
+	public AbstractElement<?> toMyMessageElement(final PageParameter pp, final int left,
+			final int top) {
 		final LinkElement link = new LinkElement(FUNC_MY_MESSAGE.getText()).setHref(
 				FUNC_MY_MESSAGE.getUrl()).addStyle("position: relative;");
 		final ID loginId = pp.getLoginId();
-		final int unread = getP2PMessageService().getUnreadMessageCount(loginId)
+		final int count = getP2PMessageService().getUnreadMessageCount(loginId)
 				+ getSubscribeMessageService().getUnreadMessageCount(loginId);
-		if (unread > 0) {
-			link.addElements(createUnreadElement(unread));
+		if (count > 0) {
+			link.addElements(new SupElement(count).setHighlight(true).addStyle(
+					"position: absolute; left: " + left + "px; top: " + top + "px;"));
 		}
 		return link;
 	}
@@ -83,11 +90,6 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 	public WebModuleFunction FUNC_MY_MESSAGE = (WebModuleFunction) new WebModuleFunction()
 			.setUrl(getUrlsFactory().getUrl(null, MyNoticeMessageTPage.class))
 			.setName(MODULE_NAME + "-MyMessagePage").setText($m("MessageContext.0")).setDisabled(true);
-
-	protected SupElement createUnreadElement(final int unread) {
-		return new SupElement(unread).setHighlight(true).addStyle(
-				"position: absolute; left: 20px; top: -7px;");
-	}
 
 	@Override
 	public MessageUrlsFactory getUrlsFactory() {
