@@ -93,14 +93,10 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 	public ElementList getRightElements(final PageParameter pp) {
 		pp.putParameter(G, COL_CATEGORY);
 		return ElementList.of(
-				new SpanElement().setClassName("tabbtns").addHtml(
-						TabButtons
-								.of(new TabButton($m("NoticeMessageContentPage.4"),
-										url(MgrNoticeMessagePage.class)),
-										new TabButton(EMessageSendTo.email,
-												url(MgrNoticeMessage_EmailPage.class)),
-										new TabButton(EMessageSendTo.mobile,
-												url(MgrNoticeMessage_MobilePage.class))).toString(pp)),
+				createTabsElement(pp, TabButtons.of(new TabButton($m("NoticeMessageContentPage.4"),
+						url(MgrNoticeMessagePage.class)), new TabButton(EMessageSendTo.email,
+						url(MgrNoticeMessage_EmailPage.class)), new TabButton(EMessageSendTo.mobile,
+						url(MgrNoticeMessage_MobilePage.class)))),
 				createGroupElement(pp, "AbstractMessageMgrPage_tbl", OPTION_CATEGORY));
 	}
 
