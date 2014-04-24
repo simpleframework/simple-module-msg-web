@@ -35,7 +35,7 @@ public class MgrNoticeMessage_MobilePage extends MgrNoticeMessagePage {
 
 		@Override
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
-			return context.getP2PMessageLogService().queryMessages(EMessageSendTo.mobile);
+			return messageContext.getP2PMessageLogService().queryMessages(EMessageSendTo.mobile);
 		}
 	}
 }

@@ -32,7 +32,7 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 
 	@Override
 	protected PrivateMessagePlugin getMessageMark(final PageParameter pp) {
-		return ((IMessageWebContext) context).getPrivateMessagePlugin();
+		return ((IMessageWebContext) messageContext).getPrivateMessagePlugin();
 	}
 
 	@Override

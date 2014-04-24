@@ -162,7 +162,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 				.setHref(href)
 				.setIconClass(oModule.getIconClass())
 				.setSelected(
-						href.equals(((IMessageWebContext) context).getUrlsFactory()
+						href.equals(((IMessageWebContext) messageContext).getUrlsFactory()
 								.getUrl(pp, getClass())));
 		if (oModule instanceof IMessagePlugin) {
 			final IMessagePlugin oMark = (IMessagePlugin) oModule;
@@ -172,7 +172,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 			}
 		} else {
 			if (oModule instanceof PrivateMessageDraftCategory) {
-				final PrivateMessagePlugin oMark = ((IMessageWebContext) context)
+				final PrivateMessagePlugin oMark = ((IMessageWebContext) messageContext)
 						.getPrivateMessagePlugin();
 				final int c = oMark
 						.getMessageService()
@@ -189,7 +189,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	@Override
 	protected CategoryItems getCategoryList(final PageParameter pp) {
 		final CategoryItems titles = CategoryItems.of();
-		for (final IModulePlugin oMark : context.getPluginRegistry().allPlugin()) {
+		for (final IModulePlugin oMark : messageContext.getPluginRegistry().allPlugin()) {
 			final CategoryItem block = createCategoryItem(pp, (IMessageUI) oMark);
 			final Collection<IMessageCategory> coll = ((IMessagePlugin) oMark).allMessageCategory();
 			if (coll != null) {

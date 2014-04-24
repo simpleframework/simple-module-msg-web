@@ -35,7 +35,7 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 
 	@Override
 	protected PrivateMessagePlugin getMessagePlugin(final PageParameter pp) {
-		return ((IMessageWebContext) context).getPrivateMessagePlugin();
+		return ((IMessageWebContext) messageContext).getPrivateMessagePlugin();
 	}
 
 	@Override

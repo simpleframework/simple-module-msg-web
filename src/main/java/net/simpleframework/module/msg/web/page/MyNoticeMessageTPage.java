@@ -32,7 +32,7 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 
 	@Override
 	protected NoticeMessageWebPlugin getMessagePlugin(final PageParameter pp) {
-		return (NoticeMessageWebPlugin) context.getNoticeMessagePlugin();
+		return (NoticeMessageWebPlugin) messageContext.getNoticeMessagePlugin();
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 			final LinkElementEx link = (LinkElementEx) new LinkElementEx(
 					mCategory != null ? mCategory.toString() : $m("MyFavoritesTPage.5")).setSelected(
 					category2.equals(category)).setHref(
-					((IMessageWebContext) context).getUrlsFactory().getUrl(pp,
+					((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
 							MyNoticeMessageTPage.class, "category=" + category2));
 			el2.append(
 					new SpanElement().setClassName("notice_category_item").addElements(link,
@@ -95,7 +95,7 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 		@Override
 		protected AbstractElement<?> createCategory(final ComponentParameter cp,
 				final AbstractMessage msg) {
-			final IMessageCategory category = context.getNoticeMessagePlugin().getMessageCategory(
+			final IMessageCategory category = messageContext.getNoticeMessagePlugin().getMessageCategory(
 					msg.getCategory());
 			return category != null ? new SpanElement(category) : null;
 		}

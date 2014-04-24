@@ -52,7 +52,7 @@ public class MailSentPage extends AbstractSentMessagePage {
 
 	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
-		final IEmailService eService = context.getEmailService();
+		final IEmailService eService = messageContext.getEmailService();
 		final IPagePermissionHandler pHandler = cp.getPermission();
 		final String topic = cp.getParameter("sm_topic");
 		String content = cp.getParameter("sm_content");

@@ -57,7 +57,7 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 
 	@Override
 	public String getMyPageUrl(final PageParameter pp) {
-		return ((IMessageWebContext) context).getUrlsFactory()
+		return ((IMessageWebContext) messageContext).getUrlsFactory()
 				.getUrl(pp, MyPrivateMessageTPage.class);
 	}
 
@@ -73,7 +73,7 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 
 		@Override
 		public String getMyPageUrl(final PageParameter pp) {
-			return ((IMessageWebContext) context).getUrlsFactory().getUrl(pp,
+			return ((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
 					MyPrivateMessageDraftTPage.class);
 		}
 
@@ -96,7 +96,7 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 	public static class PrivateMessageSentCategory extends _PrivateMessageCategory {
 		@Override
 		public String getMyPageUrl(final PageParameter pp) {
-			return ((IMessageWebContext) context).getUrlsFactory().getUrl(pp,
+			return ((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
 					MyPrivateMessageSentTPage.class);
 		}
 

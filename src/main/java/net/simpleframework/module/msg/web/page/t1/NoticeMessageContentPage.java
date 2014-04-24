@@ -60,7 +60,7 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 	}
 
 	private static NoticeMessagePlugin getNoticeMessagePlugin() {
-		return ((IMessageWebContext) context).getNoticeMessagePlugin();
+		return ((IMessageWebContext) messageContext).getNoticeMessagePlugin();
 	}
 
 	public IForward doSave(final ComponentParameter cp) throws Exception {
@@ -75,7 +75,7 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 		props.put("sendto-mobile", cp.getBoolParameter("EMessageSendTo_mobile"));
 		props.put("topic", cp.getParameter("nmc_topic"));
 		props.put("content", cp.getParameter("nmc_content"));
-		context.getContextSettings().saveNoticeMessageCategoryProps(mCategory.getName(), props);
+		messageContext.getContextSettings().saveNoticeMessageCategoryProps(mCategory.getName(), props);
 		return null;
 	}
 

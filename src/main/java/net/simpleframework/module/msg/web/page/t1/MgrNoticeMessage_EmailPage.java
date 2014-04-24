@@ -57,7 +57,7 @@ public class MgrNoticeMessage_EmailPage extends MgrNoticeMessagePage {
 
 		@Override
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
-			return context.getP2PMessageLogService().queryMessages(EMessageSendTo.email);
+			return messageContext.getP2PMessageLogService().queryMessages(EMessageSendTo.email);
 		}
 	}
 }

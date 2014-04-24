@@ -56,7 +56,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
 		// 发送
-		final PrivateMessagePlugin plugin = ((IMessageWebContext) context).getPrivateMessagePlugin();
+		final PrivateMessagePlugin plugin = ((IMessageWebContext) messageContext).getPrivateMessagePlugin();
 		String toUsers;
 		final ID fromId = cp.getLoginId();
 		final String topic = cp.getParameter("sm_topic");
@@ -99,7 +99,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 
 	@Transaction(context = IMessageContext.class)
 	public JavascriptForward onSave2(final ComponentParameter cp) {
-		final PrivateMessagePlugin mark = ((IMessageWebContext) context).getPrivateMessagePlugin();
+		final PrivateMessagePlugin mark = ((IMessageWebContext) messageContext).getPrivateMessagePlugin();
 		// 暂存
 		P2PMessage message = getMessage(cp);
 		final boolean insert = message == null || "reply".equals(cp.getParameter("t"));
@@ -212,7 +212,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 	}
 
 	protected static P2PMessage getMessage(final PageParameter pp) {
-		return getCacheBean(pp, ((IMessageWebContext) context).getPrivateMessagePlugin()
+		return getCacheBean(pp, ((IMessageWebContext) messageContext).getPrivateMessagePlugin()
 				.getMessageService(), "msgId");
 	}
 }

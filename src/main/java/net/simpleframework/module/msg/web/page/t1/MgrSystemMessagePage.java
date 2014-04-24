@@ -49,7 +49,7 @@ public class MgrSystemMessagePage extends AbstractMgrMessagePage {
 
 	@Override
 	protected SystemMessagePlugin getMessageMark(final PageParameter pp) {
-		return ((IMessageWebContext) context).getSystemMessagePlugin();
+		return ((IMessageWebContext) messageContext).getSystemMessagePlugin();
 	}
 
 	@Override

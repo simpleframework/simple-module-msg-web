@@ -23,7 +23,7 @@ public class MySystemMessageTPage extends AbstractMyMessageTPage {
 
 	@Override
 	protected SystemMessagePlugin getMessagePlugin(final PageParameter pp) {
-		return ((IMessageWebContext) context).getSystemMessagePlugin();
+		return ((IMessageWebContext) messageContext).getSystemMessagePlugin();
 	}
 
 	@Override

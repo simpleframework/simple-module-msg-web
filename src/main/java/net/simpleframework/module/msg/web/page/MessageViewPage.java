@@ -51,7 +51,7 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
-		final IMessagePlugin plugin = context.getPluginRegistry().getPlugin(
+		final IMessagePlugin plugin = messageContext.getPluginRegistry().getPlugin(
 				pp.getIntParameter("messageMark"));
 		final AbstractMessage msg = getMessage(pp, plugin);
 		return ElementList.of(SpanElement.strongText(msg.getTopic()));
@@ -59,7 +59,7 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 
 	@Override
 	protected TableRows getTableRows(final PageParameter pp) {
-		final IMessagePlugin plugin = context.getPluginRegistry().getPlugin(
+		final IMessagePlugin plugin = messageContext.getPluginRegistry().getPlugin(
 				pp.getIntParameter("messageMark"));
 		final AbstractMessage msg = getMessage(pp, plugin);
 

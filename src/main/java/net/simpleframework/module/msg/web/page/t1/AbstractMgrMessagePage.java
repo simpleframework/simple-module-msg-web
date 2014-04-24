@@ -59,7 +59,7 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 
 	@Override
 	public String getRole(final PageParameter pp) {
-		return context.getManagerRole();
+		return messageContext.getManagerRole();
 	}
 
 	protected TablePagerBean addTablePagerBean(final PageParameter pp,
@@ -80,7 +80,7 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 	@Override
 	public TabButtons getTabButtons(final PageParameter pp) {
 		final TabButtons tabs = TabButtons.of();
-		for (final IModulePlugin messageMark : context.getPluginRegistry().allPlugin()) {
+		for (final IModulePlugin messageMark : messageContext.getPluginRegistry().allPlugin()) {
 			tabs.append(new TabButton(messageMark.getText(), ((IMessageUI) messageMark)
 					.getManagerPageUrl(pp)));
 		}

@@ -41,7 +41,7 @@ public class SystemMessagePublishPage extends AbstractSentMessagePage {
 	@Transaction(context = IMessageContext.class)
 	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
-		((IMessageWebContext) context).getSystemMessagePlugin().sentSystemMessage(
+		((IMessageWebContext) messageContext).getSystemMessagePlugin().sentSystemMessage(
 				cp.getParameter("sm_topic"), getContent(cp));
 		final JavascriptForward js = super.onSave(cp);
 		js.append("$Actions['AbstractMessageMgrPage_tbl']();");
