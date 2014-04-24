@@ -162,8 +162,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 				.setHref(href)
 				.setIconClass(oModule.getIconClass())
 				.setSelected(
-						href.equals(((IMessageWebContext) messageContext).getUrlsFactory()
-								.getUrl(pp, getClass())));
+						href.equals(((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
+								getClass())));
 		if (oModule instanceof IMessagePlugin) {
 			final IMessagePlugin oMark = (IMessagePlugin) oModule;
 			final int num = oMark.getMessageService().getUnreadMessageCount(pp.getLoginId());

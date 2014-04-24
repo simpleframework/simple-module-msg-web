@@ -57,8 +57,8 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 
 	@Override
 	public String getMyPageUrl(final PageParameter pp) {
-		return ((IMessageWebContext) messageContext).getUrlsFactory()
-				.getUrl(pp, MyPrivateMessageTPage.class);
+		return ((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
+				MyPrivateMessageTPage.class);
 	}
 
 	public static PrivateMessageDraftCategory DRAFT_MODULE = new PrivateMessageDraftCategory();

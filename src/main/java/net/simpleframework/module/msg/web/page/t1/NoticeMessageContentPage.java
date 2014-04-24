@@ -75,7 +75,8 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 		props.put("sendto-mobile", cp.getBoolParameter("EMessageSendTo_mobile"));
 		props.put("topic", cp.getParameter("nmc_topic"));
 		props.put("content", cp.getParameter("nmc_content"));
-		messageContext.getContextSettings().saveNoticeMessageCategoryProps(mCategory.getName(), props);
+		messageContext.getContextSettings()
+				.saveNoticeMessageCategoryProps(mCategory.getName(), props);
 		return null;
 	}
 

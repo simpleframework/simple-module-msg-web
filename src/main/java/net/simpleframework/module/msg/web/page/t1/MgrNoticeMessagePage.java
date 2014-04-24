@@ -77,7 +77,8 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 
 	@Override
 	protected NoticeMessageWebPlugin getMessageMark(final PageParameter pp) {
-		return (NoticeMessageWebPlugin) ((IMessageWebContext) messageContext).getNoticeMessagePlugin();
+		return (NoticeMessageWebPlugin) ((IMessageWebContext) messageContext)
+				.getNoticeMessagePlugin();
 	}
 
 	@Override

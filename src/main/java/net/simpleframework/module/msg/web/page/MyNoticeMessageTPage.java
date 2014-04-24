@@ -95,8 +95,8 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 		@Override
 		protected AbstractElement<?> createCategory(final ComponentParameter cp,
 				final AbstractMessage msg) {
-			final IMessageCategory category = messageContext.getNoticeMessagePlugin().getMessageCategory(
-					msg.getCategory());
+			final IMessageCategory category = messageContext.getNoticeMessagePlugin()
+					.getMessageCategory(msg.getCategory());
 			return category != null ? new SpanElement(category) : null;
 		}
 	}

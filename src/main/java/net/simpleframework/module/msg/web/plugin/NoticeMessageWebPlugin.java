@@ -22,7 +22,8 @@ public class NoticeMessageWebPlugin extends NoticeMessagePlugin implements IMess
 
 	@Override
 	public String getMyPageUrl(final PageParameter pp) {
-		return ((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp, MyNoticeMessageTPage.class);
+		return ((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
+				MyNoticeMessageTPage.class);
 	}
 
 	@Override
