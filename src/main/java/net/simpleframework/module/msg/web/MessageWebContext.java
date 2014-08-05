@@ -113,7 +113,7 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 							ClassUtils.getResourceAsStream(IMessageContext.class, "module-msg.xml"),
 							targetFile);
 				} catch (final IOException e) {
-					log.warn(e);
+					getLog().warn(e);
 				}
 			}
 		}
