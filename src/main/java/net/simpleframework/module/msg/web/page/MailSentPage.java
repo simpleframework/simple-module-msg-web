@@ -62,7 +62,7 @@ public class MailSentPage extends AbstractSentMessagePage {
 		}
 		for (final String s : StringUtils.split(cp.getParameter("sm_senter"), ";")) {
 			if (s.startsWith("#")) {
-				final Iterator<ID> it = pHandler.users(s.substring(1), null);
+				final Iterator<ID> it = pHandler.users(s.substring(1), null, null);
 				while (it.hasNext()) {
 					final PermissionUser user = pHandler.getUser(it.next());
 					final String email = user.getEmail();
