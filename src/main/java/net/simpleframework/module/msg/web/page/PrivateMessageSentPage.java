@@ -158,7 +158,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 			el.append(
 					saveBtn.setOnclick(sb.toString()),
 					SpanElement.SPACE,
-					VALIDATION_BTN().setText($m("PrivateMessageSentPage.7")).setOnclick(
+					VALIDATION_BTN($m("PrivateMessageSentPage.7")).setOnclick(
 							"$Actions['PrivateMessageSentPage_save2']();"), SpanElement.SPACE,
 					ButtonElement.WINDOW_CLOSE);
 		}
