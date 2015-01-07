@@ -84,10 +84,10 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 		return link;
 	}
 
-	public WebModuleFunction FUNC_MESSAGE_MGR = (WebModuleFunction) new WebModuleFunction(
+	public WebModuleFunction FUNC_MESSAGE_MGR = (WebModuleFunction) new WebModuleFunction(this,
 			MgrNoticeMessagePage.class).setName(MODULE_NAME + "-MessageMgrPage").setText(
 			$m("MessageWebContext.0"));
-	public WebModuleFunction FUNC_MY_MESSAGE = (WebModuleFunction) new WebModuleFunction()
+	public WebModuleFunction FUNC_MY_MESSAGE = (WebModuleFunction) new WebModuleFunction(this)
 			.setUrl(getUrlsFactory().getUrl(null, MyNoticeMessageTPage.class))
 			.setName(MODULE_NAME + "-MyMessagePage").setText($m("MessageContext.0")).setDisabled(true);
 
