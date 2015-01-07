@@ -59,7 +59,7 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 
 	@Override
 	public String getRole(final PageParameter pp) {
-		return messageContext.getManagerRole();
+		return messageContext.getModule().getManagerRole();
 	}
 
 	protected TablePagerBean addTablePagerBean(final PageParameter pp,
