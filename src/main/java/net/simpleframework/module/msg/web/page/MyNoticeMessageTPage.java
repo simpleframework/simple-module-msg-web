@@ -47,7 +47,7 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 								.setTextAlign(ETextAlign.left).setSort(false))
 				.addColumn(
 						new TablePagerColumn(COL_CATEGORY, $m("AbstractMyMessageTPage.7")).setWidth(115)
-								.setSort(false).setFilter(false))
+								.setFilterSort(false))
 				.addColumn(
 						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMyMessageTPage.1"), 115)
 								.setPropertyClass(Date.class))
