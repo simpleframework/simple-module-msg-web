@@ -57,7 +57,7 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
 		// 用户选择
-		addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl");
+		// addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl");
 		addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl", COL_FROMID);
 	}
 
