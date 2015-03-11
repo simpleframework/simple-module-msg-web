@@ -12,7 +12,7 @@ import net.simpleframework.common.ID;
 import net.simpleframework.ctx.IApplicationContext;
 import net.simpleframework.ctx.Module;
 import net.simpleframework.ctx.ModuleFunctions;
-import net.simpleframework.ctx.permission.IPermissionConst;
+import net.simpleframework.ctx.permission.PermissionConst;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.MessageContextSettings;
 import net.simpleframework.module.msg.impl.MessageContext;
@@ -86,7 +86,7 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 	}
 
 	public WebModuleFunction FUNC_MESSAGE_MGR = (WebModuleFunction) new WebModuleFunction(this,
-			MgrNoticeMessagePage.class).setRole(IPermissionConst.ROLE_MANAGER)
+			MgrNoticeMessagePage.class).setRole(PermissionConst.ROLE_MANAGER)
 			.setName(MODULE_NAME + "-MessageMgrPage").setText($m("MessageWebContext.0"));
 	public WebModuleFunction FUNC_MY_MESSAGE = (WebModuleFunction) new WebModuleFunction(this)
 			.setUrl(getUrlsFactory().getUrl(null, MyNoticeMessageTPage.class))

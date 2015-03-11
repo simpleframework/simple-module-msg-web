@@ -3,7 +3,7 @@ package net.simpleframework.module.msg.web.page.t2;
 import java.io.IOException;
 import java.util.Map;
 
-import net.simpleframework.ctx.permission.IPermissionConst;
+import net.simpleframework.ctx.permission.PermissionConst;
 import net.simpleframework.module.msg.web.page.AbstractMyMessageTPage;
 import net.simpleframework.module.msg.web.page.MyNoticeMessageTPage;
 import net.simpleframework.module.msg.web.page.MyPrivateMessageDraftTPage;
@@ -25,7 +25,7 @@ public abstract class AbstractMyMessagePage extends T2TemplatePage {
 
 	@Override
 	public String getRole(final PageParameter pp) {
-		return IPermissionConst.ROLE_ALL_ACCOUNT;
+		return PermissionConst.ROLE_ALL_ACCOUNT;
 	}
 
 	protected abstract Class<? extends AbstractMyMessageTPage> getMessageTPageClass();
