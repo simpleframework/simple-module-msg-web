@@ -10,9 +10,7 @@ import net.simpleframework.common.ClassUtils;
 import net.simpleframework.common.FileUtils;
 import net.simpleframework.common.ID;
 import net.simpleframework.ctx.IApplicationContext;
-import net.simpleframework.ctx.Module;
 import net.simpleframework.ctx.ModuleFunctions;
-import net.simpleframework.ctx.permission.PermissionConst;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.MessageContextSettings;
 import net.simpleframework.module.msg.impl.MessageContext;
@@ -56,13 +54,14 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 	}
 
 	@Override
-	protected Module createModule() {
-		return super.createModule().setDefaultFunction(FUNC_MESSAGE_MGR);
-	}
-
-	@Override
 	public ModuleFunctions getFunctions() {
-		return ModuleFunctions.of(FUNC_MESSAGE_MGR, FUNC_MY_MESSAGE);
+		return ModuleFunctions.of(
+				new WebModuleFunction(this, MgrNoticeMessagePage.class).setName(
+						MODULE_NAME + "-MessageMgrPage").setText($m("MessageWebContext.0")),
+				new WebModuleFunction(this)
+						.setUrl(getUrlsFactory().getUrl(null, MyNoticeMessageTPage.class))
+						.setName(MODULE_NAME + "-MyMessagePage").setText($m("MessageContext.0"))
+						.setDisabled(true));
 	}
 
 	@Override
@@ -73,8 +72,10 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 	@Override
 	public AbstractElement<?> toMyMessageElement(final PageParameter pp, final int left,
 			final int top) {
-		final LinkElement link = new LinkElement(FUNC_MY_MESSAGE.getText()).setHref(
-				FUNC_MY_MESSAGE.getUrl()).addStyle("position: relative;");
+		final WebModuleFunction f = (WebModuleFunction) getFunctionByName(MODULE_NAME
+				+ "-MyMessagePage");
+		final LinkElement link = new LinkElement(f.getText()).setHref(f.getUrl()).addStyle(
+				"position: relative;");
 		final ID loginId = pp.getLoginId();
 		final int count = getP2PMessageService().getUnreadMessageCount(loginId)
 				+ getSubscribeMessageService().getUnreadMessageCount(loginId);
@@ -84,13 +85,6 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 		}
 		return link;
 	}
-
-	public WebModuleFunction FUNC_MESSAGE_MGR = (WebModuleFunction) new WebModuleFunction(this,
-			MgrNoticeMessagePage.class).setRole(PermissionConst.ROLE_MANAGER)
-			.setName(MODULE_NAME + "-MessageMgrPage").setText($m("MessageWebContext.0"));
-	public WebModuleFunction FUNC_MY_MESSAGE = (WebModuleFunction) new WebModuleFunction(this)
-			.setUrl(getUrlsFactory().getUrl(null, MyNoticeMessageTPage.class))
-			.setName(MODULE_NAME + "-MyMessagePage").setText($m("MessageContext.0")).setDisabled(true);
 
 	@Override
 	public MessageUrlsFactory getUrlsFactory() {
