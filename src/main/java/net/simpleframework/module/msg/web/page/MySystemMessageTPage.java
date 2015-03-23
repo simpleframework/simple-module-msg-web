@@ -7,7 +7,6 @@ import java.util.Date;
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.SystemMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
@@ -34,8 +33,7 @@ public class MySystemMessageTPage extends AbstractMyMessageTPage {
 		tablePager
 				.addColumn(TablePagerColumn.ICON().setWidth(16))
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0"))
-								.setTextAlign(ETextAlign.left).setSort(false))
+						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(
 						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMyMessageTPage.1"), 115)
 								.setPropertyClass(Date.class))

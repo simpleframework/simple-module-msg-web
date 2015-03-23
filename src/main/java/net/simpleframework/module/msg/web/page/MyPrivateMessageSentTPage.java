@@ -12,7 +12,6 @@ import net.simpleframework.module.msg.plugin.IMessagePlugin;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.common.element.SpanElement;
@@ -34,11 +33,10 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageSentTbl.class);
 		tablePager
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0"))
-								.setTextAlign(ETextAlign.left).setSort(false))
+						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(
 						new TablePagerColumn(COL_USERID, $m("MyPrivateMessageSentTPage.0"), 115)
-								.setTextAlign(ETextAlign.left).setFilter(false))
+								.setFilter(false))
 				.addColumn(
 						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMyMessageTPage.1"), 115)
 								.setPropertyClass(Date.class))

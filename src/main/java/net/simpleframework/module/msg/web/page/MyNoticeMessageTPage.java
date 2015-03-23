@@ -11,7 +11,6 @@ import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.NoticeMessageWebPlugin;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.EVerticalAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkElementEx;
@@ -43,8 +42,7 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 		tablePager
 				.addColumn(TablePagerColumn.ICON().setWidth(16))
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0"))
-								.setTextAlign(ETextAlign.left).setSort(false))
+						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(
 						new TablePagerColumn(COL_CATEGORY, $m("AbstractMyMessageTPage.7")).setWidth(115)
 								.setFilterSort(false))

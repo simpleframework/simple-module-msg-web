@@ -11,7 +11,6 @@ import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.PageMapping;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
@@ -42,14 +41,13 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageTbl.class);
 		tablePager
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false)
-								.setTextAlign(ETextAlign.left))
+						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(
 						createUserColumn(pp, COL_FROMID, $m("MyPrivateMessageTPage.0"),
-								"AbstractMessageMgrPage_tbl").setWidth(80).setTextAlign(ETextAlign.left))
+								"AbstractMessageMgrPage_tbl").setWidth(80))
 				.addColumn(
 						createUserColumn(pp, COL_USERID, $m("AbstractMyMessageTPage.2"),
-								"AbstractMessageMgrPage_tbl").setWidth(80).setTextAlign(ETextAlign.left))
+								"AbstractMessageMgrPage_tbl").setWidth(80))
 				.addColumn(new TablePagerColumn(COL_CATEGORY, $m("MgrPrivateMessagePage.0"), 80))
 				.addColumn(
 						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMgrMessagePage.1"), 120)

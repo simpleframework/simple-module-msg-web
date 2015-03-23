@@ -10,7 +10,6 @@ import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.ButtonElement;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.Icon;
 import net.simpleframework.mvc.common.element.LinkButton;
@@ -44,11 +43,10 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 		tablePager
 				.addColumn(TablePagerColumn.ICON().setWidth(16))
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0"))
-								.setTextAlign(ETextAlign.left).setSort(false))
+						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(
 						new TablePagerColumn(COL_FROMID, $m("MyPrivateMessageTPage.0"), 115)
-								.setTextAlign(ETextAlign.left).setFilter(false))
+								.setFilter(false))
 				.addColumn(
 						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMyMessageTPage.1"), 115)
 								.setPropertyClass(Date.class))

@@ -10,7 +10,6 @@ import net.simpleframework.module.msg.IP2PMessageService;
 import net.simpleframework.module.msg.plugin.IMessagePlugin;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -30,11 +29,10 @@ public class MyPrivateMessageDraftTPage extends MyPrivateMessageTPage {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageDraftTbl.class);
 		tablePager
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0"))
-								.setTextAlign(ETextAlign.left).setSort(false))
+						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(
 						new TablePagerColumn(COL_USERID, $m("MyPrivateMessageSentTPage.0"), 115)
-								.setTextAlign(ETextAlign.left).setFilter(false))
+								.setFilter(false))
 				.addColumn(
 						new TablePagerColumn(COL_CREATEDATE, $m("MyPrivateMessageDraftTPage.0"), 115)
 								.setPropertyClass(Date.class))

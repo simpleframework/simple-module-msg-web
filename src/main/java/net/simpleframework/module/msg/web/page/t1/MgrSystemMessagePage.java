@@ -8,7 +8,6 @@ import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.SystemMessagePlugin;
 import net.simpleframework.mvc.PageMapping;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.common.element.ETextAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.Icon;
 import net.simpleframework.mvc.common.element.LinkButton;
@@ -33,8 +32,7 @@ public class MgrSystemMessagePage extends AbstractMgrMessagePage {
 		final TablePagerBean tablePager = addTablePagerBean(pp, MgrMessageTbl.class);
 		tablePager
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false)
-								.setTextAlign(ETextAlign.left))
+						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(
 						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMgrMessagePage.1"), 120)
 								.setPropertyClass(Date.class))
