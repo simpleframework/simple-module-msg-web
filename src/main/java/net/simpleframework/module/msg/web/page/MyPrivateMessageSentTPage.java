@@ -16,9 +16,9 @@ import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
-import net.simpleframework.mvc.component.ui.window.WindowBean;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -42,10 +42,10 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 								.setPropertyClass(Date.class))
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
-		addAjaxRequest(pp, "MyPrivateMessageSentTPage_viewPage", PrivateMessageSentViewPage.class);
+		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "MyPrivateMessageSentTPage_viewPage",
+				PrivateMessageSentViewPage.class);
 		// sent window
-		addComponentBean(pp, "MyPrivateMessageSentTPage_viewWin", WindowBean.class)
-				.setContentRef("MyPrivateMessageSentTPage_viewPage")
+		addWindowBean(pp, "MyPrivateMessageSentTPage_viewWin", ajaxRequest)
 				.setTitle($m("MyPrivateMessageSentTPage.1")).setWidth(600).setHeight(360);
 	}
 

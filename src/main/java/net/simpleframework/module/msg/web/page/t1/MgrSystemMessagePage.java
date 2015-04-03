@@ -12,9 +12,9 @@ import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.Icon;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.SpanElement;
+import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
-import net.simpleframework.mvc.component.ui.window.WindowBean;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -38,10 +38,10 @@ public class MgrSystemMessagePage extends AbstractMgrMessagePage {
 								.setPropertyClass(Date.class))
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
-		addAjaxRequest(pp, "MgrSystemMessagePage_publishPage", SystemMessagePublishPage.class);
+		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "MgrSystemMessagePage_publishPage",
+				SystemMessagePublishPage.class);
 		// publish window
-		addComponentBean(pp, "MgrSystemMessagePage_publishWin", WindowBean.class)
-				.setContentRef("MgrSystemMessagePage_publishPage")
+		addWindowBean(pp, "MgrSystemMessagePage_publishWin", ajaxRequest)
 				.setTitle($m("MgrSystemMessagePage.0")).setWidth(560).setHeight(320);
 	}
 

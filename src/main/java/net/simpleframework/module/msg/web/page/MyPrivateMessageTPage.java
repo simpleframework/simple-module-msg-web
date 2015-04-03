@@ -15,13 +15,13 @@ import net.simpleframework.mvc.common.element.Icon;
 import net.simpleframework.mvc.common.element.LinkButton;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.ui.menu.MenuBean;
 import net.simpleframework.mvc.component.ui.menu.MenuItem;
 import net.simpleframework.mvc.component.ui.menu.MenuItems;
 import net.simpleframework.mvc.component.ui.pager.AbstractTablePagerSchema;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
-import net.simpleframework.mvc.component.ui.window.WindowBean;
 import net.simpleframework.mvc.template.TemplateUtils;
 
 /**
@@ -57,10 +57,10 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 	}
 
 	protected void addSentWindowComponent(final PageParameter pp) {
-		addAjaxRequest(pp, "MyPrivateMessageTPage_sentPage", PrivateMessageSentPage.class);
+		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "MyPrivateMessageTPage_sentPage",
+				PrivateMessageSentPage.class);
 		// sent window
-		addComponentBean(pp, "MyPrivateMessageTPage_sentWin", WindowBean.class)
-				.setContentRef("MyPrivateMessageTPage_sentPage")
+		addWindowBean(pp, "MyPrivateMessageTPage_sentWin", ajaxRequest)
 				.setTitle($m("MyPrivateMessageTPage.1")).setWidth(680).setHeight(450);
 	}
 
