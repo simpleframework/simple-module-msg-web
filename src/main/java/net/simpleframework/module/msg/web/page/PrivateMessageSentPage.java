@@ -148,7 +148,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		final ElementList el = ElementList.of();
 		if (message != null
 				&& PrivateMessagePlugin.SENT_MODULE.getName().equals(message.getCategory())) {
-			return ElementList.of(ButtonElement.WINDOW_CLOSE);
+			return ElementList.of(ButtonElement.closeBtn());
 		} else {
 			final ButtonElement saveBtn = SAVE_BTN();
 			final StringBuilder sb = new StringBuilder();
@@ -160,7 +160,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 					SpanElement.SPACE,
 					VALIDATION_BTN($m("PrivateMessageSentPage.7")).setOnclick(
 							"$Actions['PrivateMessageSentPage_save2']();"), SpanElement.SPACE,
-					ButtonElement.WINDOW_CLOSE);
+					ButtonElement.closeBtn());
 		}
 		return el;
 	}

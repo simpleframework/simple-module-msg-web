@@ -41,7 +41,7 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 
 	@Override
 	public ElementList getRightElements(final PageParameter pp) {
-		return ElementList.of(ButtonElement.WINDOW_CLOSE);
+		return ElementList.of(ButtonElement.closeBtn());
 	}
 
 	@Override
