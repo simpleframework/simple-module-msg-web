@@ -41,7 +41,7 @@ import net.simpleframework.mvc.template.lets.LCTemplateWinPage;
 public class NoticeMessageContentPage extends LCTemplateWinPage implements IMessageContextAware {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		addComponentBean(pp, "NoticeMessageContentPage_tree", TreeBean.class).setCookies(false)

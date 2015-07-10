@@ -24,7 +24,7 @@ import net.simpleframework.mvc.component.base.validation.Validator;
 public class SystemMessagePublishPage extends AbstractSentMessagePage {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		addSmileyDictionary(pp);

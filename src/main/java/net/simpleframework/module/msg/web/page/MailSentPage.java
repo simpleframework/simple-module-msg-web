@@ -35,7 +35,7 @@ import net.simpleframework.mvc.ctx.permission.IPagePermissionHandler;
 public class MailSentPage extends AbstractSentMessagePage {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		addFormValidationBean(pp).addValidators(

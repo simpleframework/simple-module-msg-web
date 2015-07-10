@@ -39,7 +39,7 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 	public static final String COL_USERID = "userId";
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = addTablePagerBean(pp);

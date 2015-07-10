@@ -37,7 +37,7 @@ import net.simpleframework.mvc.component.base.validation.Validator;
 public class PrivateMessageSentPage extends AbstractSentMessagePage implements IMessageContextAware {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		addSmileyDictionary(pp);

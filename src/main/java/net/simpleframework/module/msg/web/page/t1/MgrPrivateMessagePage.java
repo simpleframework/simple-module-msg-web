@@ -35,7 +35,7 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 	}
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageTbl.class);

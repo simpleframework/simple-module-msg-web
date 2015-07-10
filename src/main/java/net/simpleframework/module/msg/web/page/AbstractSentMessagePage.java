@@ -21,7 +21,7 @@ public abstract class AbstractSentMessagePage extends FormTableRowTemplatePage i
 		IMessageContextAware {
 
 	@Override
-	protected void onForward(final PageParameter pp) {
+	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		pp.addImportCSS(AbstractSentMessagePage.class, "/sent_message.css");
