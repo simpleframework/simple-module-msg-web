@@ -1,9 +1,6 @@
 package net.simpleframework.module.msg.web.page.t1;
 
 import static net.simpleframework.common.I18n.$m;
-
-import java.util.Date;
-
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.SystemMessagePlugin;
 import net.simpleframework.mvc.PageMapping;
@@ -32,10 +29,8 @@ public class MgrSystemMessagePage extends AbstractMgrMessagePage {
 		final TablePagerBean tablePager = addTablePagerBean(pp, MgrMessageTbl.class);
 		tablePager
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
-				.addColumn(
-						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMgrMessagePage.1"), 120)
-								.setPropertyClass(Date.class))
+						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
+				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMgrMessagePage.1")))
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
 		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "MgrSystemMessagePage_publishPage",

@@ -2,7 +2,6 @@ package net.simpleframework.module.msg.web.page.t1;
 
 import static net.simpleframework.common.I18n.$m;
 
-import java.util.Date;
 import java.util.Map;
 
 import net.simpleframework.common.coll.KVMap;
@@ -41,7 +40,7 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageTbl.class);
 		tablePager
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
+						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(
 						createUserColumn(pp, COL_FROMID, $m("MyPrivateMessageTPage.0"),
 								"AbstractMessageMgrPage_tbl").setWidth(80))
@@ -49,9 +48,7 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 						createUserColumn(pp, COL_USERID, $m("AbstractMyMessageTPage.2"),
 								"AbstractMessageMgrPage_tbl").setWidth(80))
 				.addColumn(new TablePagerColumn(COL_CATEGORY, $m("MgrPrivateMessagePage.0"), 80))
-				.addColumn(
-						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMgrMessagePage.1"), 120)
-								.setPropertyClass(Date.class))
+				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMgrMessagePage.1")))
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
 		// 用户选择

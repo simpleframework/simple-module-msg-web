@@ -1,9 +1,6 @@
 package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
-
-import java.util.Date;
-
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IP2PMessageService;
@@ -29,13 +26,11 @@ public class MyPrivateMessageDraftTPage extends MyPrivateMessageTPage {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageDraftTbl.class);
 		tablePager
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
+						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(
 						new TablePagerColumn(COL_USERID, $m("MyPrivateMessageSentTPage.0"), 115)
 								.setFilter(false))
-				.addColumn(
-						new TablePagerColumn(COL_CREATEDATE, $m("MyPrivateMessageDraftTPage.0"), 115)
-								.setPropertyClass(Date.class))
+				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("MyPrivateMessageDraftTPage.0")))
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 		addSentWindowComponent(pp);
 	}

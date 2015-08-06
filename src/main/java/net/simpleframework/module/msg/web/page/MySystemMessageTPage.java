@@ -1,9 +1,6 @@
 package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
-
-import java.util.Date;
-
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.SystemMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
@@ -33,10 +30,8 @@ public class MySystemMessageTPage extends AbstractMyMessageTPage {
 		tablePager
 				.addColumn(TablePagerColumn.ICON().setWidth(16))
 				.addColumn(
-						TablePagerColumn.col(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
-				.addColumn(
-						new TablePagerColumn(COL_CREATEDATE, $m("AbstractMyMessageTPage.1"), 115)
-								.setPropertyClass(Date.class))
+						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
+				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
 				.addColumn(TablePagerColumn.OPE().setWidth(80));
 
 		// 标记菜单
