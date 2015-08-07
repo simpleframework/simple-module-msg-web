@@ -35,7 +35,7 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 						new TablePagerColumn(COL_USERID, $m("MyPrivateMessageSentTPage.0"), 115)
 								.setFilter(false))
 				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
-				.addColumn(TablePagerColumn.OPE().setWidth(80));
+				.addColumn(TablePagerColumn.OPE(80));
 
 		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "MyPrivateMessageSentTPage_viewPage",
 				PrivateMessageSentViewPage.class);

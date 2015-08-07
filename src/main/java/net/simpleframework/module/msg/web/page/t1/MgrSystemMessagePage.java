@@ -31,7 +31,7 @@ public class MgrSystemMessagePage extends AbstractMgrMessagePage {
 				.addColumn(
 						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMgrMessagePage.1")))
-				.addColumn(TablePagerColumn.OPE().setWidth(80));
+				.addColumn(TablePagerColumn.OPE(80));
 
 		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "MgrSystemMessagePage_publishPage",
 				SystemMessagePublishPage.class);

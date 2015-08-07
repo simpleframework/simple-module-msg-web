@@ -49,7 +49,7 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 								"AbstractMessageMgrPage_tbl").setWidth(80))
 				.addColumn(new TablePagerColumn(COL_CATEGORY, $m("MgrPrivateMessagePage.0"), 80))
 				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMgrMessagePage.1")))
-				.addColumn(TablePagerColumn.OPE().setWidth(80));
+				.addColumn(TablePagerColumn.OPE(80));
 
 		// 用户选择
 		// addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl");

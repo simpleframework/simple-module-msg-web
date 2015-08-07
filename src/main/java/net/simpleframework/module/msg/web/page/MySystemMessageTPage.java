@@ -32,7 +32,7 @@ public class MySystemMessageTPage extends AbstractMyMessageTPage {
 				.addColumn(
 						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
 				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
-				.addColumn(TablePagerColumn.OPE().setWidth(80));
+				.addColumn(TablePagerColumn.OPE(80));
 
 		// 标记菜单
 		createMarkMenuComponent(pp);

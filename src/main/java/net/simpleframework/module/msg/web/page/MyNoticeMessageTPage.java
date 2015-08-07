@@ -44,7 +44,7 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 						new TablePagerColumn(COL_CATEGORY, $m("AbstractMyMessageTPage.7")).setWidth(115)
 								.setFilterSort(false))
 				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
-				.addColumn(TablePagerColumn.OPE().setWidth(80));
+				.addColumn(TablePagerColumn.OPE(80));
 
 		// 标记菜单
 		createMarkMenuComponent(pp);

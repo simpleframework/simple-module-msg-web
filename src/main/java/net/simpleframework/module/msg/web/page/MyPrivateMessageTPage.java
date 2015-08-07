@@ -45,7 +45,7 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 						new TablePagerColumn(COL_FROMID, $m("MyPrivateMessageTPage.0"), 115)
 								.setFilter(false))
 				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
-				.addColumn(TablePagerColumn.OPE().setWidth(80));
+				.addColumn(TablePagerColumn.OPE(80));
 		addSentWindowComponent(pp);
 		// 标记菜单
 		createMarkMenuComponent(pp);
