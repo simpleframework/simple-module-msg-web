@@ -24,7 +24,7 @@ import net.simpleframework.mvc.template.t2.T2TemplatePage;
 public abstract class AbstractMyMessagePage extends T2TemplatePage {
 
 	@Override
-	public String getRole(final PageParameter pp) {
+	public String getPageRole(final PageParameter pp) {
 		return PermissionConst.ROLE_ALL_ACCOUNT;
 	}
 

@@ -58,7 +58,7 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 	}
 
 	@Override
-	public String getRole(final PageParameter pp) {
+	public String getPageRole(final PageParameter pp) {
 		return messageContext.getModule().getManagerRole();
 	}
 
