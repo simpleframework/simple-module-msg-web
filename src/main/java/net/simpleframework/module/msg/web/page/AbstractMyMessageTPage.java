@@ -152,8 +152,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 
 	protected TablePagerBean addTablePagerBean(final PageParameter pp,
 			final Class<? extends MyMessageTbl> tblClass) {
-		return addTablePagerBean(pp, "AbstractMyMessageTPage_tbl", tblClass, false)
-				.setShowFilterBar(true).setShowHead(true).setShowCheckbox(true);
+		return addTablePagerBean(pp, "AbstractMyMessageTPage_tbl", tblClass, false).setFilter(true)
+				.setShowHead(true).setShowCheckbox(true);
 	}
 
 	private CategoryItem createCategoryItem(final PageParameter pp, final IMessageUI oModule) {
