@@ -285,8 +285,9 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		}
 
 		protected ImageElement createImageMark(final ComponentParameter cp, final AbstractMessage msg) {
-			return new ImageElement(cp.getCssResourceHomePath(AbstractMyMessageTPage.class)
-					+ "/images/unread.png").setVerticalAlign(EVerticalAlign.middle);
+			return ImageElement.img16(
+					cp.getCssResourceHomePath(AbstractMyMessageTPage.class) + "/images/unread.png")
+					.setVerticalAlign(EVerticalAlign.middle);
 		}
 
 		protected AbstractElement<?> createFrom(final ComponentParameter cp, final AbstractMessage msg) {
