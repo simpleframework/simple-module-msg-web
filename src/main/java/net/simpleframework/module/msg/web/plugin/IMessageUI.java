@@ -29,5 +29,5 @@ public interface IMessageUI {
 	 * 
 	 * @return
 	 */
-	String getIconClass();
+	String getIconClass(PageParameter pp);
 }

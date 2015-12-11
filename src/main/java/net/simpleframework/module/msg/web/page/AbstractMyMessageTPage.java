@@ -160,7 +160,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		final String href = oModule.getMyPageUrl(pp);
 		final CategoryItem block = new CategoryItem(oModule.toString())
 				.setHref(href)
-				.setIconClass(oModule.getIconClass())
+				.setIconClass(oModule.getIconClass(pp))
 				.setSelected(
 						href.equals(((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
 								getClass())));

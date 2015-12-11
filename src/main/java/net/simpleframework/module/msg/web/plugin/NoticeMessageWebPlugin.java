@@ -2,6 +2,7 @@ package net.simpleframework.module.msg.web.plugin;
 
 import net.simpleframework.module.msg.plugin.NoticeMessagePlugin;
 import net.simpleframework.module.msg.web.IMessageWebContext;
+import net.simpleframework.module.msg.web.page.AbstractMyMessageTPage;
 import net.simpleframework.module.msg.web.page.MyNoticeMessageTPage;
 import net.simpleframework.module.msg.web.page.t1.MgrNoticeMessagePage;
 import net.simpleframework.mvc.AbstractMVCPage;
@@ -16,8 +17,8 @@ import net.simpleframework.mvc.PageParameter;
 public class NoticeMessageWebPlugin extends NoticeMessagePlugin implements IMessageUI {
 
 	@Override
-	public String getIconClass() {
-		return "img_notice";
+	public String getIconClass(final PageParameter pp) {
+		return pp.getCssResourceHomePath(AbstractMyMessageTPage.class) + "/images/notice.png";
 	}
 
 	@Override

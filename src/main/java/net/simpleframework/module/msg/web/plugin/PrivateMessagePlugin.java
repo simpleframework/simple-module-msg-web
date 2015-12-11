@@ -8,6 +8,7 @@ import net.simpleframework.module.msg.impl.P2PMessageService;
 import net.simpleframework.module.msg.plugin.AbstractP2PMessagePlugin;
 import net.simpleframework.module.msg.plugin.IMessageCategory.AbstractMessageCategory;
 import net.simpleframework.module.msg.web.IMessageWebContext;
+import net.simpleframework.module.msg.web.page.AbstractMyMessageTPage;
 import net.simpleframework.module.msg.web.page.MyPrivateMessageDraftTPage;
 import net.simpleframework.module.msg.web.page.MyPrivateMessageSentTPage;
 import net.simpleframework.module.msg.web.page.MyPrivateMessageTPage;
@@ -46,8 +47,8 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 	}
 
 	@Override
-	public String getIconClass() {
-		return "img_private";
+	public String getIconClass(final PageParameter pp) {
+		return pp.getCssResourceHomePath(AbstractMyMessageTPage.class) + "/images/private.png";
 	}
 
 	@Override
@@ -83,8 +84,8 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 		}
 
 		@Override
-		public String getIconClass() {
-			return "img_private_draft";
+		public String getIconClass(final PageParameter pp) {
+			return pp.getCssResourceHomePath(AbstractMyMessageTPage.class) + "/images/draft.png";
 		}
 
 		@Override
@@ -106,8 +107,8 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 		}
 
 		@Override
-		public String getIconClass() {
-			return "img_private_sent";
+		public String getIconClass(final PageParameter pp) {
+			return pp.getCssResourceHomePath(AbstractMyMessageTPage.class) + "/images/sent.png";
 		}
 
 		@Override

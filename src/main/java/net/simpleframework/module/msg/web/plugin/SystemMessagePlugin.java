@@ -7,6 +7,7 @@ import net.simpleframework.module.msg.SubscribeMessage;
 import net.simpleframework.module.msg.impl.SubscribeMessageService;
 import net.simpleframework.module.msg.plugin.AbstractSubscribeMessagePlugin;
 import net.simpleframework.module.msg.web.IMessageWebContext;
+import net.simpleframework.module.msg.web.page.AbstractMyMessageTPage;
 import net.simpleframework.module.msg.web.page.MySystemMessageTPage;
 import net.simpleframework.module.msg.web.page.t1.MgrSystemMessagePage;
 import net.simpleframework.mvc.AbstractMVCPage;
@@ -54,8 +55,8 @@ public class SystemMessagePlugin extends AbstractSubscribeMessagePlugin implemen
 	}
 
 	@Override
-	public String getIconClass() {
-		return "img_system";
+	public String getIconClass(final PageParameter pp) {
+		return pp.getCssResourceHomePath(AbstractMyMessageTPage.class) + "/images/system.png";
 	}
 
 	@Override
