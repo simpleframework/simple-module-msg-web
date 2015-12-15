@@ -2,6 +2,7 @@ package net.simpleframework.module.msg.web.component.mnotice;
 
 import net.simpleframework.mvc.component.AbstractComponentRender.ComponentJavascriptRender;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.ComponentRenderUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -15,6 +16,6 @@ public class MNoticeRender extends ComponentJavascriptRender {
 	public String getJavascriptCode(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("alert(1);");
-		return sb.toString();
+		return ComponentRenderUtils.genActionWrapper(cp, sb.toString());
 	}
 }
