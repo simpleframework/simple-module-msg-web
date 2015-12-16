@@ -2,6 +2,7 @@ package net.simpleframework.module.msg.web.component.mnotice;
 
 import net.simpleframework.mvc.component.AbstractComponentRender.ComponentBaseActionJavascriptRender;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.ComponentUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -18,6 +19,6 @@ public class MNoticeRender extends ComponentBaseActionJavascriptRender {
 
 	@Override
 	protected String getActionPath(final ComponentParameter cp) {
-		return null;
+		return ComponentUtils.getResourceHomePath(MNoticeBean.class) + "/jsp/manual_notice.jsp";
 	}
 }
