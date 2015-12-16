@@ -3,7 +3,10 @@ package net.simpleframework.module.msg.web.component.mnotice;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageRequestResponse;
+import net.simpleframework.mvc.component.AbstractComponentRender;
+import net.simpleframework.mvc.component.AbstractComponentRender.IJavascriptCallback;
 import net.simpleframework.mvc.component.ComponentParameter;
 
 /**
@@ -25,5 +28,11 @@ public abstract class MNoticeUtils {
 	}
 
 	public static void doForword(final ComponentParameter cp) throws Exception {
+		AbstractComponentRender.doJavascriptForward(cp, new IJavascriptCallback() {
+			@Override
+			public void doJavascript(final JavascriptForward js) throws Exception {
+				js.append("alert(1);");
+			}
+		});
 	}
 }
