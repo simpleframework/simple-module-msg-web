@@ -1,8 +1,7 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
-import net.simpleframework.mvc.component.AbstractComponentRender.ComponentJavascriptRender;
+import net.simpleframework.mvc.component.AbstractComponentRender.ComponentBaseActionJavascriptRender;
 import net.simpleframework.mvc.component.ComponentParameter;
-import net.simpleframework.mvc.component.ComponentRenderUtils;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -10,12 +9,15 @@ import net.simpleframework.mvc.component.ComponentRenderUtils;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class MNoticeRender extends ComponentJavascriptRender {
+public class MNoticeRender extends ComponentBaseActionJavascriptRender {
 
 	@Override
-	public String getJavascriptCode(final ComponentParameter cp) {
-		final StringBuilder sb = new StringBuilder();
-		sb.append("alert(1);");
-		return ComponentRenderUtils.genActionWrapper(cp, sb.toString());
+	protected String getParams(final ComponentParameter cp) {
+		return null;
+	}
+
+	@Override
+	protected String getActionPath(final ComponentParameter cp) {
+		return null;
 	}
 }
