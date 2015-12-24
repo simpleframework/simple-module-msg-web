@@ -14,7 +14,7 @@ public class MNoticeRender extends ComponentBaseActionJavascriptRender {
 
 	@Override
 	protected String getParams(final ComponentParameter cp) {
-		return null;
+		return MNoticeUtils.toParams(cp);
 	}
 
 	@Override
