@@ -27,11 +27,18 @@ public abstract class MNoticeUtils {
 		return ComponentParameter.get(request, response, BEAN_ID);
 	}
 
+	public static String toParams(final ComponentParameter cp) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append(BEAN_ID).append("=").append(cp.hashId());
+		return sb.toString();
+	}
+
 	public static void doForword(final ComponentParameter cp) throws Exception {
 		AbstractComponentRender.doJavascriptForward(cp, new IJavascriptCallback() {
 			@Override
 			public void doJavascript(final JavascriptForward js) throws Exception {
-				js.append("alert(1);");
+				js.append("$Actions['").append(cp.getComponentName()).append("_win']('")
+						.append(toParams(cp)).append("');");
 			}
 		});
 	}
