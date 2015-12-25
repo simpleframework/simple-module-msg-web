@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.web.HttpUtils;
@@ -307,6 +308,10 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 					.toString();
 		}
 
+		protected String toDateHTML(final ComponentParameter cp, final AbstractMessage msg) {
+			return Convert.toDateString(msg.getCreateDate());
+		}
+
 		@Override
 		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
 			final AbstractMessage msg = (AbstractMessage) dataObject;
@@ -317,11 +322,10 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 			if (topic != null && topic.isStrong()) {
 				kv.add(TablePagerColumn.ICON, toImageMark(cp, msg));
 			}
-
 			kv.add("fromId", toFromHTML(cp, msg));
 			kv.add("userId", toUserHTML(cp, msg));
 			kv.add("category", toCategoryHTML(cp, msg));
-			kv.add("createDate", msg.getCreateDate());
+			kv.add("createDate", toDateHTML(cp, msg));
 			kv.put(TablePagerColumn.OPE, toOpeHTML(cp, msg));
 			return kv;
 		}

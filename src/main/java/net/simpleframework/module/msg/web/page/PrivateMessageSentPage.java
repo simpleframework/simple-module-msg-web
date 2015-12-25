@@ -73,15 +73,16 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		}
 
 		P2PMessage message = getMessage(cp);
+		final Date sentDate = new Date();
 		if (cp.getBoolParameter(OPT_SENTBOX)) {
 			final boolean insert = message == null || "reply".equals(cp.getParameter("t"));
 			if (insert) {
 				message = new P2PMessage();
-				message.setCreateDate(new Date());
+				message.setCreateDate(sentDate);
 				message.setMessageMark(plugin.getMark());
 				message.setFromId(cp.getLoginId());
 			}
-			message.setSentDate(new Date());
+			message.setSentDate(sentDate);
 			message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
 			message.setToUsers(toUsers);
 			message.setTopic(topic);

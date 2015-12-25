@@ -2,6 +2,7 @@ package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.common.Convert;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IP2PMessageService;
 import net.simpleframework.module.msg.P2PMessage;
@@ -53,6 +54,11 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 			final IMessagePlugin oMark = getMessageMark(cp);
 			return ((IP2PMessageService) oMark.getMessageService()).queryFromMessages(cp.getLoginId(),
 					null, PrivateMessagePlugin.SENT_MODULE.getName());
+		}
+
+		@Override
+		protected String toDateHTML(final ComponentParameter cp, final AbstractMessage msg) {
+			return Convert.toDateString(((P2PMessage) msg).getSentDate());
 		}
 
 		@Override
