@@ -23,7 +23,7 @@ public class PrivateMessageSentViewPage extends AbstractSentMessagePage {
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
 		final P2PMessage message = PrivateMessageSentPage.getMessage(pp);
-		return ElementList.of(new BlockElement().setId("b_sm_topic").setText(message.getTopic()));
+		return ElementList.of(new BlockElement().setText(message.getTopic()));
 	}
 
 	@Override
@@ -34,14 +34,15 @@ public class PrivateMessageSentViewPage extends AbstractSentMessagePage {
 	@Override
 	protected TableRows getTableRows(final PageParameter pp) {
 		final P2PMessage message = PrivateMessageSentPage.getMessage(pp);
-		final BlockElement sm_receiver = new BlockElement().setId("b_sm_receiver").setText(
-				message.getToUsers());
+		final BlockElement sm_receiver = new BlockElement().setText(message.getToUsers());
+		final BlockElement sm_date = new BlockElement().setText(message.getSentDate());
 		// message.get
 		String c = SmileyUtils.replaceSmiley(message.getContent());
 		c = HtmlUtils.convertHtmlLines(c);
-		final BlockElement sm_content = new BlockElement().setId("b_sm_content").setText(c);
+		final BlockElement sm_content = new BlockElement().setId("sm_content_view").setText(c);
 		final TableRow r1 = new TableRow(new RowField($m("PrivateMessageSentPage.0"), sm_receiver));
-		final TableRow r2 = new TableRow(new RowField("", sm_content));
-		return TableRows.of(r1, r2);
+		final TableRow r2 = new TableRow(new RowField($m("AbstractMyMessageTPage.8"), sm_date));
+		final TableRow r3 = new TableRow(new RowField("", sm_content));
+		return TableRows.of(r1, r2, r3);
 	}
 }

@@ -211,11 +211,6 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 	}
 
 	@Override
-	public int getLabelWidth(final PageParameter pp) {
-		return 85;
-	}
-
-	@Override
 	public String toTableRowsString(final PageParameter pp) {
 		return super.toTableRowsString(pp)
 				+ new SpanElement($m("PrivateMessageSentPage.3")).setClassName("sm_atten");

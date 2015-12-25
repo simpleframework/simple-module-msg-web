@@ -46,6 +46,11 @@ public abstract class AbstractSentMessagePage extends FormTableRowTemplatePage i
 	}
 
 	@Override
+	public int getLabelWidth(final PageParameter pp) {
+		return 85;
+	}
+
+	@Override
 	protected ButtonElement SAVE_BTN() {
 		return super.SAVE_BTN().setText($m("AbstractSentMessagePage.2"));
 	}

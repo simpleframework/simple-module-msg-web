@@ -1,4 +1,10 @@
 
+.FormTableRowTemplatePage .tool_bar .le {
+  color: #c33;
+  font-size: 9.5pt;
+  line-height: 1.8;
+}
+
 /*-----------------------PrivateMessageSentPage------------------------*/
 #sm_receiver,
 #sm_topic,
@@ -26,15 +32,14 @@
 
 /*-----------------------PrivateMessageSentViewPage------------------------*/
 
-#b_sm_receiver, 
-#b_sm_topic, 
-#b_sm_content {
-  padding: 3px;
+#sm_content_view {
+  line-height: 1.8;
+  height: 280px;
+  overflow-y: auto;
   font-size: 9.5pt;
 }
 
-#b_sm_content {
-  line-height: 1.8;
-  height: 180px;
-  overflow-y: auto;
+.FormTableRowTemplatePage .tool_bar .le>div {
+  overflow: hidden;
+  width: 350px;
 }
