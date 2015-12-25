@@ -8,13 +8,11 @@ package net.simpleframework.module.msg.web;
  */
 public interface IMessageConst {
 
-	public static final String COL_TOPIC = "topic";
+	// public static final String COL_CREATEDATE = "createDate";
 
-	public static final String COL_CREATEDATE = "createDate";
+	// public static final String COL_FROMID = "fromId";
 
-	public static final String COL_FROMID = "fromId";
+	// public static final String COL_USERID = "userId";
 
-	public static final String COL_USERID = "userId";
-
-	public static final String COL_CATEGORY = "category";
+	// public static final String COL_CATEGORY = "category";
 }

@@ -152,8 +152,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 
 	protected TablePagerBean addTablePagerBean(final PageParameter pp,
 			final Class<? extends MyMessageTbl> tblClass) {
-		return addTablePagerBean(pp, "AbstractMyMessageTPage_tbl", tblClass, false).setFilter(true)
-				.setShowHead(true).setShowCheckbox(true);
+		return addTablePagerBean(pp, "AbstractMyMessageTPage_tbl", tblClass, false).setResize(false)
+				.setFilter(true).setShowHead(true).setShowCheckbox(true);
 	}
 
 	private CategoryItem createCategoryItem(final PageParameter pp, final IMessageUI oModule) {
@@ -303,9 +303,10 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 			return null;
 		}
 
-		protected ElementList createOPE(final ComponentParameter cp, final AbstractMessage msg) {
-			return ElementList.of(ButtonElement.deleteBtn().setOnclick(
-					"$Actions['AbstractMyMessageTPage_delete']('id=" + msg.getId() + "');"));
+		protected String toOpeHTML(final ComponentParameter cp, final AbstractMessage msg) {
+			return ButtonElement.deleteBtn()
+					.setOnclick("$Actions['AbstractMyMessageTPage_delete']('id=" + msg.getId() + "');")
+					.toString();
 		}
 
 		@Override
@@ -314,17 +315,39 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 			final KVMap kv = new KVMap();
 
 			final LinkElement topic = createTopic(cp, msg);
-			kv.add(COL_TOPIC, topic);
+			kv.add("topic", topic);
 			if (topic != null && topic.isStrong()) {
 				kv.add(TablePagerColumn.ICON, createImageMark(cp, msg));
 			}
 
-			kv.add(COL_FROMID, createFrom(cp, msg));
-			kv.add(COL_USERID, createUser(cp, msg));
-			kv.add(COL_CATEGORY, createCategory(cp, msg));
-			kv.add(COL_CREATEDATE, msg.getCreateDate());
-			kv.put(TablePagerColumn.OPE, createOPE(cp, msg));
+			kv.add("fromId", createFrom(cp, msg));
+			kv.add("userId", createUser(cp, msg));
+			kv.add("category", createCategory(cp, msg));
+			kv.add("createDate", msg.getCreateDate());
+			kv.put(TablePagerColumn.OPE, toOpeHTML(cp, msg));
 			return kv;
 		}
+	}
+
+	public static final TablePagerColumn TC_TOPIC() {
+		return new TablePagerColumn("topic", $m("AbstractMgrMessagePage.0")).setSort(false);
+	}
+
+	public static final TablePagerColumn TC_CREATEDATE() {
+		return TablePagerColumn.DATE("createDate", $m("AbstractMyMessageTPage.1"));
+	}
+
+	public static final TablePagerColumn TC_USERID() {
+		return new TablePagerColumn("userId", $m("MyPrivateMessageSentTPage.0"), 115)
+				.setFilter(false);
+	}
+
+	public static final TablePagerColumn TC_FROMID() {
+		return new TablePagerColumn("fromId", $m("MyPrivateMessageTPage.0"), 115).setFilter(false);
+	}
+
+	public static final TablePagerColumn TC_CATEGORY() {
+		return new TablePagerColumn("category", $m("AbstractMyMessageTPage.7")).setWidth(115)
+				.setFilterSort(false);
 	}
 }

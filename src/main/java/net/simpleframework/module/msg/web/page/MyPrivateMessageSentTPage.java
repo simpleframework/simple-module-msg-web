@@ -28,20 +28,15 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 	@Override
 	protected void addMessageComponents(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageSentTbl.class);
-		tablePager
-				.addColumn(
-						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
-				.addColumn(
-						new TablePagerColumn(COL_USERID, $m("MyPrivateMessageSentTPage.0"), 115)
-								.setFilter(false))
-				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
-				.addColumn(TablePagerColumn.OPE(80));
+		tablePager.addColumn(TC_TOPIC()).addColumn(TC_USERID())
+				.addColumn(TC_CREATEDATE().setColumnText($m("AbstractMyMessageTPage.8")))
+				.addColumn(TablePagerColumn.OPE(70));
 
 		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "MyPrivateMessageSentTPage_viewPage",
 				PrivateMessageSentViewPage.class);
 		// sent window
 		addWindowBean(pp, "MyPrivateMessageSentTPage_viewWin", ajaxRequest)
-				.setTitle($m("MyPrivateMessageSentTPage.1")).setWidth(600).setHeight(360);
+				.setTitle($m("MyPrivateMessageSentTPage.1")).setWidth(450).setHeight(500);
 	}
 
 	@Override

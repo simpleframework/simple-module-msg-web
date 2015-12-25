@@ -62,6 +62,11 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 		return messageContext.getModule().getManagerRole();
 	}
 
+	protected TablePagerColumn createUserColumn(final PageParameter pp, final String columnName,
+			final String columnText) {
+		return super.createUserColumn(pp, columnName, columnText, "AbstractMessageMgrPage_tbl");
+	}
+
 	protected TablePagerBean addTablePagerBean(final PageParameter pp,
 			final Class<? extends MgrMessageTbl> tblClass) {
 		return (TablePagerBean) addTablePagerBean(pp, "AbstractMessageMgrPage_tbl")
@@ -134,10 +139,22 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
 			final AbstractMessage msg = (AbstractMessage) dataObject;
 			final KVMap kv = new KVMap();
-			kv.add(COL_TOPIC, createTopic(cp, msg));
-			kv.add(COL_CREATEDATE, msg.getCreateDate());
+			kv.add("topic", createTopic(cp, msg));
+			kv.add("createDate", msg.getCreateDate());
 			kv.put(TablePagerColumn.OPE, createOPE(cp, msg));
 			return kv;
 		}
+	}
+
+	static final TablePagerColumn TC_TOPIC() {
+		return AbstractMyMessageTPage.TC_TOPIC();
+	}
+
+	static final TablePagerColumn TC_CREATEDATE() {
+		return AbstractMyMessageTPage.TC_CREATEDATE();
+	}
+
+	static final TablePagerColumn TC_CATEGORY() {
+		return new TablePagerColumn("category", $m("AbstractMyMessageTPage.7"), 120);
 	}
 }

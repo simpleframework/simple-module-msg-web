@@ -36,11 +36,12 @@ public class PrivateMessageSentViewPage extends AbstractSentMessagePage {
 		final P2PMessage message = PrivateMessageSentPage.getMessage(pp);
 		final BlockElement sm_receiver = new BlockElement().setId("b_sm_receiver").setText(
 				message.getToUsers());
+		// message.get
 		String c = SmileyUtils.replaceSmiley(message.getContent());
 		c = HtmlUtils.convertHtmlLines(c);
 		final BlockElement sm_content = new BlockElement().setId("b_sm_content").setText(c);
 		final TableRow r1 = new TableRow(new RowField($m("PrivateMessageSentPage.0"), sm_receiver));
-		final TableRow r2 = new TableRow(new RowField($m("PrivateMessageSentPage.2"), sm_content));
+		final TableRow r2 = new TableRow(new RowField("", sm_content));
 		return TableRows.of(r1, r2);
 	}
 }

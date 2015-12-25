@@ -36,14 +36,8 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = addTablePagerBean(pp, NoticeMessageTbl.class);
-		tablePager
-				.addColumn(TablePagerColumn.ICON().setWidth(16))
-				.addColumn(
-						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
-				.addColumn(
-						new TablePagerColumn(COL_CATEGORY, $m("AbstractMyMessageTPage.7")).setWidth(115)
-								.setFilterSort(false))
-				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
+		tablePager.addColumn(TablePagerColumn.ICON().setWidth(16)).addColumn(TC_TOPIC())
+				.addColumn(TC_CATEGORY()).addColumn(TC_CREATEDATE())
 				.addColumn(TablePagerColumn.OPE(70));
 
 		// 标记菜单

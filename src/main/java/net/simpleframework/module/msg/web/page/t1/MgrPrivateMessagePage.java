@@ -24,10 +24,6 @@ import net.simpleframework.mvc.template.TemplateUtils;
 @PageMapping(url = "/msg/private/mgr")
 public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 
-	public static final String COL_FROMID = "fromId";
-
-	public static final String COL_CATEGORY = "category";
-
 	@Override
 	protected PrivateMessagePlugin getMessageMark(final PageParameter pp) {
 		return ((IMessageWebContext) messageContext).getPrivateMessagePlugin();
@@ -38,22 +34,16 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageTbl.class);
-		tablePager
-				.addColumn(
-						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
-				.addColumn(
-						createUserColumn(pp, COL_FROMID, $m("MyPrivateMessageTPage.0"),
-								"AbstractMessageMgrPage_tbl").setWidth(80))
-				.addColumn(
-						createUserColumn(pp, COL_USERID, $m("AbstractMyMessageTPage.2"),
-								"AbstractMessageMgrPage_tbl").setWidth(80))
-				.addColumn(new TablePagerColumn(COL_CATEGORY, $m("MgrPrivateMessagePage.0"), 80))
-				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMgrMessagePage.1")))
-				.addColumn(TablePagerColumn.OPE(80));
+		tablePager.addColumn(TC_TOPIC())
+				.addColumn(createUserColumn(pp, "fromId", $m("MyPrivateMessageTPage.0")).setWidth(80))
+				.addColumn(createUserColumn(pp, "userId", $m("AbstractMyMessageTPage.2")).setWidth(80))
+				.addColumn(TC_CATEGORY())
+				.addColumn(TC_CREATEDATE().setColumnText($m("AbstractMgrMessagePage.1")))
+				.addColumn(TablePagerColumn.OPE(70));
 
 		// 用户选择
-		// addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl");
-		addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl", COL_FROMID);
+		addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl", "userId");
+		addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl", "fromId");
 	}
 
 	public static class PrivateMessageTbl extends MgrMessageTbl {
@@ -62,9 +52,9 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
 			final P2PMessage msg = (P2PMessage) dataObject;
 			final KVMap kv = (KVMap) super.getRowData(cp, dataObject);
-			kv.put(COL_FROMID, TemplateUtils.toIconUser(cp, msg.getFromId()));
-			kv.put(COL_USERID, TemplateUtils.toIconUser(cp, msg.getUserId()));
-			kv.put(COL_CATEGORY, msg.getCategory());
+			kv.put("fromId", TemplateUtils.toIconUser(cp, msg.getFromId()));
+			kv.put("userId", TemplateUtils.toIconUser(cp, msg.getUserId()));
+			kv.put("category", msg.getCategory());
 			return kv;
 		}
 	}

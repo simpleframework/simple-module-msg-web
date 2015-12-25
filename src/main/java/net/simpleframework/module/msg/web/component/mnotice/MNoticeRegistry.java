@@ -37,7 +37,7 @@ public class MNoticeRegistry extends AbstractComponentRegistry {
 				AjaxRequestBean.class).setUrlForward(
 				getComponentResourceProvider().getResourceHomePath() + "/jsp/mnotice_sent.jsp");
 		pp.addComponentBean(componentName + "_win", WindowBean.class)
-				.setContentRef(ajaxRequest.getName()).setWidth(300).setHeight(400)
+				.setContentRef(ajaxRequest.getName()).setWidth(540).setHeight(400)
 				.setTitle($m("MNoticeRegistry.0"));
 
 		return mnotice;

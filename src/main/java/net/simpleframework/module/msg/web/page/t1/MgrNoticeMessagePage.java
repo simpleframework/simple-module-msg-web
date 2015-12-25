@@ -33,27 +33,19 @@ import net.simpleframework.mvc.template.TemplateUtils;
  */
 @PageMapping(url = "/msg/notice/mgr")
 public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
-	public static final String COL_CATEGORY = "category";
-
-	public static final String COL_USERID = "userId";
 
 	@Override
 	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = addTablePagerBean(pp);
-		tablePager
-				.addColumn(
-						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
-				.addColumn(
-						createUserColumn(pp, COL_USERID, $m("AbstractMyMessageTPage.2"),
-								"AbstractMessageMgrPage_tbl").setWidth(80))
-				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
-				.addColumn(new TablePagerColumn(COL_CATEGORY, $m("AbstractMyMessageTPage.7"), 120))
+		tablePager.addColumn(TC_TOPIC())
+				.addColumn(createUserColumn(pp, "userId", $m("AbstractMyMessageTPage.2")).setWidth(80))
+				.addColumn(TC_CREATEDATE()).addColumn(TC_CATEGORY())
 				.addColumn(TablePagerColumn.OPE(80));
 
 		// 用户选择
-		addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl");
+		addUserSelectForTbl(pp, "AbstractMessageMgrPage_tbl", "userId");
 
 		addNoticeComponents(pp);
 	}
@@ -83,11 +75,11 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 				createDeleteBtn());
 	}
 
-	private static Option OPTION_CATEGORY = new Option(COL_CATEGORY, $m("MgrNoticeMessagePage.0"));
+	private static Option OPTION_CATEGORY = new Option("category", $m("MgrNoticeMessagePage.0"));
 
 	@Override
 	public ElementList getRightElements(final PageParameter pp) {
-		pp.putParameter(G, COL_CATEGORY);
+		pp.putParameter(G, "category");
 		return ElementList.of(
 				createTabsElement(pp, TabButtons.of(new TabButton($m("NoticeMessageContentPage.4"),
 						url(MgrNoticeMessagePage.class)), new TabButton(EMessageSendTo.email,
@@ -117,7 +109,7 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 				public TablePagerColumns getTablePagerColumns(final ComponentParameter cp) {
 					final TablePagerColumns columns = super.getTablePagerColumns(cp);
 					final String g = cp.getParameter(G);
-					columns.get(COL_CATEGORY).setVisible(!COL_CATEGORY.equals(g));
+					columns.get("category").setVisible(!"category".equals(g));
 					return columns;
 				}
 
@@ -126,13 +118,13 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 						final Object dataObject) {
 					final AbstractP2PMessage msg = (AbstractP2PMessage) dataObject;
 					final KVMap kv = new KVMap();
-					kv.add(COL_TOPIC, createTopic(cp, msg));
-					kv.add(COL_USERID, TemplateUtils.toIconUser(cp, msg.getUserId()));
-					kv.add(COL_CREATEDATE, msg.getCreateDate());
+					kv.add("topic", createTopic(cp, msg));
+					kv.add("userId", TemplateUtils.toIconUser(cp, msg.getUserId()));
+					kv.add("createDate", msg.getCreateDate());
 					final IMessageCategory mCategory = getMessageMark(cp).getMessageCategory(
 							msg.getCategory());
 					if (mCategory != null) {
-						kv.add(COL_CATEGORY, mCategory.toString());
+						kv.add("category", mCategory.toString());
 					}
 					kv.put(TablePagerColumn.OPE, createOPE(cp, msg));
 					return kv;

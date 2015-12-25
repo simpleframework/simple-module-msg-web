@@ -1,22 +1,36 @@
-.sm_content_bar {
-  border-top: 1px solid #ccc;
-  padding: 4px;
-  background: #fdfdfd;
-  margin: 2px -2px -2px -2px;
+
+/*-----------------------PrivateMessageSentPage------------------------*/
+#sm_receiver,
+#sm_topic,
+#sm_content {
+  font-size: 9.5pt;
 }
 
 #sm_content {
   line-height: 1.8;
-  font-size: 9.5pt;
+  color: #555;
 }
 
-#sm_topic,#b_sm_topic {
-  color: #666;
-  font-weight: bold;
+.sm_content_bar {
+  border-top: 1px solid #ccc;
+  background: #fdfdfd;
+  margin: 0 -4px -4px;
+  padding: 6px 6px 4px;
 }
 
-#b_sm_receiver,#b_sm_topic,#b_sm_content {
+.sm_atten {
+  line-height: 2.4; 
+  font-size: 9.5pt; 
+  color: #c44;
+}
+
+/*-----------------------PrivateMessageSentViewPage------------------------*/
+
+#b_sm_receiver, 
+#b_sm_topic, 
+#b_sm_content {
   padding: 3px;
+  font-size: 9.5pt;
 }
 
 #b_sm_content {

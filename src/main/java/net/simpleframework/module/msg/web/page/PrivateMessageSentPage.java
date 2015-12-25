@@ -81,6 +81,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 				message.setMessageMark(plugin.getMark());
 				message.setFromId(cp.getLoginId());
 			}
+			message.setSentDate(new Date());
 			message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
 			message.setToUsers(toUsers);
 			message.setTopic(topic);
@@ -146,22 +147,20 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 	public ElementList getRightElements(final PageParameter pp) {
 		final P2PMessage message = getMessage(pp);
 		final ElementList el = ElementList.of();
-		if (message != null
-				&& PrivateMessagePlugin.SENT_MODULE.getName().equals(message.getCategory())) {
-			return ElementList.of(ButtonElement.closeBtn());
-		} else {
+		if (message == null
+				|| !PrivateMessagePlugin.SENT_MODULE.getName().equals(message.getCategory())) {
 			final ButtonElement saveBtn = SAVE_BTN();
-			final StringBuilder sb = new StringBuilder();
-			sb.append("if ($F('sm_content').trim() == '' && !confirm('")
-					.append($m("PrivateMessageSentPage.9")).append("')) { return; }");
-			sb.append(saveBtn.getOnclick());
-			el.append(
-					saveBtn.setOnclick(sb.toString()),
-					SpanElement.SPACE,
-					VALIDATION_BTN($m("PrivateMessageSentPage.7")).setOnclick(
-							"$Actions['PrivateMessageSentPage_save2']();"), SpanElement.SPACE,
-					ButtonElement.closeBtn());
+			final StringBuilder sb = new StringBuilder(
+					"if ($F('sm_content').trim() == '' && !confirm('")
+					.append($m("PrivateMessageSentPage.9")).append("')) { return; }")
+					.append(saveBtn.getOnclick());
+			el.append(saveBtn.setOnclick(sb.toString()));
+			el.append(SpanElement.SPACE);
+			el.append(VALIDATION_BTN($m("PrivateMessageSentPage.7")).setOnclick(
+					"$Actions['PrivateMessageSentPage_save2']();"));
+			el.append(SpanElement.SPACE);
 		}
+		el.append(ButtonElement.closeBtn());
 		return el;
 	}
 
@@ -178,7 +177,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		final InputElement msgId = InputElement.hidden().setName("msgId").setId("sm_msgId");
 		final InputElement sm_receiver = new InputElement("sm_receiver");
 		final InputElement sm_topic = new InputElement("sm_topic");
-		final InputElement sm_content = InputElement.textarea("sm_content").setRows(8);
+		final InputElement sm_content = InputElement.textarea("sm_content").setRows(12);
 
 		final P2PMessage message = getMessage(pp);
 		if (message != null) {
@@ -198,19 +197,27 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage implements I
 		}
 		// InputElement
 		// .hidden("t").setValue(pp),
+
 		final TableRow r1 = new TableRow(new RowField($m("PrivateMessageSentPage.0"), msgId,
 				sm_receiver).setStarMark(true));
 		final TableRow r2 = new TableRow(
 				new RowField($m("PrivateMessageSentPage.1"), sm_topic).setStarMark(true));
-		final TableRow r3 = new TableRow(new RowField($m("PrivateMessageSentPage.2"), sm_content,
-				sm_content_bar));
+		// final TableRow r3 = new TableRow(new
+		// RowField($m("PrivateMessageSentPage.2"), sm_content,
+		// sm_content_bar));
+		final TableRow r3 = new TableRow(new RowField("", sm_content, sm_content_bar));
 		return TableRows.of(r1, r2, r3);
+	}
+
+	@Override
+	public int getLabelWidth(final PageParameter pp) {
+		return 85;
 	}
 
 	@Override
 	public String toTableRowsString(final PageParameter pp) {
 		return super.toTableRowsString(pp)
-				+ SpanElement.strongText($m("PrivateMessageSentPage.3")).addStyle("line-height: 2.4;");
+				+ new SpanElement($m("PrivateMessageSentPage.3")).setClassName("sm_atten");
 	}
 
 	protected static P2PMessage getMessage(final PageParameter pp) {

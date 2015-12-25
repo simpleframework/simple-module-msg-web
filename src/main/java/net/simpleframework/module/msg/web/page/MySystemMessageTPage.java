@@ -1,6 +1,5 @@
 package net.simpleframework.module.msg.web.page;
 
-import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.SystemMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
@@ -27,12 +26,8 @@ public class MySystemMessageTPage extends AbstractMyMessageTPage {
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = addTablePagerBean(pp, MyMessageTbl.class);
-		tablePager
-				.addColumn(TablePagerColumn.ICON().setWidth(16))
-				.addColumn(
-						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
-				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
-				.addColumn(TablePagerColumn.OPE(80));
+		tablePager.addColumn(TablePagerColumn.ICON().setWidth(16)).addColumn(TC_TOPIC())
+				.addColumn(TC_CREATEDATE()).addColumn(TablePagerColumn.OPE(70));
 
 		// 标记菜单
 		createMarkMenuComponent(pp);

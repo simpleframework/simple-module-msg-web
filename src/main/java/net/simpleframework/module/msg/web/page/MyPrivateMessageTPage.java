@@ -37,15 +37,8 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 	@Override
 	protected void addMessageComponents(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageTbl.class);
-		tablePager
-				.addColumn(TablePagerColumn.ICON().setWidth(16))
-				.addColumn(
-						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
-				.addColumn(
-						new TablePagerColumn(COL_FROMID, $m("MyPrivateMessageTPage.0"), 115)
-								.setFilter(false))
-				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMyMessageTPage.1")))
-				.addColumn(TablePagerColumn.OPE(80));
+		tablePager.addColumn(TablePagerColumn.ICON().setWidth(16)).addColumn(TC_TOPIC())
+				.addColumn(TC_FROMID()).addColumn(TC_CREATEDATE()).addColumn(TablePagerColumn.OPE(70));
 		addSentWindowComponent(pp);
 		// 标记菜单
 		createMarkMenuComponent(pp);
@@ -56,7 +49,7 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 				PrivateMessageSentPage.class);
 		// sent window
 		addWindowBean(pp, "MyPrivateMessageTPage_sentWin", ajaxRequest)
-				.setTitle($m("MyPrivateMessageTPage.1")).setWidth(680).setHeight(450);
+				.setTitle($m("MyPrivateMessageTPage.1")).setWidth(510).setHeight(540);
 	}
 
 	@Override
@@ -83,10 +76,13 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 		}
 
 		@Override
-		protected ElementList createOPE(final ComponentParameter cp, final AbstractMessage msg) {
-			return ElementList.of(new ButtonElement($m("MyPrivateMessageTPage.5"))
+		protected String toOpeHTML(final ComponentParameter cp, final AbstractMessage msg) {
+			final StringBuilder sb = new StringBuilder();
+			sb.append(new ButtonElement($m("MyPrivateMessageTPage.5"))
 					.setOnclick("$Actions['MyPrivateMessageTPage_sentWin']('t=reply&msgId="
-							+ msg.getId() + "');"), AbstractTablePagerSchema.IMG_DOWNMENU);
+							+ msg.getId() + "');"));
+			sb.append(AbstractTablePagerSchema.IMG_DOWNMENU);
+			return sb.toString();
 		}
 
 		@Override

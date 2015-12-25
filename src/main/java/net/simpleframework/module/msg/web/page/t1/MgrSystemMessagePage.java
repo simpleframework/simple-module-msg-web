@@ -27,11 +27,9 @@ public class MgrSystemMessagePage extends AbstractMgrMessagePage {
 		super.onForward(pp);
 
 		final TablePagerBean tablePager = addTablePagerBean(pp, MgrMessageTbl.class);
-		tablePager
-				.addColumn(
-						new TablePagerColumn(COL_TOPIC, $m("AbstractMgrMessagePage.0")).setSort(false))
-				.addColumn(TablePagerColumn.DATE(COL_CREATEDATE, $m("AbstractMgrMessagePage.1")))
-				.addColumn(TablePagerColumn.OPE(80));
+		tablePager.addColumn(TC_TOPIC())
+				.addColumn(TC_CREATEDATE().setColumnText($m("AbstractMgrMessagePage.1")))
+				.addColumn(TablePagerColumn.OPE(70));
 
 		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "MgrSystemMessagePage_publishPage",
 				SystemMessagePublishPage.class);
