@@ -121,14 +121,14 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 			return ((AbstractMgrMessagePage) get(cp)).getMessageMark(cp);
 		}
 
-		protected LinkElement createTopic(final ComponentParameter cp, final AbstractMessage msg) {
+		protected LinkElement toTopicElement(final ComponentParameter cp, final AbstractMessage msg) {
 			final IMessagePlugin oMark = getMessageMark(cp);
 			return new LinkElement(msg.getTopic())
 					.setOnclick("$Actions['AbstractMessageMgrPage_viewWin']('msgId=" + msg.getId()
 							+ "&messageMark=" + oMark.getMark() + "');");
 		}
 
-		protected String createOPE(final ComponentParameter cp, final AbstractMessage msg) {
+		protected String toOpeHTML(final ComponentParameter cp, final AbstractMessage msg) {
 			return ButtonElement.deleteBtn()
 					.setOnclick("$Actions['AbstractMessageMgrPage_delete']('id=" + msg.getId() + "');")
 					.toString();
@@ -138,9 +138,9 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
 			final AbstractMessage msg = (AbstractMessage) dataObject;
 			final KVMap kv = new KVMap();
-			kv.add("topic", createTopic(cp, msg));
+			kv.add("topic", toTopicElement(cp, msg));
 			kv.add("createDate", msg.getCreateDate());
-			kv.put(TablePagerColumn.OPE, createOPE(cp, msg));
+			kv.put(TablePagerColumn.OPE, toOpeHTML(cp, msg));
 			return kv;
 		}
 	}

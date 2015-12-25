@@ -7,7 +7,6 @@ import net.simpleframework.module.msg.plugin.IMessageCategory;
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.NoticeMessageWebPlugin;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.EVerticalAlign;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkElementEx;
@@ -80,11 +79,10 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 	public static class NoticeMessageTbl extends MyMessageTbl {
 
 		@Override
-		protected AbstractElement<?> createCategory(final ComponentParameter cp,
-				final AbstractMessage msg) {
+		protected String toCategoryHTML(final ComponentParameter cp, final AbstractMessage msg) {
 			final IMessageCategory category = messageContext.getNoticeMessagePlugin()
 					.getMessageCategory(msg.getCategory());
-			return category != null ? new SpanElement(category) : null;
+			return category != null ? category.toString() : null;
 		}
 	}
 }

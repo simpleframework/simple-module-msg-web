@@ -48,7 +48,7 @@ public class MgrNoticeMessage_EmailPage extends MgrNoticeMessagePage {
 	public static class NoticeMessage_EmailTbl extends NoticeMessageTbl {
 
 		@Override
-		protected LinkElement createTopic(final ComponentParameter cp, final AbstractMessage msg) {
+		protected LinkElement toTopicElement(final ComponentParameter cp, final AbstractMessage msg) {
 			final IMessagePlugin oMark = getMessageMark(cp);
 			return new LinkElement(msg.getTopic())
 					.setOnclick("$Actions['AbstractMessageMgrPage_viewWin']('logId=" + msg.getId()

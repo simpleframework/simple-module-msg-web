@@ -5,7 +5,6 @@ import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.ButtonElement;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.Icon;
@@ -76,6 +75,11 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 		}
 
 		@Override
+		protected String toFromHTML(final ComponentParameter cp, final AbstractMessage msg) {
+			return TemplateUtils.toIconUser(cp, msg.getFromId());
+		}
+
+		@Override
 		protected String toOpeHTML(final ComponentParameter cp, final AbstractMessage msg) {
 			final StringBuilder sb = new StringBuilder();
 			sb.append(new ButtonElement($m("MyPrivateMessageTPage.5"))
@@ -83,11 +87,6 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 							+ msg.getId() + "');"));
 			sb.append(AbstractTablePagerSchema.IMG_DOWNMENU);
 			return sb.toString();
-		}
-
-		@Override
-		protected AbstractElement<?> createFrom(final ComponentParameter cp, final AbstractMessage msg) {
-			return new SpanElement(TemplateUtils.toIconUser(cp, msg.getFromId()));
 		}
 	}
 }

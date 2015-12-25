@@ -8,10 +8,8 @@ import net.simpleframework.module.msg.P2PMessage;
 import net.simpleframework.module.msg.plugin.IMessagePlugin;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.common.element.AbstractElement;
 import net.simpleframework.mvc.common.element.ElementList;
 import net.simpleframework.mvc.common.element.LinkElement;
-import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
@@ -58,12 +56,12 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 		}
 
 		@Override
-		protected AbstractElement<?> createUser(final ComponentParameter cp, final AbstractMessage msg) {
-			return new SpanElement(((P2PMessage) msg).getToUsers());
+		protected String toUserHTML(final ComponentParameter cp, final AbstractMessage msg) {
+			return ((P2PMessage) msg).getToUsers();
 		}
 
 		@Override
-		protected LinkElement createTopic(final ComponentParameter cp, final AbstractMessage msg) {
+		protected LinkElement toTopicElement(final ComponentParameter cp, final AbstractMessage msg) {
 			return new LinkElement(msg.getTopic())
 					.setOnclick("$Actions['MyPrivateMessageSentTPage_viewWin']('msgId=" + msg.getId()
 							+ "');");

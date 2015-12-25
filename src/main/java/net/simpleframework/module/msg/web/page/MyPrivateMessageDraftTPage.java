@@ -49,7 +49,7 @@ public class MyPrivateMessageDraftTPage extends MyPrivateMessageTPage {
 		}
 
 		@Override
-		protected LinkElement createTopic(final ComponentParameter cp, final AbstractMessage msg) {
+		protected LinkElement toTopicElement(final ComponentParameter cp, final AbstractMessage msg) {
 			return new LinkElement(msg.getTopic())
 					.setOnclick("$Actions['MyPrivateMessageTPage_sentWin']('msgId=" + msg.getId()
 							+ "');");

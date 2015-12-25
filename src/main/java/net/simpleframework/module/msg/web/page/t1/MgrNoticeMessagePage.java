@@ -118,7 +118,7 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 						final Object dataObject) {
 					final AbstractP2PMessage msg = (AbstractP2PMessage) dataObject;
 					final KVMap kv = new KVMap();
-					kv.add("topic", createTopic(cp, msg));
+					kv.add("topic", toTopicElement(cp, msg));
 					kv.add("userId", TemplateUtils.toIconUser(cp, msg.getUserId()));
 					kv.add("createDate", msg.getCreateDate());
 					final IMessageCategory mCategory = getMessageMark(cp).getMessageCategory(
@@ -126,7 +126,7 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 					if (mCategory != null) {
 						kv.add("category", mCategory.toString());
 					}
-					kv.put(TablePagerColumn.OPE, createOPE(cp, msg));
+					kv.put(TablePagerColumn.OPE, toOpeHTML(cp, msg));
 					return kv;
 				}
 			};

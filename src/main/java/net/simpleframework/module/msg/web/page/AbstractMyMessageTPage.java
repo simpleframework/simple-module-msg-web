@@ -271,7 +271,19 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 			return ((AbstractMyMessageTPage) get(cp)).getMessagePlugin(cp);
 		}
 
-		protected LinkElement createTopic(final ComponentParameter cp, final AbstractMessage msg) {
+		protected String toCategoryHTML(final ComponentParameter cp, final AbstractMessage msg) {
+			return null;
+		}
+
+		protected String toFromHTML(final ComponentParameter cp, final AbstractMessage msg) {
+			return null;
+		}
+
+		protected String toUserHTML(final ComponentParameter cp, final AbstractMessage msg) {
+			return null;
+		}
+
+		protected LinkElement toTopicElement(final ComponentParameter cp, final AbstractMessage msg) {
 			final IMessagePlugin oMark = getMessageMark(cp);
 			@SuppressWarnings("unchecked")
 			final IMessageService<AbstractMessage> service = (IMessageService<AbstractMessage>) oMark
@@ -283,23 +295,10 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 							+ "']('msgId=" + msg.getId() + "&messageMark=" + oMark.getMark() + "');");
 		}
 
-		protected ImageElement createImageMark(final ComponentParameter cp, final AbstractMessage msg) {
+		protected ImageElement toImageMark(final ComponentParameter cp, final AbstractMessage msg) {
 			return ImageElement.img16(
 					cp.getCssResourceHomePath(AbstractMyMessageTPage.class) + "/images/unread.png")
 					.setVerticalAlign(EVerticalAlign.middle);
-		}
-
-		protected AbstractElement<?> createFrom(final ComponentParameter cp, final AbstractMessage msg) {
-			return null;
-		}
-
-		protected AbstractElement<?> createUser(final ComponentParameter cp, final AbstractMessage msg) {
-			return null;
-		}
-
-		protected AbstractElement<?> createCategory(final ComponentParameter cp,
-				final AbstractMessage msg) {
-			return null;
 		}
 
 		protected String toOpeHTML(final ComponentParameter cp, final AbstractMessage msg) {
@@ -313,15 +312,15 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 			final AbstractMessage msg = (AbstractMessage) dataObject;
 			final KVMap kv = new KVMap();
 
-			final LinkElement topic = createTopic(cp, msg);
+			final LinkElement topic = toTopicElement(cp, msg);
 			kv.add("topic", topic);
 			if (topic != null && topic.isStrong()) {
-				kv.add(TablePagerColumn.ICON, createImageMark(cp, msg));
+				kv.add(TablePagerColumn.ICON, toImageMark(cp, msg));
 			}
 
-			kv.add("fromId", createFrom(cp, msg));
-			kv.add("userId", createUser(cp, msg));
-			kv.add("category", createCategory(cp, msg));
+			kv.add("fromId", toFromHTML(cp, msg));
+			kv.add("userId", toUserHTML(cp, msg));
+			kv.add("category", toCategoryHTML(cp, msg));
 			kv.add("createDate", msg.getCreateDate());
 			kv.put(TablePagerColumn.OPE, toOpeHTML(cp, msg));
 			return kv;
