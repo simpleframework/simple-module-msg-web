@@ -36,6 +36,7 @@ import net.simpleframework.mvc.common.element.LinkElementEx;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.SupElement;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
 import net.simpleframework.mvc.component.ui.menu.EMenuEvent;
 import net.simpleframework.mvc.component.ui.menu.MenuBean;
 import net.simpleframework.mvc.component.ui.menu.MenuItem;
@@ -69,11 +70,11 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		addAjaxRequest(pp, "AbstractMyMessageTPage_view").setHandlerMethod("doView");
 
 		// msg win
-		addAjaxRequest(pp, "AbstractMyMessageTPage_viewPage", MessageViewPage.class);
-		addWindowBean(pp, "AbstractMyMessageTPage_viewWin")
-				.setContentRef("AbstractMyMessageTPage_viewPage")
-				.setTitle($m("AbstractMyMessageTPage.0")).setResizable(false).setHeight(410)
-				.setWidth(640);
+		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "AbstractMyMessageTPage_viewPage",
+				MessageViewPage.class);
+		addWindowBean(pp, "AbstractMyMessageTPage_viewWin", ajaxRequest)
+				.setTitle($m("AbstractMyMessageTPage.0")).setResizable(false).setHeight(540)
+				.setWidth(500);
 
 		addMessageComponents(pp);
 	}

@@ -4,7 +4,6 @@ import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.web.html.HtmlUtils;
 import net.simpleframework.module.msg.AbstractMessage;
-import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.module.msg.P2PMessage;
 import net.simpleframework.module.msg.plugin.IMessageCategory;
 import net.simpleframework.module.msg.plugin.IMessagePlugin;
@@ -19,7 +18,6 @@ import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.TableRow;
 import net.simpleframework.mvc.common.element.TableRows;
 import net.simpleframework.mvc.component.ui.dictionary.SmileyUtils;
-import net.simpleframework.mvc.template.lets.FormTableRowTemplatePage;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -27,17 +25,7 @@ import net.simpleframework.mvc.template.lets.FormTableRowTemplatePage;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class MessageViewPage extends FormTableRowTemplatePage implements IMessageContextAware {
-
-	@Override
-	public int getLabelWidth(final PageParameter pp) {
-		return 80;
-	}
-
-	@Override
-	protected String getPageCSS(final PageParameter pp) {
-		return "MessageViewPage";
-	}
+public class MessageViewPage extends AbstractMessagePage {
 
 	@Override
 	public ElementList getRightElements(final PageParameter pp) {
@@ -45,16 +33,11 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 	}
 
 	@Override
-	public boolean isButtonsOnTop(final PageParameter pp) {
-		return true;
-	}
-
-	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
 		final IMessagePlugin plugin = messageContext.getPluginRegistry().getPlugin(
 				pp.getIntParameter("messageMark"));
 		final AbstractMessage msg = getMessage(pp, plugin);
-		return ElementList.of(SpanElement.strongText(msg.getTopic()));
+		return ElementList.of(new SpanElement(msg.getTopic()));
 	}
 
 	@Override
@@ -79,9 +62,9 @@ public class MessageViewPage extends FormTableRowTemplatePage implements IMessag
 				new InputElement().setText(msg instanceof P2PMessage ? ((P2PMessage) msg).getReadDate()
 						: null)));
 
-		final TableRow r3 = new TableRow(new RowField($m("MessageViewPage.4"), new BlockElement()
-				.setText(HtmlUtils.convertHtmlLines(SmileyUtils.replaceSmiley(msg.getContent())))
-				.setClassName("mv_content")));
+		final TableRow r3 = new TableRow(new RowField("", new BlockElement().setText(
+				HtmlUtils.convertHtmlLines(SmileyUtils.replaceSmiley(msg.getContent()))).setClassName(
+				"mv_content")));
 		return TableRows.of(r1, r2, r3).setReadonly(true);
 	}
 

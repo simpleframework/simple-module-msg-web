@@ -10,6 +10,7 @@ import net.simpleframework.common.mail.Email;
 import net.simpleframework.common.web.html.HtmlUtils;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.module.msg.IEmailService;
+import net.simpleframework.module.msg.web.page.AbstractMessagePage.AbstractSentMessagePage;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.BlockElement;

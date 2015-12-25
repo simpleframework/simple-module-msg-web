@@ -4,7 +4,7 @@ import static net.simpleframework.common.I18n.$m;
 import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.web.IMessageWebContext;
-import net.simpleframework.module.msg.web.page.AbstractSentMessagePage;
+import net.simpleframework.module.msg.web.page.AbstractMessagePage.AbstractSentMessagePage;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.common.element.InputElement;

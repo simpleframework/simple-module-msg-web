@@ -9,9 +9,9 @@ import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.msg.IMessageContext;
-import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.module.msg.P2PMessage;
 import net.simpleframework.module.msg.web.IMessageWebContext;
+import net.simpleframework.module.msg.web.page.AbstractMessagePage.AbstractSentMessagePage;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
@@ -34,7 +34,7 @@ import net.simpleframework.mvc.component.base.validation.Validator;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public class PrivateMessageSentPage extends AbstractSentMessagePage implements IMessageContextAware {
+public class PrivateMessageSentPage extends AbstractSentMessagePage {
 
 	@Override
 	protected void onForward(final PageParameter pp) throws Exception {
