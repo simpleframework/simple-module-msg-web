@@ -124,7 +124,7 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 					final IMessageCategory mCategory = getMessageMark(cp).getMessageCategory(
 							msg.getCategory());
 					if (mCategory != null) {
-						kv.add("category", mCategory.toString());
+						kv.add("category", mCategory);
 					}
 					kv.put(TablePagerColumn.OPE, toOpeHTML(cp, msg));
 					return kv;
