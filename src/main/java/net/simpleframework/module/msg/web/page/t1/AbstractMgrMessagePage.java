@@ -12,7 +12,6 @@ import net.simpleframework.module.common.plugin.IModulePlugin;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.module.msg.plugin.IMessagePlugin;
-import net.simpleframework.module.msg.web.IMessageConst;
 import net.simpleframework.module.msg.web.page.AbstractMyMessageTPage;
 import net.simpleframework.module.msg.web.page.MessageViewPage;
 import net.simpleframework.module.msg.web.plugin.IMessageUI;
@@ -39,7 +38,7 @@ import net.simpleframework.mvc.template.t1.T1ResizedTemplatePage;
  *         http://www.simpleframework.net
  */
 public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage implements
-		IMessageConst, IMessageContextAware {
+		IMessageContextAware {
 
 	@Override
 	protected void onForward(final PageParameter pp) throws Exception {
