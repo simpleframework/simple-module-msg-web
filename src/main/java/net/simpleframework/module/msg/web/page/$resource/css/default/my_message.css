@@ -5,7 +5,7 @@
 	*zoom: 1;
 }
 
-.FormTableRowTemplatePage .tool_bar .le {
+.FormTableRowTemplatePage .tool_bar .le .topic {
   color: #c33;
   font-size: 9.5pt;
   line-height: 1.8;
@@ -33,14 +33,15 @@
 .FormTableRowTemplatePage .sm_atten {
   line-height: 2.4; 
   font-size: 9.5pt; 
-  color: #c44;
+  color: #777;
 }
 
 /*-----------------------PrivateMessageSentViewPage------------------------*/
 
-.FormTableRowTemplatePage #sm_content_view {
+.FormTableRowTemplatePage .sv_content,
+.FormTableRowTemplatePage .mv_content {
   line-height: 1.8;
-  height: 280px;
+  height: 320px;
   font-size: 9.5pt;
   overflow-y: auto;
 }
@@ -48,13 +49,4 @@
 .FormTableRowTemplatePage .tool_bar .le>div {
   overflow: hidden;
   width: 350px;
-}
-
-/*-----------------------MessageViewPage------------------------*/
-
-.FormTableRowTemplatePage .mv_content {
-  line-height: 1.8;
-  height: 320px;
-  font-size: 9.5pt;
-  overflow-y: auto;
 }

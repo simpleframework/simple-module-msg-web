@@ -73,8 +73,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "AbstractMyMessageTPage_viewPage",
 				MessageViewPage.class);
 		addWindowBean(pp, "AbstractMyMessageTPage_viewWin", ajaxRequest)
-				.setTitle($m("AbstractMyMessageTPage.0")).setResizable(false).setHeight(540)
-				.setWidth(500);
+				.setTitle($m("AbstractMyMessageTPage.0")).setResizable(false).setWidth(500)
+				.setHeight(540);
 
 		addMessageComponents(pp);
 	}

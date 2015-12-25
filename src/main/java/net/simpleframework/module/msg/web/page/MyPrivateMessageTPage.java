@@ -48,7 +48,7 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 				PrivateMessageSentPage.class);
 		// sent window
 		addWindowBean(pp, "MyPrivateMessageTPage_sentWin", ajaxRequest)
-				.setTitle($m("MyPrivateMessageTPage.1")).setWidth(510).setHeight(540);
+				.setTitle($m("MyPrivateMessageTPage.1")).setWidth(500).setHeight(540);
 	}
 
 	@Override

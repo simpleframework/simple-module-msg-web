@@ -37,7 +37,7 @@ public class MessageViewPage extends AbstractMessagePage {
 		final IMessagePlugin plugin = messageContext.getPluginRegistry().getPlugin(
 				pp.getIntParameter("messageMark"));
 		final AbstractMessage msg = getMessage(pp, plugin);
-		return ElementList.of(new SpanElement(msg.getTopic()));
+		return ElementList.of(new SpanElement(msg.getTopic()).setClassName("topic"));
 	}
 
 	@Override
