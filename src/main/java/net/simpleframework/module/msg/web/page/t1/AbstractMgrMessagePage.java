@@ -68,9 +68,9 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 
 	protected TablePagerBean addTablePagerBean(final PageParameter pp,
 			final Class<? extends MgrMessageTbl> tblClass) {
-		return (TablePagerBean) addTablePagerBean(pp, "AbstractMessageMgrPage_tbl")
+		return (TablePagerBean) addTablePagerBean(pp, "AbstractMessageMgrPage_tbl", tblClass)
 				.setShowLineNo(true).setPagerBarLayout(EPagerBarLayout.bottom)
-				.setContainerId("tbl_" + hashId).setHandlerClass(tblClass);
+				.setContainerId("tbl_" + hashId);
 	}
 
 	protected abstract IMessagePlugin getMessageMark(PageParameter pp);
