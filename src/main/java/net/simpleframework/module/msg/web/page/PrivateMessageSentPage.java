@@ -64,6 +64,9 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 		final String content = getContent(cp);
 		for (String r : StringUtils.split(toUsers = cp.getParameter("sm_receiver"), ";")) {
 			r = r.trim();
+			if (!StringUtils.hasText(r)) {
+				continue;
+			}
 			final PermissionUser user = cp.getUser(r);
 			final ID userId = user.getId();
 			if (userId == null) {
