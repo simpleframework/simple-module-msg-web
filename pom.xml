@@ -14,13 +14,11 @@
     <dependency>
       <groupId>net.simpleframework</groupId>
       <artifactId>simple-module-msg-service</artifactId>
-      <version>${simple.module.msg.service}</version>
     </dependency>
 
     <dependency>
       <groupId>net.simpleframework</groupId>
       <artifactId>simple-mvc-template</artifactId>
-      <version>${simple.mvc.template}</version>
     </dependency>
 
     <dependency>
