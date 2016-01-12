@@ -4,7 +4,6 @@ import static net.simpleframework.common.I18n.$m;
 
 import java.util.Iterator;
 
-import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.mail.Email;
 import net.simpleframework.common.web.html.HtmlUtils;
@@ -63,9 +62,9 @@ public class MailSentPage extends AbstractSentMessagePage {
 		}
 		for (final String s : StringUtils.split(cp.getParameter("sm_senter"), ";")) {
 			if (s.startsWith("#")) {
-				final Iterator<ID> it = pHandler.users(s.substring(1), null);
+				final Iterator<PermissionUser> it = pHandler.users(s.substring(1), null);
 				while (it.hasNext()) {
-					final PermissionUser user = pHandler.getUser(it.next());
+					final PermissionUser user = it.next();
 					final String email = user.getEmail();
 					if (StringUtils.hasText(email)) {
 						eService.sentMail(Email.of(email).subject(topic).addHtml(content));
