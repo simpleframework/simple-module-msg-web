@@ -1,10 +1,17 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
+import static net.simpleframework.common.I18n.$m;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageRequestResponse;
+import net.simpleframework.mvc.common.element.ButtonElement;
+import net.simpleframework.mvc.common.element.InputElement;
+import net.simpleframework.mvc.common.element.RowField;
+import net.simpleframework.mvc.common.element.TableRow;
+import net.simpleframework.mvc.common.element.TableRows;
 import net.simpleframework.mvc.component.AbstractComponentRender;
 import net.simpleframework.mvc.component.AbstractComponentRender.IJavascriptCallback;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -41,5 +48,29 @@ public abstract class MNoticeUtils {
 						.append(toParams(cp)).append("');");
 			}
 		});
+	}
+
+	public static String toSentbarHTML(final ComponentParameter cp) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append("<div class='left'>");
+		sb.append(new ButtonElement("查看打开地址"));
+		sb.append("</div>");
+		sb.append("<div class='right'>");
+		sb.append(ButtonElement.closeBtn());
+		sb.append("</div>");
+		return sb.toString();
+	}
+
+	public static TableRows toSentTableRows(final ComponentParameter cp) {
+		final InputElement sm_receiver = new InputElement("sm_receiver");
+		final InputElement sm_topic = new InputElement("sm_topic");
+		final InputElement sm_content = InputElement.textarea("sm_content").setRows(12);
+
+		final TableRow r1 = new TableRow(
+				new RowField($m("PrivateMessageSentPage.0"), sm_receiver).setStarMark(true));
+		final TableRow r2 = new TableRow(
+				new RowField($m("PrivateMessageSentPage.1"), sm_topic).setStarMark(true));
+		final TableRow r3 = new TableRow(new RowField("", sm_content));
+		return TableRows.of(r1, r2, r3);
 	}
 }

@@ -1,0 +1,13 @@
+.mnotice_sent {
+  padding: 5px;
+}
+
+.mnotice_sent .form_tbl {
+  margin-top: -1px;
+}
+
+.mnotice_sent .senttb {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+}

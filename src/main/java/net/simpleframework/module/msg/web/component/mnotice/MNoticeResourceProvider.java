@@ -1,5 +1,6 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
+import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.component.IComponentResourceProvider.AbstractComponentResourceProvider;
 
 /**
@@ -9,4 +10,9 @@ import net.simpleframework.mvc.component.IComponentResourceProvider.AbstractComp
  *         http://www.simpleframework.net
  */
 public class MNoticeResourceProvider extends AbstractComponentResourceProvider {
+
+	@Override
+	public String[] getCssPath(final PageParameter pp) {
+		return new String[] { getCssResourceHomePath(pp) + "/manual_notice.css" };
+	}
 }
