@@ -12,6 +12,7 @@ import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.RowField;
 import net.simpleframework.mvc.common.element.TableRow;
 import net.simpleframework.mvc.common.element.TableRows;
+import net.simpleframework.mvc.common.element.TextButton;
 import net.simpleframework.mvc.component.AbstractComponentRender;
 import net.simpleframework.mvc.component.AbstractComponentRender.IJavascriptCallback;
 import net.simpleframework.mvc.component.ComponentParameter;
@@ -62,8 +63,10 @@ public abstract class MNoticeUtils {
 	}
 
 	public static TableRows toSentTableRows(final ComponentParameter cp) {
-		final InputElement sm_receiver = new InputElement("sm_receiver");
-		final InputElement sm_topic = new InputElement("sm_topic");
+		final TextButton sm_receiver = new TextButton("sm_receiver").setEditable(true)
+				.setOnclick("alert(1);").setReadonly(!(Boolean) cp.getBeanProperty("receiverEnable"));
+		final InputElement sm_topic = new InputElement("sm_topic").setReadonly(!(Boolean) cp
+				.getBeanProperty("topicEnable"));
 		final InputElement sm_content = InputElement.textarea("sm_content").setRows(12);
 
 		final TableRow r1 = new TableRow(

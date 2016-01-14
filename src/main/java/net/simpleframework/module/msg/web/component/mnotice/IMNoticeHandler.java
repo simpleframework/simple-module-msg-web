@@ -1,9 +1,10 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.module.msg.IMessageContextAware;
+import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.IComponentHandler;
 
@@ -21,5 +22,13 @@ public interface IMNoticeHandler extends IComponentHandler, IMessageContextAware
 	 * @param cp
 	 * @return
 	 */
-	Enumeration<PermissionUser> allUsers(ComponentParameter cp);
+	Iterator<PermissionUser> allUsers(ComponentParameter cp);
+
+	/**
+	 * 打开页面的地址
+	 * 
+	 * @param cp
+	 * @return
+	 */
+	LinkElement getOpenUrl(ComponentParameter cp);
 }

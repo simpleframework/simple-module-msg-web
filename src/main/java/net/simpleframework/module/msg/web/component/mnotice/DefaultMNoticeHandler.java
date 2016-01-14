@@ -1,8 +1,9 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import net.simpleframework.ctx.permission.PermissionUser;
+import net.simpleframework.mvc.common.element.LinkElement;
 import net.simpleframework.mvc.component.AbstractComponentHandler;
 import net.simpleframework.mvc.component.ComponentParameter;
 
@@ -15,8 +16,13 @@ import net.simpleframework.mvc.component.ComponentParameter;
 public class DefaultMNoticeHandler extends AbstractComponentHandler implements IMNoticeHandler {
 
 	@Override
-	public Enumeration<PermissionUser> allUsers(final ComponentParameter cp) {
+	public Iterator<PermissionUser> allUsers(final ComponentParameter cp) {
 		// 缺省取当前部门的用户
+		return cp.getLdept().users();
+	}
+
+	@Override
+	public LinkElement getOpenUrl(final ComponentParameter cp) {
 		return null;
 	}
 }

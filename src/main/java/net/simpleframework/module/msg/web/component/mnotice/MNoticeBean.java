@@ -15,9 +15,6 @@ public class MNoticeBean extends AbstractComponentBean {
 	/* 是否开启标题可写 */
 	private boolean topicEnable = BeanDefaults.getBool(getClass(), "topicEnable", true);
 
-	/* 打开页面的地址 */
-	private String openUrl;
-
 	@Override
 	public boolean isRunImmediately() {
 		return false;
@@ -37,13 +34,5 @@ public class MNoticeBean extends AbstractComponentBean {
 
 	public void setTopicEnable(final boolean topicEnable) {
 		this.topicEnable = topicEnable;
-	}
-
-	public String getOpenUrl() {
-		return openUrl;
-	}
-
-	public void setOpenUrl(final String openUrl) {
-		this.openUrl = openUrl;
 	}
 }
