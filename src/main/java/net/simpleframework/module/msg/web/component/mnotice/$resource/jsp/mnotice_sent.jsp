@@ -10,5 +10,3 @@
   </div>
   <%=MNoticeUtils.toSentTableRows(nCP)%>
 </div>
-<style>
-</style>

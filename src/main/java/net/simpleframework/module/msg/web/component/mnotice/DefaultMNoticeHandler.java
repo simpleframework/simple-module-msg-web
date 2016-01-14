@@ -3,9 +3,8 @@ package net.simpleframework.module.msg.web.component.mnotice;
 import java.util.Enumeration;
 
 import net.simpleframework.ctx.permission.PermissionUser;
-import net.simpleframework.module.msg.IMessageContextAware;
+import net.simpleframework.mvc.component.AbstractComponentHandler;
 import net.simpleframework.mvc.component.ComponentParameter;
-import net.simpleframework.mvc.component.IComponentHandler;
 
 /**
  * Licensed under the Apache License, Version 2.0
@@ -13,13 +12,11 @@ import net.simpleframework.mvc.component.IComponentHandler;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public interface IMNoticeHandler extends IComponentHandler, IMessageContextAware {
+public class DefaultMNoticeHandler extends AbstractComponentHandler implements IMNoticeHandler {
 
-	/**
-	 * 获取发送人范围
-	 * 
-	 * @param cp
-	 * @return
-	 */
-	Enumeration<PermissionUser> allUsers(ComponentParameter cp);
+	@Override
+	public Enumeration<PermissionUser> allUsers(final ComponentParameter cp) {
+		// 缺省取当前部门的用户
+		return null;
+	}
 }
