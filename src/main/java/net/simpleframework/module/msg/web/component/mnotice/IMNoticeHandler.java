@@ -1,5 +1,9 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
+import java.util.Enumeration;
+
+import net.simpleframework.ctx.permission.PermissionUser;
+import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.IComponentHandler;
 
 /**
@@ -9,4 +13,12 @@ import net.simpleframework.mvc.component.IComponentHandler;
  *         http://www.simpleframework.net
  */
 public interface IMNoticeHandler extends IComponentHandler {
+
+	/**
+	 * 获取发送人范围
+	 * 
+	 * @param cp
+	 * @return
+	 */
+	Enumeration<PermissionUser> allUsers(ComponentParameter cp);
 }

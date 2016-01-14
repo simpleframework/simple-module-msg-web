@@ -1,5 +1,6 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
+import net.simpleframework.ctx.common.bean.BeanDefaults;
 import net.simpleframework.mvc.component.AbstractComponentBean;
 
 /**
@@ -9,8 +10,29 @@ import net.simpleframework.mvc.component.AbstractComponentBean;
  *         http://www.simpleframework.net
  */
 public class MNoticeBean extends AbstractComponentBean {
+	/* 是否开启接收人可写 */
+	private boolean receiverEnable = BeanDefaults.getBool(getClass(), "receiverEnable", true);
+	/* 是否开启标题可写 */
+	private boolean topicEnable = BeanDefaults.getBool(getClass(), "topicEnable", true);
+
 	@Override
 	public boolean isRunImmediately() {
 		return false;
+	}
+
+	public boolean isReceiverEnable() {
+		return receiverEnable;
+	}
+
+	public void setReceiverEnable(final boolean receiverEnable) {
+		this.receiverEnable = receiverEnable;
+	}
+
+	public boolean isTopicEnable() {
+		return topicEnable;
+	}
+
+	public void setTopicEnable(final boolean topicEnable) {
+		this.topicEnable = topicEnable;
 	}
 }
