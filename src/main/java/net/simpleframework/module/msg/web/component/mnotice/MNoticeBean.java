@@ -1,5 +1,6 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
+import net.simpleframework.common.StringUtils;
 import net.simpleframework.ctx.common.bean.BeanDefaults;
 import net.simpleframework.mvc.component.AbstractComponentBean;
 
@@ -18,6 +19,12 @@ public class MNoticeBean extends AbstractComponentBean {
 	@Override
 	public boolean isRunImmediately() {
 		return false;
+	}
+
+	@Override
+	public String getHandlerClass() {
+		final String sClass = super.getHandlerClass();
+		return StringUtils.hasText(sClass) ? sClass : DefaultMNoticeHandler.class.getName();
 	}
 
 	public boolean isReceiverEnable() {
