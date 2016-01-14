@@ -26,8 +26,8 @@ public abstract class AbstractMessagePage extends FormTableRowTemplatePage imple
 	}
 
 	@Override
-	public int getLabelWidth(final PageParameter pp) {
-		return 75;
+	public String getLabelWidth(final PageParameter pp) {
+		return "75px";
 	}
 
 	public static abstract class AbstractSentMessagePage extends AbstractMessagePage {
