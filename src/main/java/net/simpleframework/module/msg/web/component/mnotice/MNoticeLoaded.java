@@ -7,6 +7,7 @@ import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.ext.userselect.UserSelectBean;
 import net.simpleframework.mvc.component.ui.autocomplete.AbstractAutocompleteHandler;
 import net.simpleframework.mvc.component.ui.autocomplete.AutocompleteBean;
 import net.simpleframework.mvc.component.ui.autocomplete.AutocompleteData;
@@ -24,10 +25,19 @@ public class MNoticeLoaded extends DefaultPageHandler {
 		super.onBeforeComponentRender(pp);
 
 		final ComponentParameter nCP = MNoticeUtils.get(pp);
+		// 自动完成组件
 		pp.addComponentBean("MNoticeLoaded_autocomplete", AutocompleteBean.class)
 				.setInputField("sm_receiver").setSepChar(";")
 				.setParameters(MNoticeUtils.BEAN_ID + "=" + nCP.hashId())
 				.setHandlerClass(_AutocompleteHandler.class);
+		// 添加用户
+		pp.addComponentBean("MNoticeLoaded_userSelect", UserSelectBean.class).setShowGroupOpt(false)
+				.setShowTreeOpt(false)
+				.setMultiple(true)
+				// .setJsSelectCallback(
+				// "$Actions['DepartmentMgrTPage_userSelect_OK']('deptId=' + $F('.user_select #deptId') + '&selectIds=' + selects.pluck('id').join(';')); return true;")
+				.setPopup(false).setModal(true).setDestroyOnClose(true)
+				.setHandlerClass(_UserSelectHandler.class);
 	}
 
 	public static class _AutocompleteHandler extends AbstractAutocompleteHandler {
@@ -59,5 +69,8 @@ public class MNoticeLoaded extends DefaultPageHandler {
 				}
 			};
 		}
+	}
+
+	public static class _UserSelectHandler {
 	}
 }
