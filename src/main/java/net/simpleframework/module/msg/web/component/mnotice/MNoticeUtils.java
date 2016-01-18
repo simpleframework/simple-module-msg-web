@@ -64,7 +64,8 @@ public abstract class MNoticeUtils {
 
 	public static TableRows toSentTableRows(final ComponentParameter cp) {
 		final TextButton sm_receiver = new TextButton("sm_receiver").setEditable(true)
-				.setOnclick("alert(1);").setReadonly(!(Boolean) cp.getBeanProperty("receiverEnable"));
+				.setOnclick("$Actions['MNoticeLoaded_userSelect']();")
+				.setReadonly(!(Boolean) cp.getBeanProperty("receiverEnable"));
 		final InputElement sm_topic = new InputElement("sm_topic").setReadonly(!(Boolean) cp
 				.getBeanProperty("topicEnable"));
 		final InputElement sm_content = InputElement.textarea("sm_content").setRows(12);

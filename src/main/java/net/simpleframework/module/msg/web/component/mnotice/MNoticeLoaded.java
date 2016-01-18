@@ -3,10 +3,14 @@ package net.simpleframework.module.msg.web.component.mnotice;
 import java.util.Enumeration;
 import java.util.Iterator;
 
+import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
+import net.simpleframework.mvc.component.AbstractComponentBean;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.ext.userselect.DefaultUserSelectHandler;
 import net.simpleframework.mvc.component.ext.userselect.UserSelectBean;
 import net.simpleframework.mvc.component.ui.autocomplete.AbstractAutocompleteHandler;
 import net.simpleframework.mvc.component.ui.autocomplete.AutocompleteBean;
@@ -31,13 +35,13 @@ public class MNoticeLoaded extends DefaultPageHandler {
 				.setParameters(MNoticeUtils.BEAN_ID + "=" + nCP.hashId())
 				.setHandlerClass(_AutocompleteHandler.class);
 		// 添加用户
-		pp.addComponentBean("MNoticeLoaded_userSelect", UserSelectBean.class).setShowGroupOpt(false)
-				.setShowTreeOpt(false)
+		pp.addComponentBean("MNoticeLoaded_userSelect", UserSelectBean.class)
+				.setShowGroupOpt(false)
 				.setMultiple(true)
 				// .setJsSelectCallback(
 				// "$Actions['DepartmentMgrTPage_userSelect_OK']('deptId=' + $F('.user_select #deptId') + '&selectIds=' + selects.pluck('id').join(';')); return true;")
-				.setPopup(false).setModal(true).setDestroyOnClose(true)
-				.setHandlerClass(_UserSelectHandler.class);
+				.setDestroyOnClose(true).setHandlerClass(_UserSelectHandler.class)
+				.setAttr("mnotice_component", nCP.componentBean);
 	}
 
 	public static class _AutocompleteHandler extends AbstractAutocompleteHandler {
@@ -71,6 +75,13 @@ public class MNoticeLoaded extends DefaultPageHandler {
 		}
 	}
 
-	public static class _UserSelectHandler {
+	public static class _UserSelectHandler extends DefaultUserSelectHandler {
+		@Override
+		public IDataQuery<PermissionUser> getUsers(final ComponentParameter cp) {
+			final ComponentParameter nCP = ComponentParameter.get(cp,
+					(AbstractComponentBean) cp.componentBean.getAttr("mnotice_component"));
+			final IMNoticeHandler hdl = (IMNoticeHandler) nCP.getComponentHandler();
+			return new IteratorDataQuery<PermissionUser>(hdl.allUsers(nCP));
+		}
 	}
 }
