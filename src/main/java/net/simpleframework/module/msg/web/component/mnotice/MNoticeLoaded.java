@@ -2,9 +2,11 @@ package net.simpleframework.module.msg.web.component.mnotice;
 
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.query.IteratorDataQuery;
+import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.PageParameter;
@@ -35,11 +37,8 @@ public class MNoticeLoaded extends DefaultPageHandler {
 				.setParameters(MNoticeUtils.BEAN_ID + "=" + nCP.hashId())
 				.setHandlerClass(_AutocompleteHandler.class);
 		// 添加用户
-		pp.addComponentBean("MNoticeLoaded_userSelect", UserSelectBean.class)
-				.setShowGroupOpt(false)
-				.setMultiple(true)
-				.setJsSelectCallback(
-						"var rev = $('sm_receiver'); rev.value = $F(rev); selects.each(function(e) {  }); return true;")
+		pp.addComponentBean("MNoticeLoaded_userSelect", UserSelectBean.class).setShowGroupOpt(false)
+				.setMultiple(true).setJsSelectCallback("return MNoticeLoaded.userselect(selects);")
 				.setDestroyOnClose(true).setHandlerClass(_UserSelectHandler.class)
 				.setAttr("mnotice_component", nCP.componentBean);
 	}
@@ -85,5 +84,12 @@ public class MNoticeLoaded extends DefaultPageHandler {
 			return new IteratorDataQuery<PermissionUser>(hdl.allUsers(nCP));
 		}
 
+		@Override
+		public Map<String, Object> getUserAttributes(final ComponentParameter cp,
+				final PermissionUser user) {
+			final KVMap kv = (KVMap) super.getUserAttributes(cp, user);
+			kv.add("_user", user.getText() + "(" + user.getName() + ")");
+			return kv;
+		}
 	}
 }

@@ -15,4 +15,9 @@ public class MNoticeResourceProvider extends AbstractComponentResourceProvider {
 	public String[] getCssPath(final PageParameter pp) {
 		return new String[] { getCssResourceHomePath(pp) + "/manual_notice.css" };
 	}
+
+	@Override
+	public String[] getJavascriptPath(final PageParameter pp) {
+		return new String[] { getResourceHomePath() + "/js/manual_notice.js" };
+	}
 }
