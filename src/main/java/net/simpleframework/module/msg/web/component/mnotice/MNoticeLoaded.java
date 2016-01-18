@@ -38,8 +38,8 @@ public class MNoticeLoaded extends DefaultPageHandler {
 		pp.addComponentBean("MNoticeLoaded_userSelect", UserSelectBean.class)
 				.setShowGroupOpt(false)
 				.setMultiple(true)
-				// .setJsSelectCallback(
-				// "$Actions['DepartmentMgrTPage_userSelect_OK']('deptId=' + $F('.user_select #deptId') + '&selectIds=' + selects.pluck('id').join(';')); return true;")
+				.setJsSelectCallback(
+						"var rev = $('sm_receiver'); rev.value = $F(rev); selects.each(function(e) {  }); return true;")
 				.setDestroyOnClose(true).setHandlerClass(_UserSelectHandler.class)
 				.setAttr("mnotice_component", nCP.componentBean);
 	}
@@ -69,7 +69,8 @@ public class MNoticeLoaded extends DefaultPageHandler {
 
 				@Override
 				public AutocompleteData nextElement() {
-					return createAutocompleteData(user, sepChar);
+					final AutocompleteData data = createAutocompleteData(user, sepChar);
+					return data.setData(data.getTxt() + sepChar);
 				}
 			};
 		}
@@ -83,5 +84,6 @@ public class MNoticeLoaded extends DefaultPageHandler {
 			final IMNoticeHandler hdl = (IMNoticeHandler) nCP.getComponentHandler();
 			return new IteratorDataQuery<PermissionUser>(hdl.allUsers(nCP));
 		}
+
 	}
 }
