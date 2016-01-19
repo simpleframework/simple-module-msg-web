@@ -11,6 +11,7 @@ import net.simpleframework.mvc.common.element.ButtonElement;
 import net.simpleframework.mvc.common.element.EInputType;
 import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.RowField;
+import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.TableRow;
 import net.simpleframework.mvc.common.element.TableRows;
 import net.simpleframework.mvc.common.element.TextButton;
@@ -55,9 +56,12 @@ public abstract class MNoticeUtils {
 	public static String toSentbarHTML(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<div class='left'>");
-		sb.append(new ButtonElement("查看打开地址"));
+		sb.append(new ButtonElement("查看工作页面"));
 		sb.append("</div>");
 		sb.append("<div class='right'>");
+		sb.append(new ButtonElement("发送").setOnclick("$Actions['MNoticeLoaded_sent']();")
+				.setHighlight(true));
+		sb.append(SpanElement.SPACE);
 		sb.append(ButtonElement.closeBtn());
 		sb.append("</div>");
 		return sb.toString();

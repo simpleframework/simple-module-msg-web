@@ -9,9 +9,12 @@ import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.mvc.DefaultPageHandler;
+import net.simpleframework.mvc.IForward;
 import net.simpleframework.mvc.PageParameter;
 import net.simpleframework.mvc.component.AbstractComponentBean;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.base.ajaxrequest.AjaxRequestBean;
+import net.simpleframework.mvc.component.base.ajaxrequest.DefaultAjaxRequestHandler;
 import net.simpleframework.mvc.component.ext.userselect.DefaultUserSelectHandler;
 import net.simpleframework.mvc.component.ext.userselect.UserSelectBean;
 import net.simpleframework.mvc.component.ui.autocomplete.AbstractAutocompleteHandler;
@@ -41,6 +44,9 @@ public class MNoticeLoaded extends DefaultPageHandler {
 				.setMultiple(true).setJsSelectCallback("return MNoticeLoaded.userselect(selects);")
 				.setDestroyOnClose(true).setHandlerClass(_UserSelectHandler.class)
 				.setAttr("mnotice_component", nCP.componentBean);
+		// 发送
+		pp.addComponentBean("MNoticeLoaded_sent", AjaxRequestBean.class).setHandlerMethod("doSent")
+				.setHandlerClass(UserSelectAction.class).setSelector(".mnotice_sent");
 	}
 
 	public static class _AutocompleteHandler extends AbstractAutocompleteHandler {
@@ -69,7 +75,7 @@ public class MNoticeLoaded extends DefaultPageHandler {
 				@Override
 				public AutocompleteData nextElement() {
 					final AutocompleteData data = createAutocompleteData(user, sepChar);
-					return data.setData(data.getTxt() + sepChar + " ");
+					return data.setData(data.getTxt() + sepChar);
 				}
 			};
 		}
@@ -90,6 +96,13 @@ public class MNoticeLoaded extends DefaultPageHandler {
 			final KVMap kv = (KVMap) super.getUserAttributes(cp, user);
 			kv.add("_user", user.getText() + "(" + user.getName() + ")");
 			return kv;
+		}
+	}
+
+	public static class UserSelectAction extends DefaultAjaxRequestHandler {
+
+		public IForward doSent(final ComponentParameter cp) throws Exception {
+			return null;
 		}
 	}
 }
