@@ -42,6 +42,7 @@
 .FormTableRowTemplatePage .sv_content,
 .FormTableRowTemplatePage .mv_content {
   line-height: 1.8;
+  padding: 0 5px;
   height: 320px;
   font-size: 9.5pt;
   overflow-y: auto;
