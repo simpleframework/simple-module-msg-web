@@ -59,8 +59,8 @@ public abstract class MNoticeUtils {
 		sb.append(new ButtonElement("查看工作页面"));
 		sb.append("</div>");
 		sb.append("<div class='right'>");
-		sb.append(new ButtonElement("发送").setOnclick("$Actions['MNoticeLoaded_sent']();")
-				.setHighlight(true));
+		sb.append(new ButtonElement("发送").setOnclick(
+				"$Actions['MNoticeLoaded_sent']('" + toParams(cp) + "');").setHighlight(true));
 		sb.append(SpanElement.SPACE);
 		sb.append(ButtonElement.closeBtn());
 		sb.append("</div>");

@@ -11,3 +11,10 @@
   border: 1px solid #ccc;
   padding: 6px 10px;
 }
+
+.mnotice_sent #sm_content {
+  font-size: 9.5pt;
+  line-height: 1.8;
+  color: #555;
+  padding: 0 5px;
+}

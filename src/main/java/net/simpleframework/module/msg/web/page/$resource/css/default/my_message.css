@@ -21,6 +21,7 @@
 .FormTableRowTemplatePage #sm_content {
   line-height: 1.8;
   color: #555;
+  padding: 0 5px;
 }
 
 .FormTableRowTemplatePage .sm_content_bar {
