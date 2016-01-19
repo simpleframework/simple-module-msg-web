@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageRequestResponse;
 import net.simpleframework.mvc.common.element.ButtonElement;
+import net.simpleframework.mvc.common.element.EInputType;
 import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.RowField;
 import net.simpleframework.mvc.common.element.TableRow;
@@ -63,8 +64,9 @@ public abstract class MNoticeUtils {
 	}
 
 	public static TableRows toSentTableRows(final ComponentParameter cp) {
-		final TextButton sm_receiver = new TextButton("sm_receiver").setEditable(true)
-				.setOnclick("$Actions['MNoticeLoaded_userSelect']();")
+		final TextButton sm_receiver = new TextButton("sm_receiver")
+				.setInputType(EInputType.textarea).setEditable(true)
+				.setOnclick("$Actions['MNoticeLoaded_userSelect']();").setAutoRows(true).setRows(1)
 				.setReadonly(!(Boolean) cp.getBeanProperty("receiverEnable"));
 		final InputElement sm_topic = new InputElement("sm_topic").setReadonly(!(Boolean) cp
 				.getBeanProperty("topicEnable"));

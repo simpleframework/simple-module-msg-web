@@ -10,7 +10,7 @@ var MNoticeLoaded = {
         val += s["_user"] + ";";
       }
     });
-    rev.value = $F(rev) + val;
+    $Actions.setValue(rev, val, true);
     return true;
   }
 };

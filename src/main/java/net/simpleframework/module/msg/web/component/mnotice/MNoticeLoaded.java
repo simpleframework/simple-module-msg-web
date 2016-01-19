@@ -69,7 +69,7 @@ public class MNoticeLoaded extends DefaultPageHandler {
 				@Override
 				public AutocompleteData nextElement() {
 					final AutocompleteData data = createAutocompleteData(user, sepChar);
-					return data.setData(data.getTxt() + sepChar);
+					return data.setData(data.getTxt() + sepChar + " ");
 				}
 			};
 		}
