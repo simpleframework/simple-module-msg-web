@@ -3,10 +3,10 @@ package net.simpleframework.module.msg.web.page;
 import static net.simpleframework.common.I18n.$m;
 
 import java.util.Date;
+import java.util.Set;
 
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
-import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.P2PMessage;
@@ -23,7 +23,6 @@ import net.simpleframework.mvc.common.element.RowField;
 import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.TableRow;
 import net.simpleframework.mvc.common.element.TableRows;
-import net.simpleframework.mvc.component.ComponentHandlerException;
 import net.simpleframework.mvc.component.ComponentParameter;
 import net.simpleframework.mvc.component.base.validation.EValidatorMethod;
 import net.simpleframework.mvc.component.base.validation.Validator;
@@ -58,20 +57,13 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 		// 发送
 		final PrivateMessagePlugin plugin = ((IMessageWebContext) messageContext)
 				.getPrivateMessagePlugin();
-		String toUsers;
+
 		final ID fromId = cp.getLoginId();
 		final String topic = cp.getParameter("sm_topic");
 		final String content = getContent(cp);
-		for (String r : StringUtils.split(toUsers = cp.getParameter("sm_receiver"), ";")) {
-			r = r.trim();
-			if (!StringUtils.hasText(r)) {
-				continue;
-			}
-			final PermissionUser user = cp.getUser(r);
-			final ID userId = user.getId();
-			if (userId == null) {
-				throw ComponentHandlerException.of($m("PrivateMessageSentPage.4", r));
-			}
+		final Set<ID> users = MessageUtils.toRevSet(cp,
+				StringUtils.split(cp.getParameter("sm_receiver"), ";"));
+		for (final ID userId : users) {
 			plugin.sentMessage(userId, fromId, topic, content);
 		}
 
@@ -87,7 +79,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 			}
 			message.setSentDate(sentDate);
 			message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
-			message.setToUsers(toUsers);
+			message.setToUsers(MessageUtils.toRevString(cp, users));
 			message.setTopic(topic);
 			message.setContent(content);
 			if (insert) {
@@ -96,6 +88,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 				plugin.getMessageService().update(message);
 			}
 		} else if (message != null) {
+			// 删除草稿
 			plugin.getMessageService().delete(message.getId());
 		}
 		final JavascriptForward js = super.onSave(cp);
@@ -219,7 +212,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 				+ new SpanElement($m("PrivateMessageSentPage.3")).setClassName("sm_atten");
 	}
 
-	protected static P2PMessage getMessage(final PageParameter pp) {
+	public static P2PMessage getMessage(final PageParameter pp) {
 		return getCacheBean(pp, ((IMessageWebContext) messageContext).getPrivateMessagePlugin()
 				.getMessageService(), "msgId");
 	}

@@ -1,8 +1,9 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
+import net.simpleframework.common.ID;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.mvc.JavascriptForward;
@@ -34,6 +35,5 @@ public interface IMNoticeHandler extends IComponentHandler, IMessageContextAware
 	 */
 	LinkElement getOpenUrl(ComponentParameter cp);
 
-	JavascriptForward onSent(ComponentParameter cp, List<PermissionUser> users, String topic,
-			String content);
+	JavascriptForward onSent(ComponentParameter cp, Set<ID> users, String topic, String content);
 }

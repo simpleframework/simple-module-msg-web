@@ -1,17 +1,19 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.query.IteratorDataQuery;
+import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.msg.IMessageContext;
+import net.simpleframework.module.msg.web.page.MessageUtils;
 import net.simpleframework.mvc.DefaultPageHandler;
 import net.simpleframework.mvc.IForward;
 import net.simpleframework.mvc.PageParameter;
@@ -120,18 +122,8 @@ public class MNoticeLoaded extends DefaultPageHandler {
 		public IForward doSent(final ComponentParameter cp) throws Exception {
 			final ComponentParameter nCP = MNoticeUtils.get(cp);
 			final IMNoticeHandler nhdl = (IMNoticeHandler) nCP.getComponentHandler();
-			final ArrayList<PermissionUser> users = new ArrayList<PermissionUser>();
-			for (String rev : StringUtils.split(cp.getParameter("sm_receiver"), ";")) {
-				final int ps = rev.indexOf("(");
-				final int pe = rev.indexOf(")");
-				if (ps > -1 && pe > ps) {
-					rev = rev.substring(ps + 1, pe);
-				}
-				final PermissionUser user = cp.getUser(rev.trim());
-				if (user.exists()) {
-					users.add(user);
-				}
-			}
+			final Set<ID> users = MessageUtils.toRevSet(cp,
+					StringUtils.split(cp.getParameter("sm_receiver"), ";"));
 			return nhdl.onSent(nCP, users, cp.getParameter("sm_topic"), cp.getParameter("sm_content"));
 		}
 	}
