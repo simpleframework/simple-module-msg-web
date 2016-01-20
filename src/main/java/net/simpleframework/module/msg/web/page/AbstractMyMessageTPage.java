@@ -340,9 +340,9 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		return TablePagerColumn.DATE("createDate", $m("AbstractMyMessageTPage.1"));
 	}
 
-	public static final TablePagerColumn TC_USERID() {
-		return new TablePagerColumn("userId", $m("MyPrivateMessageSentTPage.0"), 115)
-				.setFilter(false);
+	public static final TablePagerColumn TC_REVID() {
+		return new TablePagerColumn("userId", $m("MyPrivateMessageSentTPage.0"), 250)
+				.setNowrap(false).setFilter(false);
 	}
 
 	public static final TablePagerColumn TC_FROMID() {

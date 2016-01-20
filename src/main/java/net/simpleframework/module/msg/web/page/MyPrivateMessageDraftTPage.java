@@ -24,7 +24,7 @@ public class MyPrivateMessageDraftTPage extends MyPrivateMessageTPage {
 	@Override
 	protected void addMessageComponents(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageDraftTbl.class);
-		tablePager.addColumn(TC_TOPIC()).addColumn(TC_USERID())
+		tablePager.addColumn(TC_TOPIC()).addColumn(TC_REVID())
 				.addColumn(TC_CREATEDATE().setColumnText($m("MyPrivateMessageDraftTPage.0")))
 				.addColumn(TablePagerColumn.OPE(70));
 		addSentWindowComponent(pp);

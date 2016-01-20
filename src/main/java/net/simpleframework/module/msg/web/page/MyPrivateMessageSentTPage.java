@@ -27,7 +27,7 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 	@Override
 	protected void addMessageComponents(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, PrivateMessageSentTbl.class);
-		tablePager.addColumn(TC_TOPIC()).addColumn(TC_USERID())
+		tablePager.addColumn(TC_TOPIC()).addColumn(TC_REVID())
 				.addColumn(TC_CREATEDATE().setColumnText($m("AbstractMyMessageTPage.8")))
 				.addColumn(TablePagerColumn.OPE(70));
 
