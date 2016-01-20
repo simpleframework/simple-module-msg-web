@@ -1,5 +1,7 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
+import static net.simpleframework.common.I18n.$m;
+
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
@@ -71,11 +73,15 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 		message.setFromId(cp.getLoginId());
 		message.setSentDate(sentDate);
 		message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
-		message.setToUsers(MessageUtils.toRevString(cp, users));
+		final String toUsers = MessageUtils.toRevString(cp, users);
+		message.setToUsers(toUsers);
 		message.setTopic(topic);
 		message.setContent(content);
 		plugin.getMessageService().insert(message);
-		return new JavascriptForward("$Actions['").append(cp.getComponentName()).append(
-				"_win'].close();");
+		final JavascriptForward js = new JavascriptForward("$Actions['")
+				.append(cp.getComponentName()).append("_win'].close();").append("$alert('")
+				.append($m("DefaultMNoticeHandler.0")).append("<br>").append(toUsers)
+				.append("', null, 210);");
+		return js;
 	}
 }
