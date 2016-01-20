@@ -18,3 +18,9 @@
   color: #555;
   padding: 0 5px;
 }
+
+.mnotice_sent .sm_atten {
+  line-height: 2.4; 
+  font-size: 9.5pt; 
+  color: #777;
+}

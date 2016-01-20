@@ -9,4 +9,5 @@
     <%=MNoticeUtils.toSentbarHTML(nCP)%>
   </div>
   <%=MNoticeUtils.toSentTableRows(nCP)%>
+  <div class="sm_atten">#(PrivateMessageSentPage.3)</div>
 </div>

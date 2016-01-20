@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageRequestResponse;
 import net.simpleframework.mvc.common.element.ButtonElement;
+import net.simpleframework.mvc.common.element.Checkbox;
 import net.simpleframework.mvc.common.element.EInputType;
 import net.simpleframework.mvc.common.element.InputElement;
 import net.simpleframework.mvc.common.element.RowField;
@@ -56,7 +57,7 @@ public abstract class MNoticeUtils {
 	public static String toSentbarHTML(final ComponentParameter cp) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<div class='left'>");
-		sb.append(new ButtonElement("查看工作页面"));
+		sb.append(new Checkbox("opt_sentMark", $m("PrivateMessageSentPage.6")).setChecked(true));
 		sb.append("</div>");
 		sb.append("<div class='right'>");
 		sb.append(new ButtonElement("发送").setOnclick(

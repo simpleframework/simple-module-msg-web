@@ -65,19 +65,21 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 			plugin.sentMessage(userId, cp.getLoginId(), topic, toSentContent(cp, content));
 		}
 
-		// 保存发件箱
-		final P2PMessage message = new P2PMessage();
-		final Date sentDate = new Date();
-		message.setCreateDate(sentDate);
-		message.setMessageMark(plugin.getMark());
-		message.setFromId(cp.getLoginId());
-		message.setSentDate(sentDate);
-		message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
 		final String toUsers = MessageUtils.toRevString(cp, users);
-		message.setToUsers(toUsers);
-		message.setTopic(topic);
-		message.setContent(content);
-		plugin.getMessageService().insert(message);
+		// 保存发件箱
+		if (cp.getBoolParameter("opt_sentMark")) {
+			final P2PMessage message = new P2PMessage();
+			final Date sentDate = new Date();
+			message.setCreateDate(sentDate);
+			message.setMessageMark(plugin.getMark());
+			message.setFromId(cp.getLoginId());
+			message.setSentDate(sentDate);
+			message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
+			message.setToUsers(toUsers);
+			message.setTopic(topic);
+			message.setContent(content);
+			plugin.getMessageService().insert(message);
+		}
 		final JavascriptForward js = new JavascriptForward("$Actions['")
 				.append(cp.getComponentName()).append("_win'].close();").append("$alert('")
 				.append($m("DefaultMNoticeHandler.0")).append("<br>").append(toUsers)
