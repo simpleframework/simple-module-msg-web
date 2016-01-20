@@ -68,14 +68,15 @@ public abstract class MNoticeUtils {
 	}
 
 	public static TableRows toSentTableRows(final ComponentParameter cp) {
+		final IMNoticeHandler nhdl = (IMNoticeHandler) cp.getComponentHandler();
 		final TextButton sm_receiver = new TextButton("sm_receiver")
 				.setInputType(EInputType.textarea).setEditable(true)
 				.setOnclick("$Actions['MNoticeLoaded_userSelect']();").setAutoRows(true).setRows(1)
 				.setReadonly(!(Boolean) cp.getBeanProperty("receiverEnable"));
-		final InputElement sm_topic = new InputElement("sm_topic").setReadonly(!(Boolean) cp
-				.getBeanProperty("topicEnable"));
-		final InputElement sm_content = InputElement.textarea("sm_content").setRows(12);
-
+		final InputElement sm_topic = new InputElement("sm_topic").setReadonly(
+				!(Boolean) cp.getBeanProperty("topicEnable")).setValue(nhdl.getTopic(cp));
+		final InputElement sm_content = InputElement.textarea("sm_content").setRows(12)
+				.setValue(nhdl.getContent(cp));
 		final TableRow r1 = new TableRow(
 				new RowField($m("PrivateMessageSentPage.0"), sm_receiver).setStarMark(true));
 		final TableRow r2 = new TableRow(

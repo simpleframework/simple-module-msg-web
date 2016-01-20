@@ -27,6 +27,10 @@ public interface IMNoticeHandler extends IComponentHandler, IMessageContextAware
 	 */
 	Iterator<PermissionUser> allUsers(ComponentParameter cp);
 
+	String getTopic(ComponentParameter cp);
+
+	String getContent(ComponentParameter cp);
+
 	/**
 	 * 打开页面的地址
 	 * 

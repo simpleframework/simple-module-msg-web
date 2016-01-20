@@ -30,8 +30,28 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 	}
 
 	@Override
-	public LinkElement getOpenUrl(final ComponentParameter cp) {
+	public String getTopic(final ComponentParameter cp) {
 		return null;
+	}
+
+	@Override
+	public String getContent(final ComponentParameter cp) {
+		return null;
+	}
+
+	@Override
+	public LinkElement getOpenUrl(final ComponentParameter cp) {
+		return LinkElement.style2("www.sina.com.cn").setHref("http://www.sina.com.cn");
+	}
+
+	protected String toSentContent(final ComponentParameter cp, final String content) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append(content);
+		final LinkElement le = getOpenUrl(cp);
+		if (le != null) {
+			sb.append("<p>").append(le.setTarget("_blank")).append("</p>");
+		}
+		return sb.toString();
 	}
 
 	@Override
@@ -40,7 +60,7 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 		final PrivateMessagePlugin plugin = ((IMessageWebContext) messageContext)
 				.getPrivateMessagePlugin();
 		for (final ID userId : users) {
-			plugin.sentMessage(userId, cp.getLoginId(), topic, content);
+			plugin.sentMessage(userId, cp.getLoginId(), topic, toSentContent(cp, content));
 		}
 
 		// 保存发件箱
