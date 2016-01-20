@@ -41,7 +41,7 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 
 	@Override
 	public LinkElement getOpenUrl(final ComponentParameter cp) {
-		return LinkElement.style2("www.sina.com.cn").setHref("http://www.sina.com.cn");
+		return null;
 	}
 
 	protected String toSentContent(final ComponentParameter cp, final String content) {
