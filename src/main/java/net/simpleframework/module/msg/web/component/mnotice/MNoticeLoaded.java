@@ -1,6 +1,5 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -9,6 +8,7 @@ import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
+import net.simpleframework.common.coll.CollectionUtils.AbstractIterator;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.ctx.trans.Transaction;
@@ -68,17 +68,18 @@ public class MNoticeLoaded extends DefaultPageHandler {
 
 	public static class _AutocompleteHandler extends AbstractAutocompleteHandler {
 		@Override
-		public Enumeration<AutocompleteData> getData(final ComponentParameter cp, final String val,
+		public Iterator<AutocompleteData> getData(final ComponentParameter cp, final String val,
 				final String val2) {
 			final String sepChar = (String) cp.getBeanProperty("sepChar");
 			final ComponentParameter nCP = MNoticeUtils.get(cp);
 			final IMNoticeHandler nhdl = (IMNoticeHandler) nCP.getComponentHandler();
 			final Iterator<PermissionUser> it = nhdl.allUsers(nCP);
-			return new Enumeration<AutocompleteData>() {
+
+			return new AbstractIterator<AutocompleteData>() {
 				private PermissionUser user;
 
 				@Override
-				public boolean hasMoreElements() {
+				public boolean hasNext() {
 					while (it.hasNext()) {
 						final PermissionUser user2 = it.next();
 						if (user2.getName().contains(val2)) {
@@ -90,7 +91,7 @@ public class MNoticeLoaded extends DefaultPageHandler {
 				}
 
 				@Override
-				public AutocompleteData nextElement() {
+				public AutocompleteData next() {
 					final AutocompleteData data = createAutocompleteData(user, sepChar);
 					return data.setData(data.getTxt() + sepChar);
 				}
