@@ -3,9 +3,10 @@ package net.simpleframework.module.msg.web.component.mnotice;
 import static net.simpleframework.common.I18n.$m;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Set;
 
+import net.simpleframework.ado.query.IDataQuery;
+import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.ID;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.module.msg.P2PMessage;
@@ -26,9 +27,9 @@ import net.simpleframework.mvc.component.ComponentParameter;
 public class DefaultMNoticeHandler extends AbstractComponentHandler implements IMNoticeHandler {
 
 	@Override
-	public Iterator<PermissionUser> allUsers(final ComponentParameter cp) {
+	public IDataQuery<PermissionUser> allUsers(final ComponentParameter cp) {
 		// 缺省取当前部门的用户
-		return cp.getLdept().users();
+		return new IteratorDataQuery<PermissionUser>(cp.getLdept().users());
 	}
 
 	@Override

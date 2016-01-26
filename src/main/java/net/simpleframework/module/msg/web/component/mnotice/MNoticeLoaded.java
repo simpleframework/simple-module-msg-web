@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import net.simpleframework.ado.query.DataQueryUtils;
 import net.simpleframework.ado.query.IDataQuery;
-import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.CollectionUtils.AbstractIterator;
@@ -73,7 +73,7 @@ public class MNoticeLoaded extends DefaultPageHandler {
 			final String sepChar = (String) cp.getBeanProperty("sepChar");
 			final ComponentParameter nCP = MNoticeUtils.get(cp);
 			final IMNoticeHandler nhdl = (IMNoticeHandler) nCP.getComponentHandler();
-			final Iterator<PermissionUser> it = nhdl.allUsers(nCP);
+			final Iterator<PermissionUser> it = DataQueryUtils.toIterator(nhdl.allUsers(nCP));
 
 			return new AbstractIterator<AutocompleteData>() {
 				private PermissionUser user;
@@ -105,7 +105,7 @@ public class MNoticeLoaded extends DefaultPageHandler {
 			final ComponentParameter nCP = ComponentParameter.get(cp,
 					(AbstractComponentBean) cp.componentBean.getAttr("mnotice_component"));
 			final IMNoticeHandler hdl = (IMNoticeHandler) nCP.getComponentHandler();
-			return new IteratorDataQuery<PermissionUser>(hdl.allUsers(nCP));
+			return hdl.allUsers(nCP);
 		}
 
 		@Override

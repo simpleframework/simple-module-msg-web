@@ -1,8 +1,8 @@
 package net.simpleframework.module.msg.web.component.mnotice;
 
-import java.util.Iterator;
 import java.util.Set;
 
+import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.ID;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.module.msg.IMessageContextAware;
@@ -25,7 +25,7 @@ public interface IMNoticeHandler extends IComponentHandler, IMessageContextAware
 	 * @param cp
 	 * @return
 	 */
-	Iterator<PermissionUser> allUsers(ComponentParameter cp);
+	IDataQuery<PermissionUser> allUsers(ComponentParameter cp);
 
 	String getTopic(ComponentParameter cp);
 
