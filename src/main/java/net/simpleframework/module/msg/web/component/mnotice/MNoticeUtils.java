@@ -48,8 +48,8 @@ public abstract class MNoticeUtils {
 		AbstractComponentRender.doJavascriptForward(cp, new IJavascriptCallback() {
 			@Override
 			public void doJavascript(final JavascriptForward js) throws Exception {
-				js.append("$Actions['").append(cp.getComponentName()).append("_win']('")
-						.append(toParams(cp)).append("');");
+				js.append("var params = $Actions['").append(cp.getComponentName()).append("'].params;");
+				js.append("$Actions['").append(cp.getComponentName()).append("_win'](params);");
 			}
 		});
 	}
