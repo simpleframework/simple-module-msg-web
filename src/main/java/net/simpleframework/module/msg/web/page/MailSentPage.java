@@ -8,7 +8,9 @@ import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.mail.Email;
 import net.simpleframework.common.web.html.HtmlUtils;
 import net.simpleframework.ctx.permission.PermissionUser;
+import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.msg.IEmailService;
+import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.web.page.AbstractMessagePage.AbstractSentMessagePage;
 import net.simpleframework.mvc.JavascriptForward;
 import net.simpleframework.mvc.PageParameter;
@@ -50,6 +52,7 @@ public class MailSentPage extends AbstractSentMessagePage {
 		return super.addAjaxRequest_onSave(pp).setConfirmMessage($m("MailSentPage.4"));
 	}
 
+	@Transaction(context = IMessageContext.class)
 	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
 		final IEmailService eService = messageContext.getEmailService();
