@@ -19,7 +19,13 @@ import net.simpleframework.mvc.component.ComponentHandlerException;
  */
 public abstract class MessageUtils {
 
-	public static String toRevString(final PageParameter pp, final Set<ID> users) {
+	public static String toRevString(final PageParameter pp, final String users,
+			final boolean showText) {
+		return toRevString(pp, toRevSet(pp, StringUtils.split(users, ";")), showText);
+	}
+
+	public static String toRevString(final PageParameter pp, final Set<ID> users,
+			final boolean showText) {
 		final StringBuilder sb = new StringBuilder();
 		int i = 0;
 		for (final ID userId : users) {
@@ -28,7 +34,11 @@ public abstract class MessageUtils {
 			}
 			final PermissionUser user = pp.getUser(userId);
 			if (user.exists()) {
-				sb.append(user).append(" (").append(user.getName()).append(")");
+				if (showText) {
+					sb.append(user.getText()).append(" (").append(user.getName()).append(")");
+				} else {
+					sb.append(user.getName());
+				}
 				i++;
 			}
 		}

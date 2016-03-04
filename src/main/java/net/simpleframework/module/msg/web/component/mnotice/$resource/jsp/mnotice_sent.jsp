@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="net.simpleframework.module.msg.web.component.mnotice.MNoticeUtils"%>
 <%@ page import="net.simpleframework.mvc.component.ComponentParameter"%>
+<%@ page import="net.simpleframework.mvc.component.ComponentRenderUtils"%>
 <%
 	ComponentParameter nCP = MNoticeUtils.get(request, response);
 %>
 <div class="mnotice_sent">
+  <%=ComponentRenderUtils.genParameters(nCP)%>
   <div class="senttb clearfix">
     <%=MNoticeUtils.toSentbarHTML(nCP)%>
   </div>

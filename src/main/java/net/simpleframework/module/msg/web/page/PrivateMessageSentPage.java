@@ -79,7 +79,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 			}
 			message.setSentDate(sentDate);
 			message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
-			message.setToUsers(MessageUtils.toRevString(cp, users));
+			message.setToUsers(MessageUtils.toRevString(cp, users, false));
 			message.setTopic(topic);
 			message.setContent(content);
 			if (insert) {
@@ -110,7 +110,8 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 			message.setMessageMark(mark.getMark());
 			message.setFromId(cp.getLoginId());
 		}
-		message.setToUsers(cp.getParameter("sm_receiver"));
+
+		message.setToUsers(MessageUtils.toRevString(cp, cp.getParameter("sm_receiver"), false));
 		message.setTopic(cp.getParameter("sm_topic"));
 		message.setContent(getContent(cp));
 		if (insert) {
@@ -186,7 +187,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 				c.append(message.getContent());
 				sm_content.setText(c.toString());
 			} else {
-				sm_receiver.setText(message.getToUsers());
+				sm_receiver.setText(MessageUtils.toRevString(pp, message.getToUsers(), true));
 				sm_topic.setText(message.getTopic());
 				sm_content.setText(message.getContent());
 			}
