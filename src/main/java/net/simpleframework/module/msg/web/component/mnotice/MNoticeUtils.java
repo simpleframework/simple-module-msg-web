@@ -61,7 +61,7 @@ public abstract class MNoticeUtils {
 		sb.append(new Checkbox("opt_sentMark", $m("PrivateMessageSentPage.6")).setChecked(true));
 		sb.append("</div>");
 		sb.append("<div class='right'>");
-		sb.append(new ButtonElement("发送").setOnclick(
+		sb.append(new ButtonElement($m("MNoticeUtils.0")).setOnclick(
 				"$Actions['MNoticeLoaded_sent']('" + toParams(cp) + "');").setHighlight(true));
 		sb.append(SpanElement.SPACE);
 		sb.append(ButtonElement.closeBtn());

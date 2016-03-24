@@ -41,7 +41,8 @@ public class PrivateMessageSentViewPage extends AbstractSentMessagePage {
 		c = HtmlUtils.convertHtmlLines(c);
 
 		final TableRow r1 = new TableRow(new RowField($m("PrivateMessageSentPage.0"),
-				new BlockElement().setText(message.getToUsers())));
+				new BlockElement().setClassName("sv_receiver").setText(
+						MessageUtils.toRevString(pp, message.getToUsers(), true))));
 		final TableRow r2 = new TableRow(new RowField($m("AbstractMyMessageTPage.8"),
 				new BlockElement().setText(message.getSentDate())));
 		final TableRow r3 = new TableRow(new RowField("", new BlockElement().setClassName(

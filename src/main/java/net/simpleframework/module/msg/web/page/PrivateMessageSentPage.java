@@ -150,7 +150,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 			final ButtonElement saveBtn = SAVE_BTN();
 			final StringBuilder sb = new StringBuilder(
 					"if ($F('sm_content').trim() == '' && !confirm('")
-					.append($m("PrivateMessageSentPage.9")).append("')) { return; }")
+					.append($m("PrivateMessageSentPage.2")).append("')) { return; }")
 					.append(saveBtn.getOnclick());
 			el.append(saveBtn.setOnclick(sb.toString()));
 			el.append(SpanElement.SPACE);
@@ -173,7 +173,8 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 	@Override
 	protected TableRows getTableRows(final PageParameter pp) {
 		final InputElement msgId = InputElement.hidden().setName("msgId").setId("sm_msgId");
-		final InputElement sm_receiver = new InputElement("sm_receiver");
+		final InputElement sm_receiver = InputElement.textarea("sm_receiver").setAutoRows(true)
+				.setRows(1);
 		final InputElement sm_topic = new InputElement("sm_topic");
 		final InputElement sm_content = InputElement.textarea("sm_content").setRows(12);
 
@@ -193,16 +194,11 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 			}
 			msgId.setText(message.getId());
 		}
-		// InputElement
-		// .hidden("t").setValue(pp),
 
 		final TableRow r1 = new TableRow(new RowField($m("PrivateMessageSentPage.0"), msgId,
 				sm_receiver).setStarMark(true));
 		final TableRow r2 = new TableRow(
 				new RowField($m("PrivateMessageSentPage.1"), sm_topic).setStarMark(true));
-		// final TableRow r3 = new TableRow(new
-		// RowField($m("PrivateMessageSentPage.2"), sm_content,
-		// sm_content_bar));
 		final TableRow r3 = new TableRow(new RowField("", sm_content, sm_content_bar));
 		return TableRows.of(r1, r2, r3);
 	}

@@ -63,7 +63,7 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 
 		@Override
 		protected String toUserHTML(final ComponentParameter cp, final AbstractMessage msg) {
-			return ((P2PMessage) msg).getToUsers();
+			return MessageUtils.toRevString(cp, ((P2PMessage) msg).getToUsers(), true);
 		}
 
 		@Override

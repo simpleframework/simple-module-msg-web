@@ -39,6 +39,11 @@
 
 /*-----------------------PrivateMessageSentViewPage------------------------*/
 
+.FormTableRowTemplatePage .sv_receiver {
+  max-height: 70px;
+  overflow-y: auto;
+}
+
 .FormTableRowTemplatePage .sv_content,
 .FormTableRowTemplatePage .mv_content {
   line-height: 1.8;
