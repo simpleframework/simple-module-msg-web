@@ -57,33 +57,40 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 		return sb.toString();
 	}
 
+	protected final PrivateMessagePlugin plugin = ((IMessageWebContext) messageContext)
+			.getPrivateMessagePlugin();
+
 	@Override
 	public JavascriptForward onSent(final ComponentParameter cp, final Set<ID> users,
 			final String topic, final String content) {
-		final PrivateMessagePlugin plugin = ((IMessageWebContext) messageContext)
-				.getPrivateMessagePlugin();
 		for (final ID userId : users) {
 			plugin.sentMessage(userId, cp.getLoginId(), topic, toSentContent(cp, content));
 		}
 
 		// 保存发件箱
 		if (cp.getBoolParameter("opt_sentMark")) {
-			final P2PMessage message = new P2PMessage();
-			final Date sentDate = new Date();
-			message.setCreateDate(sentDate);
-			message.setMessageMark(plugin.getMark());
-			message.setFromId(cp.getLoginId());
-			message.setSentDate(sentDate);
-			message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
-			message.setToUsers(MessageUtils.toRevString(cp, users, false));
-			message.setTopic(topic);
-			message.setContent(content);
-			plugin.getMessageService().insert(message);
+			createSentMessage(cp, users, topic, content);
 		}
 		final JavascriptForward js = new JavascriptForward("$Actions['")
 				.append(cp.getComponentName()).append("_win'].close();").append("$alert('")
 				.append($m("DefaultMNoticeHandler.0")).append("<br>")
 				.append(MessageUtils.toRevString(cp, users, true)).append("', null, 210);");
 		return js;
+	}
+
+	protected P2PMessage createSentMessage(final ComponentParameter cp, final Set<ID> users,
+			final String topic, final String content) {
+		final P2PMessage message = new P2PMessage();
+		final Date sentDate = new Date();
+		message.setCreateDate(sentDate);
+		message.setMessageMark(plugin.getMark());
+		message.setFromId(cp.getLoginId());
+		message.setSentDate(sentDate);
+		message.setCategory(PrivateMessagePlugin.SENT_MODULE.getName());
+		message.setToUsers(MessageUtils.toRevString(cp, users, false));
+		message.setTopic(topic);
+		message.setContent(content);
+		plugin.getMessageService().insert(message);
+		return message;
 	}
 }
