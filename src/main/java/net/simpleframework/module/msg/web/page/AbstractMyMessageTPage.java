@@ -310,7 +310,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		}
 
 		protected String toDateHTML(final ComponentParameter cp, final AbstractMessage msg) {
-			return Convert.toDateString(msg.getCreateDate());
+			return Convert.toDateTimeString(msg.getCreateDate());
 		}
 
 		@Override

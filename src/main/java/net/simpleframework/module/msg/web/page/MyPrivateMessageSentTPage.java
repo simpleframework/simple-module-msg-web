@@ -58,7 +58,7 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 
 		@Override
 		protected String toDateHTML(final ComponentParameter cp, final AbstractMessage msg) {
-			return Convert.toDateString(((P2PMessage) msg).getSentDate());
+			return Convert.toDateTimeString(((P2PMessage) msg).getSentDate());
 		}
 
 		@Override
