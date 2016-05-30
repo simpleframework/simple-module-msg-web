@@ -58,7 +58,7 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 
 	@Override
 	public String getPageRole(final PageParameter pp) {
-		return messageContext.getModule().getManagerRole();
+		return getPageManagerRole(pp);
 	}
 
 	protected TablePagerColumn createUserColumn(final PageParameter pp, final String columnName,
