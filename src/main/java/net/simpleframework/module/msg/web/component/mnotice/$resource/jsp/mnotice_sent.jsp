@@ -13,3 +13,12 @@
   <%=MNoticeUtils.toSentTableRows(nCP)%>
   <div class="sm_atten">#(PrivateMessageSentPage.3)</div>
 </div>
+<script type="text/javascript">
+  $ready(function() {
+    var receiver = $("sm_receiver");
+    if (receiver && receiver.getAttribute('autorows') == 'true') {
+      receiver.style.height = '0px';
+      receiver.style.height = receiver.scrollHeight + 'px';
+    }
+  });
+</script>
