@@ -33,6 +33,11 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 	}
 
 	@Override
+	public String getReceiver(final ComponentParameter cp) {
+		return null;
+	}
+
+	@Override
 	public String getTopic(final ComponentParameter cp) {
 		return null;
 	}

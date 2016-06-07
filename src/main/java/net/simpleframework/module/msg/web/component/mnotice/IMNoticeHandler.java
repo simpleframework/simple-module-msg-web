@@ -27,6 +27,8 @@ public interface IMNoticeHandler extends IComponentHandler, IMessageContextAware
 	 */
 	IDataQuery<PermissionUser> allUsers(ComponentParameter cp);
 
+	String getReceiver(ComponentParameter cp);
+
 	String getTopic(ComponentParameter cp);
 
 	String getContent(ComponentParameter cp);

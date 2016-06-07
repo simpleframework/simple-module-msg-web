@@ -74,7 +74,8 @@ public abstract class MNoticeUtils {
 		final TextButton sm_receiver = new TextButton("sm_receiver")
 				.setInputType(EInputType.textarea).setEditable(true)
 				.setOnclick("$Actions['MNoticeLoaded_userSelect']();").setAutoRows(true).setRows(1)
-				.setReadonly(!(Boolean) cp.getBeanProperty("receiverEnable"));
+				.setReadonly(!(Boolean) cp.getBeanProperty("receiverEnable"))
+				.setVal(nhdl.getReceiver(cp));
 		final InputElement sm_topic = new InputElement("sm_topic").setReadonly(
 				!(Boolean) cp.getBeanProperty("topicEnable")).setValue(nhdl.getTopic(cp));
 		final InputElement sm_content = InputElement.textarea("sm_content").setRows(12)
