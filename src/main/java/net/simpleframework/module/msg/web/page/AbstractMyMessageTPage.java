@@ -333,7 +333,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	}
 
 	public static final TablePagerColumn TC_TOPIC() {
-		return new TablePagerColumn("topic", $m("AbstractMgrMessagePage.0")).setSort(false);
+		return new TablePagerColumn("topic", $m("AbstractMgrMessagePage.0")).setSort(false)
+				.setNowrap(false);
 	}
 
 	public static final TablePagerColumn TC_CREATEDATE() {
