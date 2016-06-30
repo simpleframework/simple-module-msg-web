@@ -57,7 +57,7 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 		sb.append(content);
 		final LinkElement le = getOpenUrl(cp);
 		if (le != null) {
-			sb.append("<p>").append(le.setTarget("_blank")).append("</p>");
+			sb.append("<p>").append(le.blank()).append("</p>");
 		}
 		return sb.toString();
 	}
