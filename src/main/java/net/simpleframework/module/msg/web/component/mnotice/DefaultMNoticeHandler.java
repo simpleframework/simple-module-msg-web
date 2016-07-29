@@ -8,6 +8,9 @@ import java.util.Set;
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.ado.query.IteratorDataQuery;
 import net.simpleframework.common.ID;
+import net.simpleframework.common.StringUtils;
+import net.simpleframework.common.coll.KVMap;
+import net.simpleframework.common.web.html.HtmlUtils;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.module.msg.P2PMessage;
 import net.simpleframework.module.msg.web.IMessageWebContext;
@@ -68,8 +71,15 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 	@Override
 	public JavascriptForward onSent(final ComponentParameter cp, final Set<ID> users,
 			final String topic, final String content) {
-		for (final ID userId : users) {
-			plugin.sentMessage(userId, cp.getLoginId(), topic, toSentContent(cp, content));
+		final boolean sms = cp.getBoolParameter("opt_sms");
+		for (final ID toId : users) {
+			plugin.sentMessage(toId, cp.getLoginId(), topic, toSentContent(cp, content));
+
+			String mobile;
+			if (sms && StringUtils.hasText(mobile = cp.getUser(toId).getMobile())) {
+				messageContext.getSMSService().sentSMS(mobile, HtmlUtils.parseDocument(content).text(),
+						new KVMap());
+			}
 		}
 
 		// 保存发件箱

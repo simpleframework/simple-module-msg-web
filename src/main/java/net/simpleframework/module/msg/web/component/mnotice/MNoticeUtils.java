@@ -59,6 +59,8 @@ public abstract class MNoticeUtils {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("<div class='left'>");
 		sb.append(new Checkbox("opt_sentMark", $m("PrivateMessageSentPage.6")).setChecked(true));
+		sb.append(SpanElement.SPACE15);
+		sb.append(new Checkbox("opt_sms", $m("PrivateMessageSentPage.9")));
 		sb.append("</div>");
 		sb.append("<div class='right'>");
 		sb.append(new ButtonElement($m("MNoticeUtils.0")).setOnclick(
