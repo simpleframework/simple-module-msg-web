@@ -77,8 +77,7 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 		props.put("content", cp.getParameter("nmc_content"));
 		messageContext.getContextSettings()
 				.saveNoticeMessageCategoryProps(mCategory.getName(), props);
-		return new JavascriptForward("alert('").append($m("NoticeMessageContentPage.5"))
-				.append("');");
+		return JavascriptForward.alert($m("NoticeMessageContentPage.5"));
 	}
 
 	public IForward doNav(final ComponentParameter cp) {

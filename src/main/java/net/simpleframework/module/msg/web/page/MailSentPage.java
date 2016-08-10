@@ -81,8 +81,8 @@ public class MailSentPage extends AbstractSentMessagePage {
 				}
 			}
 		}
-		return new JavascriptForward("alert('").append($m("MailSentPage.5")).append("');")
-				.append(super.onSave(cp));
+
+		return JavascriptForward.alert($m("MailSentPage.5")).append(super.onSave(cp));
 	}
 
 	@Override
