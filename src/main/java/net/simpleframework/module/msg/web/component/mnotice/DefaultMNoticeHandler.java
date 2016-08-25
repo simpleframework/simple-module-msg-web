@@ -77,8 +77,7 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 
 			String mobile;
 			if (sms && StringUtils.hasText(mobile = cp.getUser(toId).getMobile())) {
-				messageContext.getSMSService().sentSMS(mobile, HtmlUtils.parseDocument(content).text(),
-						new KVMap());
+				_smsService.sentSMS(mobile, HtmlUtils.parseDocument(content).text(), new KVMap());
 			}
 		}
 
