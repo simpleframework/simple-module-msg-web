@@ -37,8 +37,8 @@ import net.simpleframework.mvc.template.t1.T1ResizedTemplatePage;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage implements
-		IMessageContextAware {
+public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage
+		implements IMessageContextAware {
 
 	@Override
 	protected void onForward(final PageParameter pp) throws Exception {
@@ -85,8 +85,8 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 	public TabButtons getTabButtons(final PageParameter pp) {
 		final TabButtons tabs = TabButtons.of();
 		for (final IModulePlugin messageMark : messageContext.getPluginRegistry().allPlugin()) {
-			tabs.append(new TabButton(messageMark.getText(), ((IMessageUI) messageMark)
-					.getManagerPageUrl(pp)));
+			tabs.append(new TabButton(messageMark.getText(),
+					((IMessageUI) messageMark).getManagerPageUrl(pp)));
 		}
 		return tabs;
 	}
@@ -135,7 +135,8 @@ public abstract class AbstractMgrMessagePage extends T1ResizedTemplatePage imple
 		}
 
 		@Override
-		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
+		protected Map<String, Object> getRowData(final ComponentParameter cp,
+				final Object dataObject) {
 			final AbstractMessage msg = (AbstractMessage) dataObject;
 			final KVMap kv = new KVMap();
 			kv.add("topic", toTopicElement(cp, msg));

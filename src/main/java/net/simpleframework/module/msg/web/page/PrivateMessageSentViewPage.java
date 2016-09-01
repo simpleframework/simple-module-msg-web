@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.common.web.html.HtmlUtils;
 import net.simpleframework.module.msg.P2PMessage;
 import net.simpleframework.module.msg.web.page.AbstractMessagePage.AbstractSentMessagePage;
@@ -41,12 +42,12 @@ public class PrivateMessageSentViewPage extends AbstractSentMessagePage {
 		c = HtmlUtils.convertHtmlLines(c);
 
 		final TableRow r1 = new TableRow(new RowField($m("PrivateMessageSentPage.0"),
-				new BlockElement().setClassName("sv_receiver").setText(
-						MessageUtils.toRevString(pp, message.getToUsers(), true))));
+				new BlockElement().setClassName("sv_receiver")
+						.setText(MessageUtils.toRevString(pp, message.getToUsers(), true))));
 		final TableRow r2 = new TableRow(new RowField($m("AbstractMyMessageTPage.8"),
 				new BlockElement().setText(message.getSentDate())));
-		final TableRow r3 = new TableRow(new RowField("", new BlockElement().setClassName(
-				"sv_content").setText(c)));
+		final TableRow r3 = new TableRow(
+				new RowField("", new BlockElement().setClassName("sv_content").setText(c)));
 		return TableRows.of(r1, r2, r3);
 	}
 }

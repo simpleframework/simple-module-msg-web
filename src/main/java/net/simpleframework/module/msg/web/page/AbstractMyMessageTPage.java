@@ -11,6 +11,7 @@ import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.web.HttpUtils;
+import net.simpleframework.common.web.JavascriptUtils;
 import net.simpleframework.module.common.plugin.IModulePlugin;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IMessageContextAware;
@@ -51,11 +52,12 @@ import net.simpleframework.mvc.template.struct.NavigationButtons;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class AbstractMyMessageTPage extends Category_ListPage implements
-		IMessageContextAware {
+public abstract class AbstractMyMessageTPage extends Category_ListPage
+		implements IMessageContextAware {
 
 	@Override
 	protected void onForward(final PageParameter pp) throws Exception {
@@ -85,21 +87,14 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	protected void createMarkMenuComponent(final PageParameter pp) {
 		// 标记菜单
 		final MenuBean mb = (MenuBean) addComponentBean(pp, "AbstractMyMessageTPage_markMenu",
-				MenuBean.class).setMenuEvent(EMenuEvent.click).setSelector(
-				"#idAbstractMyMessageTPage_markMenu");
-		mb.addItem(
-				MenuItem
-						.of($m("MyPrivateMessageTPage.2"))
-						.setOnclick(
-								"$Actions['AbstractMyMessageTPage_tbl'].doAct('AbstractMyMessageTPage_mark', null, 'mark=read');"))
-				.addItem(
-						MenuItem
-								.of($m("MyPrivateMessageTPage.3"))
-								.setOnclick(
-										"$Actions['AbstractMyMessageTPage_tbl'].doAct('AbstractMyMessageTPage_mark', null, 'mark=unread');"))
-				.addItem(
-						MenuItem.of($m("MyPrivateMessageTPage.4")).setOnclick(
-								"$Actions['AbstractMyMessageTPage_mark']('mark=all');"));
+				MenuBean.class).setMenuEvent(EMenuEvent.click)
+						.setSelector("#idAbstractMyMessageTPage_markMenu");
+		mb.addItem(MenuItem.of($m("MyPrivateMessageTPage.2")).setOnclick(
+				"$Actions['AbstractMyMessageTPage_tbl'].doAct('AbstractMyMessageTPage_mark', null, 'mark=read');"))
+				.addItem(MenuItem.of($m("MyPrivateMessageTPage.3")).setOnclick(
+						"$Actions['AbstractMyMessageTPage_tbl'].doAct('AbstractMyMessageTPage_mark', null, 'mark=unread');"))
+				.addItem(MenuItem.of($m("MyPrivateMessageTPage.4"))
+						.setOnclick("$Actions['AbstractMyMessageTPage_mark']('mark=all');"));
 		// 标记
 		addAjaxRequest(pp, "AbstractMyMessageTPage_mark").setHandlerMethod("doMark");
 	}
@@ -159,12 +154,9 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 
 	private CategoryItem createCategoryItem(final PageParameter pp, final IMessageUI oModule) {
 		final String href = oModule.getMyPageUrl(pp);
-		final CategoryItem block = new CategoryItem(oModule.toString())
-				.setHref(href)
-				.setIconClass(oModule.getIconClass(pp))
-				.setSelected(
-						href.equals(((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
-								getClass())));
+		final CategoryItem block = new CategoryItem(oModule.toString()).setHref(href)
+				.setIconClass(oModule.getIconClass(pp)).setSelected(href.equals(
+						((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp, getClass())));
 		if (oModule instanceof IMessagePlugin) {
 			final IMessagePlugin oMark = (IMessagePlugin) oModule;
 			final int num = oMark.getMessageService().getUnreadMessageCount(pp.getLoginId());
@@ -175,10 +167,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 			if (oModule instanceof PrivateMessageDraftCategory) {
 				final PrivateMessagePlugin oMark = ((IMessageWebContext) messageContext)
 						.getPrivateMessagePlugin();
-				final int c = oMark
-						.getMessageService()
-						.queryFromMessages(pp.getLoginId(), null,
-								PrivateMessagePlugin.DRAFT_MODULE.getName()).getCount();
+				final int c = oMark.getMessageService().queryFromMessages(pp.getLoginId(), null,
+						PrivateMessagePlugin.DRAFT_MODULE.getName()).getCount();
 				if (c > 0) {
 					block.setTitle(oModule.toString() + SupElement.num(c));
 				}
@@ -227,8 +217,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		final ElementList eles = ElementList.of();
 		final Boolean read = getRead(pp);
 		final String url = ((IMessageUI) oMark).getMyPageUrl(pp);
-		eles.add(new LinkElementEx($m("AbstractMyMessageTPage.3")).setSelected(read == null).setHref(
-				url));
+		eles.add(new LinkElementEx($m("AbstractMyMessageTPage.3")).setSelected(read == null)
+				.setHref(url));
 		eles.add(SupElement.num(all));
 		eles.add(SpanElement.SPACE);
 		eles.add(new LinkElementEx($m("AbstractMyMessageTPage.4")).setSelected(read != null && !read)
@@ -248,13 +238,26 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 
 	@Override
 	public NavigationButtons getNavigationBar(final PageParameter pp) {
-		return NavigationButtons.of(new SpanElement($m("MessageWebContext.1")), new SpanElement(
-				getMessagePlugin(pp).getText()));
+		return NavigationButtons.of(new SpanElement($m("MessageWebContext.1")),
+				new SpanElement(getMessagePlugin(pp).getText()));
 	}
 
 	protected AbstractElement<?> createDeleteElement() {
 		return LinkButton.deleteBtn().setOnclick(
 				"$Actions['AbstractMyMessageTPage_tbl'].doAct('AbstractMyMessageTPage_delete');");
+	}
+
+	@Override
+	protected String toListHTML(final PageParameter pp) {
+		final StringBuilder sb = new StringBuilder(super.toListHTML(pp));
+		final AbstractMessage msg = getMessagePlugin(pp).getMessageService()
+				.getBean(pp.getParameter("msgId"));
+		if (msg != null) {
+			final StringBuilder js = new StringBuilder();
+			js.append("eval($('div[rowid=" + msg.getId() + "]').down('a').getAttribute('onclick'));");
+			sb.append(JavascriptUtils.wrapScriptTag(js.toString(), true));
+		}
+		return sb.toString();
 	}
 
 	public static class MyMessageTbl extends AbstractDbTablePagerHandler {
@@ -291,15 +294,16 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 			final IMessageService<AbstractMessage> service = (IMessageService<AbstractMessage>) oMark
 					.getMessageService();
 			final boolean unread = !service.isRead(cp.getLoginId(), msg);
-			return new LinkElement(msg.getTopic()).setStrong(unread).setOnclick(
-					"$Actions['"
+			return new LinkElement(msg.getTopic()).setStrong(unread)
+					.setOnclick("$Actions['"
 							+ (unread ? "AbstractMyMessageTPage_view" : "AbstractMyMessageTPage_viewWin")
 							+ "']('msgId=" + msg.getId() + "&messageMark=" + oMark.getMark() + "');");
 		}
 
 		protected ImageElement toImageMark(final ComponentParameter cp, final AbstractMessage msg) {
-			return ImageElement.img16(
-					cp.getCssResourceHomePath(AbstractMyMessageTPage.class) + "/images/unread.png")
+			return ImageElement
+					.img16(
+							cp.getCssResourceHomePath(AbstractMyMessageTPage.class) + "/images/unread.png")
 					.setVerticalAlign(EVerticalAlign.middle);
 		}
 
@@ -314,7 +318,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 		}
 
 		@Override
-		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
+		protected Map<String, Object> getRowData(final ComponentParameter cp,
+				final Object dataObject) {
 			final AbstractMessage msg = (AbstractMessage) dataObject;
 			final KVMap kv = new KVMap();
 
@@ -342,8 +347,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	}
 
 	public static final TablePagerColumn TC_REVID() {
-		return new TablePagerColumn("userId", $m("MyPrivateMessageSentTPage.0"), 250)
-				.setNowrap(false).setFilter(false);
+		return new TablePagerColumn("userId", $m("MyPrivateMessageSentTPage.0"), 250).setNowrap(false)
+				.setFilter(false);
 	}
 
 	public static final TablePagerColumn TC_FROMID() {

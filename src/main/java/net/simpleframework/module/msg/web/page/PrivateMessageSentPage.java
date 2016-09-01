@@ -41,14 +41,14 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 
 		addSmileyDictionary(pp);
 
-		addFormValidationBean(pp).addValidators(
-				new Validator(EValidatorMethod.required, "#sm_receiver, #sm_topic"));
+		addFormValidationBean(pp)
+				.addValidators(new Validator(EValidatorMethod.required, "#sm_receiver, #sm_topic"));
 
-		addAjaxRequest(pp, "PrivateMessageSentPage_save2").setHandlerMethod("onSave2").setSelector(
-				getFormSelector());
+		addAjaxRequest(pp, "PrivateMessageSentPage_save2").setHandlerMethod("onSave2")
+				.setSelector(getFormSelector());
 
-		addUserAutocompleteBean(pp, "PrivateMessageSentPage_autocomplete").setInputField(
-				"sm_receiver").setSepChar(";");
+		addUserAutocompleteBean(pp, "PrivateMessageSentPage_autocomplete")
+				.setInputField("sm_receiver").setSepChar(";");
 	}
 
 	@Transaction(context = IMessageContext.class)
@@ -150,12 +150,12 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 			final ButtonElement saveBtn = SAVE_BTN();
 			final StringBuilder sb = new StringBuilder(
 					"if ($F('sm_content').trim() == '' && !confirm('")
-					.append($m("PrivateMessageSentPage.2")).append("')) { return; }")
-					.append(saveBtn.getOnclick());
+							.append($m("PrivateMessageSentPage.2")).append("')) { return; }")
+							.append(saveBtn.getOnclick());
 			el.append(saveBtn.setOnclick(sb.toString()));
 			el.append(SpanElement.SPACE);
-			el.append(VALIDATION_BTN($m("PrivateMessageSentPage.7")).setOnclick(
-					"$Actions['PrivateMessageSentPage_save2']();"));
+			el.append(VALIDATION_BTN($m("PrivateMessageSentPage.7"))
+					.setOnclick("$Actions['PrivateMessageSentPage_save2']();"));
 			el.append(SpanElement.SPACE);
 		}
 		el.append(ButtonElement.closeBtn());
@@ -195,8 +195,8 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 			msgId.setText(message.getId());
 		}
 
-		final TableRow r1 = new TableRow(new RowField($m("PrivateMessageSentPage.0"), msgId,
-				sm_receiver).setStarMark(true));
+		final TableRow r1 = new TableRow(
+				new RowField($m("PrivateMessageSentPage.0"), msgId, sm_receiver).setStarMark(true));
 		final TableRow r2 = new TableRow(
 				new RowField($m("PrivateMessageSentPage.1"), sm_topic).setStarMark(true));
 		final TableRow r3 = new TableRow(new RowField("", sm_content, sm_content_bar));
@@ -210,7 +210,8 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 	}
 
 	public static P2PMessage getMessage(final PageParameter pp) {
-		return getCacheBean(pp, ((IMessageWebContext) messageContext).getPrivateMessagePlugin()
-				.getMessageService(), "msgId");
+		return getCacheBean(pp,
+				((IMessageWebContext) messageContext).getPrivateMessagePlugin().getMessageService(),
+				"msgId");
 	}
 }

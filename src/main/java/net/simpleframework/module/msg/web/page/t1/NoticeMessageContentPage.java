@@ -75,8 +75,8 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 		props.put("sendto-mobile", cp.getBoolParameter("EMessageSendTo_mobile"));
 		props.put("topic", cp.getParameter("nmc_topic"));
 		props.put("content", cp.getParameter("nmc_content"));
-		messageContext.getContextSettings()
-				.saveNoticeMessageCategoryProps(mCategory.getName(), props);
+		messageContext.getContextSettings().saveNoticeMessageCategoryProps(mCategory.getName(),
+				props);
 		return JavascriptForward.alert($m("NoticeMessageContentPage.5"));
 	}
 
@@ -107,8 +107,8 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 	public ElementList getLeftElements(final PageParameter pp) {
 		final NoticeMessageCategory mCategory = (NoticeMessageCategory) getNoticeMessagePlugin()
 				.allMessageCategory().iterator().next();
-		return ElementList.of(SpanElement.strongText(mCategory == null ? null : mCategory).setId(
-				"nmc_text"));
+		return ElementList
+				.of(SpanElement.strongText(mCategory == null ? null : mCategory).setId("nmc_text"));
 	}
 
 	@Override
@@ -193,8 +193,8 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 						if (i++ == 0) {
 							tn.setSelect(true);
 						}
-						tn.setJsClickCallback("$Actions['NoticeMessageContentPage_nav']('mark="
-								+ c.getName() + "');");
+						tn.setJsClickCallback(
+								"$Actions['NoticeMessageContentPage_nav']('mark=" + c.getName() + "');");
 					}
 					return nodes;
 				}

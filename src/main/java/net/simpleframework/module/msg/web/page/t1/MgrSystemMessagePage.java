@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.page.t1;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.SystemMessagePlugin;
 import net.simpleframework.mvc.PageMapping;

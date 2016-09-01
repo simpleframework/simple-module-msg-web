@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.common.ID;
 import net.simpleframework.common.web.html.HtmlUtils;
 import net.simpleframework.module.msg.AbstractMessage;
@@ -34,16 +35,16 @@ public class MessageViewPage extends AbstractMessagePage {
 
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
-		final IMessagePlugin plugin = messageContext.getPluginRegistry().getPlugin(
-				pp.getIntParameter("messageMark"));
+		final IMessagePlugin plugin = messageContext.getPluginRegistry()
+				.getPlugin(pp.getIntParameter("messageMark"));
 		final AbstractMessage msg = getMessage(pp, plugin);
 		return ElementList.of(new SpanElement(msg.getTopic()).setClassName("topic"));
 	}
 
 	@Override
 	protected TableRows getTableRows(final PageParameter pp) {
-		final IMessagePlugin plugin = messageContext.getPluginRegistry().getPlugin(
-				pp.getIntParameter("messageMark"));
+		final IMessagePlugin plugin = messageContext.getPluginRegistry()
+				.getPlugin(pp.getIntParameter("messageMark"));
 		final AbstractMessage msg = getMessage(pp, plugin);
 
 		final ID fromId = msg.getFromId();
@@ -53,18 +54,20 @@ public class MessageViewPage extends AbstractMessagePage {
 			from = mCategory.getFrom(fromId);
 		}
 
-		final TableRow r1 = new TableRow(new RowField($m("MessageViewPage.0"), new InputElement()
-				.setText("m_fromId").setText(from)), new RowField($m("MessageViewPage.1"),
-				new InputElement().setText(mCategory)));
+		final TableRow r1 = new TableRow(
+				new RowField($m("MessageViewPage.0"),
+						new InputElement().setText("m_fromId").setText(from)),
+				new RowField($m("MessageViewPage.1"), new InputElement().setText(mCategory)));
 
-		final TableRow r2 = new TableRow(new RowField($m("MessageViewPage.2"),
-				new InputElement().setText(msg.getCreateDate())), new RowField($m("MessageViewPage.3"),
-				new InputElement().setText(msg instanceof P2PMessage ? ((P2PMessage) msg).getReadDate()
-						: null)));
+		final TableRow r2 = new TableRow(
+				new RowField($m("MessageViewPage.2"), new InputElement().setText(msg.getCreateDate())),
+				new RowField($m("MessageViewPage.3"), new InputElement()
+						.setText(msg instanceof P2PMessage ? ((P2PMessage) msg).getReadDate() : null)));
 
-		final TableRow r3 = new TableRow(new RowField("", new BlockElement().setText(
-				HtmlUtils.convertHtmlLines(SmileyUtils.replaceSmiley(msg.getContent()))).setClassName(
-				"mv_content")));
+		final TableRow r3 = new TableRow(new RowField("",
+				new BlockElement()
+						.setText(HtmlUtils.convertHtmlLines(SmileyUtils.replaceSmiley(msg.getContent())))
+						.setClassName("mv_content")));
 		return TableRows.of(r1, r2, r3).setReadonly(true);
 	}
 

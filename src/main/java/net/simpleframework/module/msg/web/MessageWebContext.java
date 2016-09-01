@@ -29,7 +29,8 @@ import net.simpleframework.mvc.ctx.WebModuleFunction;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class MessageWebContext extends MessageContext implements IMessageWebContext {
@@ -56,8 +57,8 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 	@Override
 	public ModuleFunctions getFunctions() {
 		return ModuleFunctions.of(
-				new WebModuleFunction(this, MgrNoticeMessagePage.class).setName(
-						MODULE_NAME + "-MessageMgrPage").setText($m("MessageWebContext.0")),
+				new WebModuleFunction(this, MgrNoticeMessagePage.class)
+						.setName(MODULE_NAME + "-MessageMgrPage").setText($m("MessageWebContext.0")),
 				new WebModuleFunction(this)
 						.setUrl(getUrlsFactory().getUrl(null, MyNoticeMessageTPage.class))
 						.setName(MODULE_NAME + "-MyMessagePage").setText($m("MessageContext.0"))
@@ -72,16 +73,16 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 	@Override
 	public AbstractElement<?> toMyMessageElement(final PageParameter pp, final int left,
 			final int top) {
-		final WebModuleFunction f = (WebModuleFunction) getFunctionByName(MODULE_NAME
-				+ "-MyMessagePage");
-		final LinkElement link = new LinkElement(f.getText()).setHref(f.getUrl()).addStyle(
-				"position: relative;");
+		final WebModuleFunction f = (WebModuleFunction) getFunctionByName(
+				MODULE_NAME + "-MyMessagePage");
+		final LinkElement link = new LinkElement(f.getText()).setHref(f.getUrl())
+				.addStyle("position: relative;");
 		final ID loginId = pp.getLoginId();
 		final int count = getP2PMessageService().getUnreadMessageCount(loginId)
 				+ getSubscribeMessageService().getUnreadMessageCount(loginId);
 		if (count > 0) {
-			link.addElements(new SupElement(count).setHighlight(true).addStyle(
-					"position: absolute; left: " + left + "px; top: " + top + "px;"));
+			link.addElements(new SupElement(count).setHighlight(true)
+					.addStyle("position: absolute; left: " + left + "px; top: " + top + "px;"));
 		}
 		return link;
 	}

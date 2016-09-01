@@ -85,10 +85,10 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 		if (cp.getBoolParameter("opt_sentMark")) {
 			createSentMessage(cp, users, topic, content);
 		}
-		final JavascriptForward js = new JavascriptForward("$Actions['")
-				.append(cp.getComponentName()).append("_win'].close();").append("$alert('")
-				.append($m("DefaultMNoticeHandler.0")).append("<br>")
-				.append(MessageUtils.toRevString(cp, users, true)).append("', null, 210);");
+		final JavascriptForward js = new JavascriptForward("$Actions['").append(cp.getComponentName())
+				.append("_win'].close();").append("$alert('").append($m("DefaultMNoticeHandler.0"))
+				.append("<br>").append(MessageUtils.toRevString(cp, users, true))
+				.append("', null, 210);");
 		return js;
 	}
 

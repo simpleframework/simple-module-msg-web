@@ -49,7 +49,8 @@ public class MgrPrivateMessagePage extends AbstractMgrMessagePage {
 	public static class PrivateMessageTbl extends MgrMessageTbl {
 
 		@Override
-		protected Map<String, Object> getRowData(final ComponentParameter cp, final Object dataObject) {
+		protected Map<String, Object> getRowData(final ComponentParameter cp,
+				final Object dataObject) {
 			final P2PMessage msg = (P2PMessage) dataObject;
 			final KVMap kv = (KVMap) super.getRowData(cp, dataObject);
 			kv.put("fromId", TemplateUtils.toIconUser(cp, msg.getFromId()));

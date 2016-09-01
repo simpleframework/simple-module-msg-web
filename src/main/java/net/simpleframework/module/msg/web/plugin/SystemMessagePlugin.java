@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.plugin;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.ISubscribeMessageService;
 import net.simpleframework.module.msg.SubscribeMessage;

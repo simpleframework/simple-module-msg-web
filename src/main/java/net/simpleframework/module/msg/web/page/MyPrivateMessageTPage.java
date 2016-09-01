@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.web.IMessageWebContext;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
@@ -54,16 +55,15 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 	@Override
 	public ElementList getRightElements(final PageParameter pp) {
 		return ElementList.of(
-				new LinkButton($m("MyPrivateMessageTPage.1")).setIconClass(Icon.envelope).setOnclick(
-						"$Actions['MyPrivateMessageTPage_sentWin']();"), SpanElement.SPACE,
-				createMarkMenuElement(), SpanElement.SPACE, createDeleteElement());
+				new LinkButton($m("MyPrivateMessageTPage.1")).setIconClass(Icon.envelope)
+						.setOnclick("$Actions['MyPrivateMessageTPage_sentWin']();"),
+				SpanElement.SPACE, createMarkMenuElement(), SpanElement.SPACE, createDeleteElement());
 	}
 
-	private static final MenuItems CONTEXT_MENUS = MenuItems
-			.of()
-			.append(
-					MenuItem.of($m("MyPrivateMessageTPage.5")).setOnclick_act(
-							"MyPrivateMessageTPage_sentWin", "msgId", "t=reply")).append(MenuItem.sep())
+	private static final MenuItems CONTEXT_MENUS = MenuItems.of()
+			.append(MenuItem.of($m("MyPrivateMessageTPage.5"))
+					.setOnclick_act("MyPrivateMessageTPage_sentWin", "msgId", "t=reply"))
+			.append(MenuItem.sep())
 			.append(MenuItem.itemDelete().setOnclick_act("AbstractMyMessageTPage_delete", "id"));
 
 	public static class PrivateMessageTbl extends MyMessageTbl {
@@ -82,9 +82,8 @@ public class MyPrivateMessageTPage extends AbstractMyMessageTPage {
 		@Override
 		protected String toOpeHTML(final ComponentParameter cp, final AbstractMessage msg) {
 			final StringBuilder sb = new StringBuilder();
-			sb.append(new ButtonElement($m("MyPrivateMessageTPage.5"))
-					.setOnclick("$Actions['MyPrivateMessageTPage_sentWin']('t=reply&msgId="
-							+ msg.getId() + "');"));
+			sb.append(new ButtonElement($m("MyPrivateMessageTPage.5")).setOnclick(
+					"$Actions['MyPrivateMessageTPage_sentWin']('t=reply&msgId=" + msg.getId() + "');"));
 			sb.append(AbstractTablePagerSchema.IMG_DOWNMENU);
 			return sb.toString();
 		}

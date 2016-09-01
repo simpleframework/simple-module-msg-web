@@ -38,8 +38,8 @@ public abstract class AbstractMyMessagePage extends T2TemplatePage {
 
 	@Override
 	public NavigationButtons getNavigationBar(final PageParameter pp) {
-		return super.getNavigationBar(pp).appendAll(
-				singleton(getMessageTPageClass()).getNavigationBar(pp));
+		return super.getNavigationBar(pp)
+				.appendAll(singleton(getMessageTPageClass()).getNavigationBar(pp));
 	}
 
 	@PageMapping(url = "/msg/notice/my")

@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.module.common.bean.CategoryStat;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.plugin.IMessageCategory;
@@ -49,24 +50,24 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 		final ElementList el2 = ElementList.of();
 		final NoticeMessageWebPlugin plugin = getMessagePlugin(pp);
 		final String category = pp.getParameter("category");
-		for (final CategoryStat stat : plugin.getMessageService().queryCategoryItems(pp.getLoginId())) {
+		for (final CategoryStat stat : plugin.getMessageService()
+				.queryCategoryItems(pp.getLoginId())) {
 			final String category2 = stat.getCategoryId();
 			final IMessageCategory mCategory = plugin.getMessageCategory(category2);
 			final LinkElementEx link = (LinkElementEx) new LinkElementEx(
-					mCategory != null ? mCategory.toString() : $m("MyFavoritesTPage.5")).setSelected(
-					category2.equals(category)).setHref(
-					((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
-							MyNoticeMessageTPage.class, "category=" + category2));
-			el2.append(
-					new SpanElement().setClassName("notice_category_item").addElements(link,
-							SupElement.num(stat.getCount())), SpanElement.SPACE);
+					mCategory != null ? mCategory.toString() : $m("MyFavoritesTPage.5"))
+							.setSelected(category2.equals(category))
+							.setHref(((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp,
+									MyNoticeMessageTPage.class, "category=" + category2));
+			el2.append(new SpanElement().setClassName("notice_category_item").addElements(link,
+					SupElement.num(stat.getCount())), SpanElement.SPACE);
 			if (link.isSelected()) {
 				((LinkElementEx) el.get(0)).setSelected(false);
 			}
 		}
 
-		return ElementList.of(TagElement.table().addElements(
-				TagElement.tr().addElements(
+		return ElementList.of(TagElement.table()
+				.addElements(TagElement.tr().addElements(
 						TagElement.td(el).setWidth("140px").setVerticalAlign(EVerticalAlign.top),
 						TagElement.td(el2))));
 	}

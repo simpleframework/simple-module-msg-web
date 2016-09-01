@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.plugin;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.common.ID;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.IP2PMessageService;
@@ -19,7 +20,8 @@ import net.simpleframework.mvc.PageParameter;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IMessageUI {
@@ -117,8 +119,8 @@ public class PrivateMessagePlugin extends AbstractP2PMessagePlugin implements IM
 		}
 	}
 
-	private static abstract class _PrivateMessageCategory extends AbstractMessageCategory implements
-			IMessageUI {
+	private static abstract class _PrivateMessageCategory extends AbstractMessageCategory
+			implements IMessageUI {
 		@Override
 		public String getManagerPageUrl(final PageParameter pp) {
 			return null;

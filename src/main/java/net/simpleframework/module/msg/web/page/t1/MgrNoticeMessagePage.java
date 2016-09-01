@@ -70,9 +70,10 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
-		return ElementList.of(new LinkButton($m("MgrNoticeMessagePage.1"))
-				.setOnclick("$Actions['MgrNoticeMessagePage_contentWin']();"), SpanElement.SPACE,
-				createDeleteBtn());
+		return ElementList.of(
+				new LinkButton($m("MgrNoticeMessagePage.1"))
+						.setOnclick("$Actions['MgrNoticeMessagePage_contentWin']();"),
+				SpanElement.SPACE, createDeleteBtn());
 	}
 
 	private static Option OPTION_CATEGORY = new Option("category", $m("MgrNoticeMessagePage.0"));
@@ -81,10 +82,10 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 	public ElementList getRightElements(final PageParameter pp) {
 		pp.putParameter(G, "category");
 		return ElementList.of(
-				createTabsElement(pp, TabButtons.of(new TabButton($m("NoticeMessageContentPage.4"),
-						url(MgrNoticeMessagePage.class)), new TabButton(EMessageSendTo.email,
-						url(MgrNoticeMessage_EmailPage.class)), new TabButton(EMessageSendTo.mobile,
-						url(MgrNoticeMessage_MobilePage.class)))),
+				createTabsElement(pp, TabButtons.of(
+						new TabButton($m("NoticeMessageContentPage.4"), url(MgrNoticeMessagePage.class)),
+						new TabButton(EMessageSendTo.email, url(MgrNoticeMessage_EmailPage.class)),
+						new TabButton(EMessageSendTo.mobile, url(MgrNoticeMessage_MobilePage.class)))),
 				createGroupElement(pp, "AbstractMessageMgrPage_tbl", OPTION_CATEGORY));
 	}
 
@@ -121,8 +122,8 @@ public class MgrNoticeMessagePage extends AbstractMgrMessagePage {
 					kv.add("topic", toTopicElement(cp, msg));
 					kv.add("userId", TemplateUtils.toIconUser(cp, msg.getUserId()));
 					kv.add("createDate", msg.getCreateDate());
-					final IMessageCategory mCategory = getMessageMark(cp).getMessageCategory(
-							msg.getCategory());
+					final IMessageCategory mCategory = getMessageMark(cp)
+							.getMessageCategory(msg.getCategory());
 					if (mCategory != null) {
 						kv.add("category", mCategory);
 					}

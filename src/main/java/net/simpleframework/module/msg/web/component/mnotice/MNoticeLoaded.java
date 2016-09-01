@@ -58,8 +58,7 @@ public class MNoticeLoaded extends DefaultPageHandler {
 				.setHandlerClass(UserSelectAction.class).setSelector(".mnotice_sent");
 		// 验证
 		pp.addComponentBean("MNoticeLoaded_validation", ValidationBean.class)
-				.setTriggerSelector(".mnotice_sent input.button2")
-				.setWarnType(EWarnType.insertLast)
+				.setTriggerSelector(".mnotice_sent input.button2").setWarnType(EWarnType.insertLast)
 				.addValidators(new Validator(EValidatorMethod.required, "#sm_receiver"),
 						new Validator(EValidatorMethod.required, "#sm_topic"),
 						new Validator(EValidatorMethod.required, "#sm_content"));

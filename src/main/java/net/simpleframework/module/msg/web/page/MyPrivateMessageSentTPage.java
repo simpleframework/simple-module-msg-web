@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.Convert;
 import net.simpleframework.module.msg.AbstractMessage;
@@ -68,9 +69,8 @@ public class MyPrivateMessageSentTPage extends MyPrivateMessageTPage {
 
 		@Override
 		protected LinkElement toTopicElement(final ComponentParameter cp, final AbstractMessage msg) {
-			return new LinkElement(msg.getTopic())
-					.setOnclick("$Actions['MyPrivateMessageSentTPage_viewWin']('msgId=" + msg.getId()
-							+ "');");
+			return new LinkElement(msg.getTopic()).setOnclick(
+					"$Actions['MyPrivateMessageSentTPage_viewWin']('msgId=" + msg.getId() + "');");
 		}
 	}
 }

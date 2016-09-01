@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.page;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.common.web.html.HtmlUtils;
 import net.simpleframework.module.msg.IMessageContextAware;
 import net.simpleframework.mvc.PageParameter;
@@ -17,8 +18,8 @@ import net.simpleframework.mvc.template.lets.FormTableRowTemplatePage;
  * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
-public abstract class AbstractMessagePage extends FormTableRowTemplatePage implements
-		IMessageContextAware {
+public abstract class AbstractMessagePage extends FormTableRowTemplatePage
+		implements IMessageContextAware {
 
 	@Override
 	public boolean isButtonsOnTop(final PageParameter pp) {
@@ -51,12 +52,12 @@ public abstract class AbstractMessagePage extends FormTableRowTemplatePage imple
 		}
 
 		protected final BlockElement sm_content_bar = new BlockElement()
-				.setClassName("sm_content_bar")
-				.addElements(
+				.setClassName("sm_content_bar").addElements(
 						new LinkElement($m("AbstractSentMessagePage.0"))
 								.setOnclick("$Actions['AbstractSentMessagePage_smiley']();"),
-						new BlockElement().addStyle("float: right").addElements(
-								new Checkbox("sm_autolink", $m("AbstractSentMessagePage.1"))
-										.setChecked(true)), BlockElement.CLEAR);
+						new BlockElement().addStyle("float: right")
+								.addElements(new Checkbox("sm_autolink", $m("AbstractSentMessagePage.1"))
+										.setChecked(true)),
+						BlockElement.CLEAR);
 	}
 }

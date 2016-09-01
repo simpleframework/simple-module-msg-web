@@ -1,6 +1,7 @@
 package net.simpleframework.module.msg.web.page.t1;
 
 import static net.simpleframework.common.I18n.$m;
+
 import net.simpleframework.ctx.trans.Transaction;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.web.IMessageWebContext;
@@ -29,8 +30,8 @@ public class SystemMessagePublishPage extends AbstractSentMessagePage {
 
 		addSmileyDictionary(pp);
 
-		addFormValidationBean(pp).addValidators(
-				new Validator(EValidatorMethod.required, "#sm_topic, #sm_content"));
+		addFormValidationBean(pp)
+				.addValidators(new Validator(EValidatorMethod.required, "#sm_topic, #sm_content"));
 	}
 
 	@Override
@@ -41,8 +42,8 @@ public class SystemMessagePublishPage extends AbstractSentMessagePage {
 	@Transaction(context = IMessageContext.class)
 	@Override
 	public JavascriptForward onSave(final ComponentParameter cp) throws Exception {
-		((IMessageWebContext) messageContext).getSystemMessagePlugin().sentSystemMessage(
-				cp.getParameter("sm_topic"), getContent(cp));
+		((IMessageWebContext) messageContext).getSystemMessagePlugin()
+				.sentSystemMessage(cp.getParameter("sm_topic"), getContent(cp));
 		final JavascriptForward js = super.onSave(cp);
 		js.append("$Actions['AbstractMessageMgrPage_tbl']();");
 		return js;
@@ -55,8 +56,8 @@ public class SystemMessagePublishPage extends AbstractSentMessagePage {
 
 		final TableRow r1 = new TableRow(
 				new RowField($m("AbstractMgrMessagePage.0"), sm_topic).setStarMark(true));
-		final TableRow r2 = new TableRow(new RowField($m("MessageViewPage.4"), sm_content,
-				sm_content_bar).setStarMark(true));
+		final TableRow r2 = new TableRow(
+				new RowField($m("MessageViewPage.4"), sm_content, sm_content_bar).setStarMark(true));
 		return TableRows.of(r1, r2);
 	}
 }
