@@ -11,6 +11,7 @@ import net.simpleframework.common.Convert;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.web.HttpUtils;
+import net.simpleframework.common.web.JavascriptUtils;
 import net.simpleframework.module.common.plugin.IModulePlugin;
 import net.simpleframework.module.msg.AbstractMessage;
 import net.simpleframework.module.msg.IMessageContextAware;
@@ -51,7 +52,8 @@ import net.simpleframework.mvc.template.struct.NavigationButtons;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public abstract class AbstractMyMessageTPage extends Category_ListPage implements
@@ -255,6 +257,19 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage implement
 	protected AbstractElement<?> createDeleteElement() {
 		return LinkButton.deleteBtn().setOnclick(
 				"$Actions['AbstractMyMessageTPage_tbl'].doAct('AbstractMyMessageTPage_delete');");
+	}
+
+	@Override
+	protected String toListHTML(final PageParameter pp) {
+		final StringBuilder sb = new StringBuilder(super.toListHTML(pp));
+		final AbstractMessage msg = getMessagePlugin(pp).getMessageService().getBean(
+				pp.getParameter("msgId"));
+		if (msg != null) {
+			final StringBuilder js = new StringBuilder();
+			js.append("eval($('div[rowid=" + msg.getId() + "]').down('a').getAttribute('onclick'));");
+			sb.append(JavascriptUtils.wrapScriptTag(js.toString(), true));
+		}
+		return sb.toString();
 	}
 
 	public static class MyMessageTbl extends AbstractDbTablePagerHandler {
