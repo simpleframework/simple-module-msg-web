@@ -7,10 +7,13 @@ import net.simpleframework.mvc.component.AbstractComponentBean;
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class MNoticeBean extends AbstractComponentBean {
+	private static final long serialVersionUID = -646192111130851670L;
+
 	/* 是否开启接收人可写 */
 	private boolean receiverEnable = BeanDefaults.getBool(getClass(), "receiverEnable", true);
 	/* 是否开启标题可写 */
