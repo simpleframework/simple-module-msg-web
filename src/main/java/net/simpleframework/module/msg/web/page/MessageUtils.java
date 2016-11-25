@@ -7,14 +7,15 @@ import java.util.Set;
 
 import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
+import net.simpleframework.common.logger.LogFactory;
 import net.simpleframework.ctx.permission.PermissionUser;
 import net.simpleframework.mvc.PageParameter;
-import net.simpleframework.mvc.component.ComponentHandlerException;
 
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public abstract class MessageUtils {
@@ -61,7 +62,9 @@ public abstract class MessageUtils {
 			if (user.exists()) {
 				users.add(user.getId());
 			} else {
-				throw ComponentHandlerException.of($m("PrivateMessageSentPage.4", rev));
+				LogFactory.getLogger(MessageUtils.class).warn($m("PrivateMessageSentPage.4", rev));
+				// throw ComponentHandlerException.of($m("PrivateMessageSentPage.4",
+				// rev));
 			}
 		}
 		return users;
