@@ -15,13 +15,15 @@ import net.simpleframework.mvc.common.element.SpanElement;
 import net.simpleframework.mvc.common.element.SupElement;
 import net.simpleframework.mvc.common.element.TagElement;
 import net.simpleframework.mvc.component.ComponentParameter;
+import net.simpleframework.mvc.component.ui.pager.PagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerBean;
 import net.simpleframework.mvc.component.ui.pager.TablePagerColumn;
 
 /**
  * Licensed under the Apache License, Version 2.0
  * 
- * @author 陈侃(cknet@126.com, 13910090885) https://github.com/simpleframework
+ * @author 陈侃(cknet@126.com, 13910090885)
+ *         https://github.com/simpleframework
  *         http://www.simpleframework.net
  */
 public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
@@ -35,13 +37,18 @@ public class MyNoticeMessageTPage extends AbstractMyMessageTPage {
 	protected void onForward(final PageParameter pp) throws Exception {
 		super.onForward(pp);
 
+		createTablePagerBean(pp);
+
+		// 标记菜单
+		createMarkMenuComponent(pp);
+	}
+
+	protected PagerBean createTablePagerBean(final PageParameter pp) {
 		final TablePagerBean tablePager = addTablePagerBean(pp, NoticeMessageTbl.class);
 		tablePager.addColumn(TablePagerColumn.ICON().setWidth(16)).addColumn(TC_TOPIC())
 				.addColumn(TC_CATEGORY()).addColumn(TC_CREATEDATE())
 				.addColumn(TablePagerColumn.OPE(70));
-
-		// 标记菜单
-		createMarkMenuComponent(pp);
+		return tablePager;
 	}
 
 	@Override

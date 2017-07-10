@@ -72,13 +72,17 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage
 		addAjaxRequest(pp, "AbstractMyMessageTPage_view").setHandlerMethod("doView");
 
 		// msg win
+		addViewWindow(pp);
+
+		addMessageComponents(pp);
+	}
+
+	protected void addViewWindow(final PageParameter pp) {
 		final AjaxRequestBean ajaxRequest = addAjaxRequest(pp, "AbstractMyMessageTPage_viewPage",
 				MessageViewPage.class);
 		addWindowBean(pp, "AbstractMyMessageTPage_viewWin", ajaxRequest)
 				.setTitle($m("AbstractMyMessageTPage.0")).setResizable(false).setWidth(500)
 				.setHeight(540);
-
-		addMessageComponents(pp);
 	}
 
 	protected void addMessageComponents(final PageParameter pp) {
