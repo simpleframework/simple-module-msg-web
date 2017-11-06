@@ -32,7 +32,7 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 	@Override
 	public IDataQuery<PermissionUser> allUsers(final ComponentParameter cp) {
 		// 缺省取当前部门的用户
-		return new IteratorDataQuery<PermissionUser>(cp.getLdept().users());
+		return new IteratorDataQuery<>(cp.getLdept().users());
 	}
 
 	@Override

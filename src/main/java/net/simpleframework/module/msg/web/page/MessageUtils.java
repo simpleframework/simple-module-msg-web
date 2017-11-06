@@ -47,7 +47,7 @@ public abstract class MessageUtils {
 	}
 
 	public static Set<ID> toRevSet(final PageParameter pp, final String[] rlist) {
-		final Set<ID> users = new LinkedHashSet<ID>();
+		final Set<ID> users = new LinkedHashSet<>();
 		for (String rev : rlist) {
 			rev = rev.trim();
 			if (!StringUtils.hasText(rev)) {

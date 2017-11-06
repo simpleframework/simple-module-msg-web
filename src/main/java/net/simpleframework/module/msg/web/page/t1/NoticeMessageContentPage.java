@@ -69,7 +69,7 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 		if (mCategory == null) {
 			throw MessageException.of($m("NoticeMessageContentPage.3"));
 		}
-		final Map<String, Object> props = new HashMap<String, Object>();
+		final Map<String, Object> props = new HashMap<>();
 		props.put("sendto-normal", cp.getBoolParameter("EMessageSendTo_normal"));
 		props.put("sendto-email", cp.getBoolParameter("EMessageSendTo_email"));
 		props.put("sendto-mobile", cp.getBoolParameter("EMessageSendTo_mobile"));
@@ -173,7 +173,7 @@ public class NoticeMessageContentPage extends LCTemplateWinPage implements IMess
 					final TreeNodes nodes = TreeNodes.of();
 					final Collection<IMessageCategory> coll = getNoticeMessagePlugin()
 							.allMessageCategory();
-					final Map<String, TreeNode> cache = new HashMap<String, TreeNode>();
+					final Map<String, TreeNode> cache = new HashMap<>();
 					int i = 0;
 					for (final IMessageCategory c : coll) {
 						final TreeNode tn = new TreeNode(treeBean, c);
