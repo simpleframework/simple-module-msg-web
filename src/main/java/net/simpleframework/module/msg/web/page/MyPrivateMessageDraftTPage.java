@@ -46,7 +46,7 @@ public class MyPrivateMessageDraftTPage extends MyPrivateMessageTPage {
 		public IDataQuery<?> createDataObjectQuery(final ComponentParameter cp) {
 			final IMessagePlugin oMark = getMessageMark(cp);
 			return ((IP2PMessageService) oMark.getMessageService()).queryFromMessages(cp.getLoginId(),
-					null, PrivateMessagePlugin.DRAFT_MODULE.getName());
+					null, null, PrivateMessagePlugin.DRAFT_MODULE.getName());
 		}
 
 		@Override

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import net.simpleframework.ado.query.IDataQuery;
 import net.simpleframework.common.Convert;
+import net.simpleframework.common.ID;
 import net.simpleframework.common.StringUtils;
 import net.simpleframework.common.coll.KVMap;
 import net.simpleframework.common.web.HttpUtils;
@@ -163,7 +164,8 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage
 						((IMessageWebContext) messageContext).getUrlsFactory().getUrl(pp, getClass())));
 		if (oModule instanceof IMessagePlugin) {
 			final IMessagePlugin oMark = (IMessagePlugin) oModule;
-			final int num = oMark.getMessageService().getUnreadMessageCount(pp.getLoginId());
+			final int num = oMark.getMessageService().getUnreadMessageCount(pp.getLoginId(),
+					getShopId(pp));
 			if (num > 0) {
 				block.setNum(new SupElement(num).setHighlight(true));
 			}
@@ -171,7 +173,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage
 			if (oModule instanceof PrivateMessageDraftCategory) {
 				final PrivateMessagePlugin oMark = ((IMessageWebContext) messageContext)
 						.getPrivateMessagePlugin();
-				final int c = oMark.getMessageService().queryFromMessages(pp.getLoginId(), null,
+				final int c = oMark.getMessageService().queryFromMessages(pp.getLoginId(), null, null,
 						PrivateMessagePlugin.DRAFT_MODULE.getName()).getCount();
 				if (c > 0) {
 					block.setTitle(oModule.toString() + SupElement.num(c));
@@ -200,7 +202,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage
 		return titles;
 	}
 
-	private Boolean getRead(final PageParameter pp) {
+	public Boolean getRead(final PageParameter pp) {
 		final String s = pp.getParameter("s");
 		if ("unread".equals(s)) {
 			return Boolean.FALSE;
@@ -211,12 +213,17 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage
 		return null;
 	}
 
+	protected ID getShopId(final PageParameter pp) {
+		return null;
+	}
+
 	@Override
 	public ElementList getLeftElements(final PageParameter pp) {
 		final IMessagePlugin oMark = getMessagePlugin(pp);
 		final IMessageService<?> service = oMark.getMessageService();
-		final int all = service.queryMessages(pp.getLoginId(), null, null).getCount();
-		final int unread = service.getUnreadMessageCount(pp.getLoginId());
+		final ID shopId = getShopId(pp);
+		final int all = service.queryMessages(pp.getLoginId(), shopId, null).getCount();
+		final int unread = service.getUnreadMessageCount(pp.getLoginId(), shopId);
 
 		final ElementList eles = ElementList.of();
 		final Boolean read = getRead(pp);

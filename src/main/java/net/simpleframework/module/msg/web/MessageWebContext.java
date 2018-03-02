@@ -66,20 +66,20 @@ public class MessageWebContext extends MessageContext implements IMessageWebCont
 	}
 
 	@Override
-	public AbstractElement<?> toMyMessageElement(final PageParameter pp) {
-		return toMyMessageElement(pp, 20, -3);
+	public AbstractElement<?> toMyMessageElement(final PageParameter pp, final ID shopId) {
+		return toMyMessageElement(pp, shopId, 20, -3);
 	}
 
 	@Override
-	public AbstractElement<?> toMyMessageElement(final PageParameter pp, final int left,
-			final int top) {
+	public AbstractElement<?> toMyMessageElement(final PageParameter pp, final ID shopId,
+			final int left, final int top) {
 		final WebModuleFunction f = (WebModuleFunction) getFunctionByName(
 				MODULE_NAME + "-MyMessagePage");
 		final LinkElement link = new LinkElement(f.getText()).setHref(f.getUrl())
 				.addStyle("position: relative;");
 		final ID loginId = pp.getLoginId();
-		final int count = getP2PMessageService().getUnreadMessageCount(loginId)
-				+ getSubscribeMessageService().getUnreadMessageCount(loginId);
+		final int count = getP2PMessageService().getUnreadMessageCount(loginId, shopId)
+				+ getSubscribeMessageService().getUnreadMessageCount(loginId, shopId);
 		if (count > 0) {
 			link.addElements(new SupElement(count).setHighlight(true)
 					.addStyle("position: absolute; left: " + left + "px; top: " + top + "px;"));

@@ -1,5 +1,6 @@
 package net.simpleframework.module.msg.web;
 
+import net.simpleframework.common.ID;
 import net.simpleframework.module.msg.IMessageContext;
 import net.simpleframework.module.msg.web.plugin.PrivateMessagePlugin;
 import net.simpleframework.module.msg.web.plugin.SystemMessagePlugin;
@@ -17,17 +18,18 @@ public interface IMessageWebContext extends IMessageContext {
 
 	MessageUrlsFactory getUrlsFactory();
 
-	AbstractElement<?> toMyMessageElement(PageParameter pp);
+	AbstractElement<?> toMyMessageElement(PageParameter pp, ID shopId);
 
 	/**
 	 * 定义我的消息html元素
 	 * 
 	 * @param pp
+	 * @param shopId
 	 * @param left
 	 * @param top
 	 * @return
 	 */
-	AbstractElement<?> toMyMessageElement(PageParameter pp, int left, int top);
+	AbstractElement<?> toMyMessageElement(PageParameter pp, ID shopId, int left, int top);
 
 	PrivateMessagePlugin getPrivateMessagePlugin();
 
