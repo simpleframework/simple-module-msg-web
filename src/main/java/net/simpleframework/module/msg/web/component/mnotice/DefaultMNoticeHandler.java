@@ -73,7 +73,7 @@ public class DefaultMNoticeHandler extends AbstractComponentHandler implements I
 			final String topic, final String content) {
 		final boolean sms = cp.getBoolParameter("opt_sms");
 		for (final ID toId : users) {
-			plugin.sentMessage(toId, cp.getLoginId(), topic, toSentContent(cp, content));
+			plugin.sentMessage(toId, cp.getLoginId(), null, topic, toSentContent(cp, content));
 
 			String mobile;
 			if (sms && StringUtils.hasText(mobile = cp.getUser(toId).getMobile())) {

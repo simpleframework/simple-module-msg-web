@@ -117,7 +117,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage
 		final String mark = cp.getParameter("mark");
 
 		if ("all".equals(mark)) {
-			service.doAllRead(cp.getLoginId());
+			service.doAllRead(cp.getLoginId(), null);
 		} else {
 			for (final Object id : StringUtils.split(cp.getParameter("id"))) {
 				final T message = service.getBean(id);
@@ -215,7 +215,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage
 	public ElementList getLeftElements(final PageParameter pp) {
 		final IMessagePlugin oMark = getMessagePlugin(pp);
 		final IMessageService<?> service = oMark.getMessageService();
-		final int all = service.queryMessages(pp.getLoginId(), null).getCount();
+		final int all = service.queryMessages(pp.getLoginId(), null, null).getCount();
 		final int unread = service.getUnreadMessageCount(pp.getLoginId());
 
 		final ElementList eles = ElementList.of();
@@ -272,7 +272,7 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage
 			if (StringUtils.hasText(s)) {
 				cp.addFormParameter("s", s);
 			}
-			return oMark.getMessageService().queryMessages(cp.getLoginId(),
+			return oMark.getMessageService().queryMessages(cp.getLoginId(), null,
 					((AbstractMyMessageTPage) get(cp)).getRead(cp), cp.getParameter("category"));
 		}
 

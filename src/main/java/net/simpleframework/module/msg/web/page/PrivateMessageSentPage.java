@@ -64,7 +64,7 @@ public class PrivateMessageSentPage extends AbstractSentMessagePage {
 		final Set<ID> users = MessageUtils.toRevSet(cp,
 				StringUtils.split(cp.getParameter("sm_receiver"), ";"));
 		for (final ID userId : users) {
-			plugin.sentMessage(userId, fromId, topic, content);
+			plugin.sentMessage(userId, fromId, null, topic, content);
 		}
 
 		P2PMessage message = getMessage(cp);
