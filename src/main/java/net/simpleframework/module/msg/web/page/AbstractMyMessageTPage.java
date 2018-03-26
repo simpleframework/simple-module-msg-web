@@ -279,6 +279,10 @@ public abstract class AbstractMyMessageTPage extends Category_ListPage
 			if (StringUtils.hasText(s)) {
 				cp.addFormParameter("s", s);
 			}
+			final String category = cp.getParameter("category");
+			if (StringUtils.hasText(category)) {
+				cp.addFormParameter("category", category);
+			}
 			return oMark.getMessageService().queryMessages(cp.getLoginId(), null,
 					((AbstractMyMessageTPage) get(cp)).getRead(cp), cp.getParameter("category"));
 		}
